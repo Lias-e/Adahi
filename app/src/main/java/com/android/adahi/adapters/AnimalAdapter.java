@@ -96,8 +96,6 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
             // Use localized string formats with correct resource IDs
             binding.animalType.setText(context.getString(R.string.animal_type_label, animal.getType()));
             binding.animalPrice.setText(context.getString(R.string.animal_price_label, String.format("%.2f", animal.getPrice())));
-            binding.animalWeight.setText(context.getString(R.string.animal_weight_label, animal.getWeight()));
-            binding.animalQuantity.setText(context.getString(R.string.animal_quantity_label, animal.getQuantity()));
             
             binding.animalDescription.setText(animal.getDescription());
 
