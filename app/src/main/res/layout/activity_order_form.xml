@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- Scroll View for form content -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonContainer">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/order_form_title"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Selected Animal Info Header -->
+            <TextView
+                android:id="@+id/selectedAnimalName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Loading animal..."
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_blue_dark"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/selectedAnimalPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Price: --"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selectedAnimalName"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Customer Name Input -->
+            <EditText
+                android:id="@+id/customerNameInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/customer_name_hint"
+                android:inputType="text"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selectedAnimalPrice"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Customer Email Input -->
+            <EditText
+                android:id="@+id/customerEmailInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/customer_email_hint"
+                android:inputType="textEmailAddress"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customerNameInput"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Customer Phone Input -->
+            <EditText
+                android:id="@+id/customerPhoneInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/customer_phone_hint"
+                android:inputType="phone"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customerEmailInput"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Wilaya Input -->
+            <EditText
+                android:id="@+id/wilayaInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/wilaya_hint"
+                android:inputType="text"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customerPhoneInput"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Comune Input -->
+            <EditText
+                android:id="@+id/comuneInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/comune_hint"
+                android:inputType="text"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wilayaInput"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Fixed Quantity Label -->
+            <TextView
+                android:id="@+id/quantityLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/quantity_label"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comuneInput"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Special Instructions Input -->
+            <EditText
+                android:id="@+id/specialInstructionsInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/special_instructions_hint"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/quantityLabel"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Button Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Confirm Button -->
+        <Button
+            android:id="@+id/confirmOrderButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm_button"
+            android:backgroundTint="@android:color/holo_green_dark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cancelOrderButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Cancel Button -->
+        <Button
+            android:id="@+id/cancelOrderButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_button"
+            android:backgroundTint="@android:color/holo_red_dark"
+            app:layout_constraintStart_toEndOf="@id/confirmOrderButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- ScrollView for confirmation content -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/backButton">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/order_confirmation_title"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Order ID -->
+            <TextView
+                android:id="@+id/orderIdTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Order ID: ORD-123456"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Status -->
+            <TextView
+                android:id="@+id/orderStatusTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Status: Pending"
+                android:textSize="14sp"
+                android:textColor="@android:color/holo_orange_dark"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderIdTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Divider 1 -->
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderStatusTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Customer Details Header -->
+            <TextView
+                android:id="@+id/customerHeaderTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Customer Details"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider1"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Customer Name -->
+            <TextView
+                android:id="@+id/customerNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Name: John Doe"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customerHeaderTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Customer Email -->
+            <TextView
+                android:id="@+id/customerEmailTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Email: john@example.com"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customerNameTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Customer Phone -->
+            <TextView
+                android:id="@+id/customerPhoneTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Phone: +92 300 1234567"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customerEmailTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Wilaya -->
+            <TextView
+                android:id="@+id/wilayaTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Wilaya: Algiers"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customerPhoneTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Comune -->
+            <TextView
+                android:id="@+id/comuneTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Comune: Hydra"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wilayaTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Divider 2 -->
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comuneTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Order Items Header -->
+            <TextView
+                android:id="@+id/orderItemsHeaderTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Order Items"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Order Items -->
+            <TextView
+                android:id="@+id/orderItemsTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="White Sheep\nQuantity: 1\nPrice per unit: Rs. 50000\nSubtotal: Rs. 50000"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderItemsHeaderTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Divider 3 -->
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderItemsTextView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Total Price -->
+            <TextView
+                android:id="@+id/totalPriceTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Total Price: Rs. 50000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/back_button"
+        android:layout_margin="16dp"
+        android:backgroundTint="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

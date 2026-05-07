@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Adahi</string>
+
+    <!-- Animal List Activity Strings -->
+    <string name="animal_list_title">Animaux Disponibles</string>
+
+    <!-- Order Form Activity Strings -->
+    <string name="order_form_title">Formulaire de Commande</string>
+    <string name="customer_name_hint">Nom Complet</string>
+    <string name="customer_email_hint">Adresse E-mail</string>
+    <string name="customer_phone_hint">Numéro de Téléphone</string>
+    <string name="customer_address_hint">Adresse de Livraison</string>
+    <string name="quantity_hint">Quantité</string>
+    <string name="special_instructions_hint">Instructions Spéciales (Optionnel)</string>
+    <string name="confirm_button">Confirmer la Commande</string>
+    <string name="cancel_button">Annuler</string>
+
+    <!-- Order Confirmation Activity Strings -->
+    <string name="order_confirmation_title">Confirmation de Commande</string>
+    <string name="back_button">Retour à l\'Accueil</string>
+    <string name="order_id_label">ID Commande : %1$s</string>
+    <string name="name_label">Nom : %1$s</string>
+    <string name="email_label">E-mail : %1$s</string>
+    <string name="phone_label">Téléphone : %1$s</string>
+    <string name="address_label">Adresse : %1$s</string>
+    <string name="order_items_header">Articles de la Commande :</string>
+    <string name="item_summary">%1$s\nQuantité : %2$d\nPrix unitaire : %3$s DZD\nSous-total : %4$s DZD\n</string>
+    <string name="total_price_label">Prix Total : %1$s DZD</string>
+    <string name="status_label">Statut : %1$s</string>
+
+    <!-- Animal Details -->
+    <string name="animal_type_label">Type : %1$s</string>
+    <string name="animal_price_label">Prix : %1$s DZD</string>
+    <string name="animal_weight_label">Poids : %1$.2f kg</string>
+    <string name="animal_description">Description</string>
+    <string name="animal_quantity_label">Disponible : %1$d</string>
+
+    <!-- Errors -->
+    <string name="error_order_data_not_found">Erreur : Données de commande introuvables</string>
+</resources>

@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Adahi</string>
+
+    <!-- Animal List Activity Strings -->
+    <string name="animal_list_title">Available Animals</string>
+
+    <!-- Order Form Activity Strings -->
+    <string name="order_form_title">Order Form</string>
+    <string name="customer_name_hint">Full Name</string>
+    <string name="customer_email_hint">Email Address</string>
+    <string name="customer_phone_hint">Phone Number</string>
+    <string name="wilaya_hint">Wilaya</string>
+    <string name="comune_hint">Comune</string>
+    <string name="quantity_label">Quantity: 1</string>
+    <string name="special_instructions_hint">Special Instructions (Optional)</string>
+    <string name="confirm_button">Confirm Order</string>
+    <string name="cancel_button">Cancel</string>
+
+    <!-- Order Confirmation Activity Strings -->
+    <string name="order_confirmation_title">Order Confirmation</string>
+    <string name="back_button">Back to Home</string>
+    <string name="order_id_label">Order ID: %1$s</string>
+    <string name="name_label">Name: %1$s</string>
+    <string name="email_label">Email: %1$s</string>
+    <string name="phone_label">Phone: %1$s</string>
+    <string name="wilaya_label">Wilaya: %1$s</string>
+    <string name="comune_label">Comune: %1$s</string>
+    <string name="order_items_header">Order Items:</string>
+    <string name="item_summary">%1$s\nQuantity: %2$d\nPrice per unit: %3$s DZD\nSubtotal: %4$s DZD\n</string>
+    <string name="total_price_label">Total Price: %1$s DZD</string>
+    <string name="status_label">Status: %1$s</string>
+
+    <!-- Animal Details -->
+    <string name="animal_type_label">Type: %1$s</string>
+    <string name="animal_price_label">Price: %1$s DZD</string>
+    <string name="animal_weight_label">Weight: %1$.2f kg</string>
+    <string name="animal_description">Description</string>
+    <string name="animal_quantity_label">Available: %1$d</string>
+
+    <!-- Errors -->
+    <string name="error_order_data_not_found">Error: Order data not found</string>
+    <string name="error_field_required">This field is required</string>
+</resources>

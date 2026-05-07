@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "729193234354",
+    "project_id": "adhahi-73fad",
+    "storage_bucket": "adhahi-73fad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729193234354:android:c2af52c05c4ed19cdbaeab",
+        "android_client_info": {
+          "package_name": "adhahi.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU_zO3WWbuViq5BNlDYiuk81DVkzdy124"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

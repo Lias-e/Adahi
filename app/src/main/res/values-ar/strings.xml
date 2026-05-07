@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">أضاحي</string>
+
+    <!-- Animal List Activity Strings -->
+    <string name="animal_list_title">الأضاحي المتوفرة</string>
+
+    <!-- Order Form Activity Strings -->
+    <string name="order_form_title">استمارة الطلب</string>
+    <string name="customer_name_hint">الاسم الكامل</string>
+    <string name="customer_email_hint">البريد الإلكتروني</string>
+    <string name="customer_phone_hint">رقم الهاتف</string>
+    <string name="wilaya_hint">الولاية</string>
+    <string name="comune_hint">البلدية</string>
+    <string name="quantity_label">الكمية: 1</string>
+    <string name="special_instructions_hint">تعليمات خاصة (اختياري)</string>
+    <string name="confirm_button">تأكيد الطلب</string>
+    <string name="cancel_button">إلغاء</string>
+
+    <!-- Order Confirmation Activity Strings -->
+    <string name="order_confirmation_title">تأكيد الطلب</string>
+    <string name="back_button">العودة للرئيسية</string>
+    <string name="order_id_label">رقم الطلب: %1$s</string>
+    <string name="name_label">الاسم: %1$s</string>
+    <string name="email_label">البريد الإلكتروني: %1$s</string>
+    <string name="phone_label">الهاتف: %1$s</string>
+    <string name="wilaya_label">الولاية: %1$s</string>
+    <string name="comune_label">البلدية: %1$s</string>
+    <string name="order_items_header">مواد الطلب:</string>
+    <string name="item_summary">%1$s\nالكمية: %2$d\nسعر الوحدة: %3$s د.ج\nالمجموع الفرعي: %4$s د.ج\n</string>
+    <string name="total_price_label">السعر الإجمالي: %1$s د.ج</string>
+    <string name="status_label">الحالة: %1$s</string>
+
+    <!-- Animal Details -->
+    <string name="animal_type_label">النوع: %1$s</string>
+    <string name="animal_price_label">السعر: %1$s د.ج</string>
+    <string name="animal_weight_label">الوزن: %1$.2f كغ</string>
+    <string name="animal_description">الوصف</string>
+    <string name="animal_quantity_label">المتوفر: %1$d</string>
+
+    <!-- Errors -->
+    <string name="error_order_data_not_found">خطأ: لم يتم العثور على بيانات الطلب</string>
+    <string name="error_field_required">هذا الحقل مطلوب</string>
+</resources>
