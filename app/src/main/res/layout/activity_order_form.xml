@@ -92,13 +92,11 @@
                 app:layout_constraintTop_toBottomOf="@id/customerEmailInput"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- Wilaya Input -->
-            <EditText
-                android:id="@+id/wilayaInput"
+            <!-- Wilaya Spinner -->
+            <Spinner
+                android:id="@+id/wilayaSpinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/wilaya_hint"
-                android:inputType="text"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/customerPhoneInput"
@@ -113,7 +111,7 @@
                 android:inputType="text"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/wilayaInput"
+                app:layout_constraintTop_toBottomOf="@id/wilayaSpinner"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- Fixed Quantity Label -->

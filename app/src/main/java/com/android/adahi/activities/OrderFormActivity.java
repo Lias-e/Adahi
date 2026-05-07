@@ -3,8 +3,10 @@ package com.android.adahi.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +37,7 @@ public class OrderFormActivity extends AppCompatActivity {
     private EditText customerNameInput;
     private EditText customerEmailInput;
     private EditText customerPhoneInput;
-    private EditText wilayaInput;
+    private Spinner wilayaSpinner;
     private EditText comuneInput;
     private EditText specialInstructionsInput;
     private Button confirmButton;
@@ -77,11 +79,17 @@ public class OrderFormActivity extends AppCompatActivity {
         customerNameInput = findViewById(R.id.customerNameInput);
         customerEmailInput = findViewById(R.id.customerEmailInput);
         customerPhoneInput = findViewById(R.id.customerPhoneInput);
-        wilayaInput = findViewById(R.id.wilayaInput);
+        wilayaSpinner = findViewById(R.id.wilayaSpinner);
         comuneInput = findViewById(R.id.comuneInput);
         specialInstructionsInput = findViewById(R.id.specialInstructionsInput);
         confirmButton = findViewById(R.id.confirmOrderButton);
         cancelButton = findViewById(R.id.cancelOrderButton);
+        
+        // Setup Wilaya Spinner with ArrayAdapter
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.wilayas_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        wilayaSpinner.setAdapter(adapter);
     }
 
     private void retrieveAnimalDetails() {
@@ -108,7 +116,7 @@ public class OrderFormActivity extends AppCompatActivity {
             String customerName = customerNameInput.getText().toString().trim();
             String customerEmail = customerEmailInput.getText().toString().trim();
             String customerPhone = customerPhoneInput.getText().toString().trim();
-            String wilaya = wilayaInput.getText().toString().trim();
+            String wilaya = wilayaSpinner.getSelectedItem().toString().trim();
             String comune = comuneInput.getText().toString().trim();
             int quantity = 1; // Restricted to 1
             String specialInstructions = specialInstructionsInput.getText().toString().trim();
@@ -157,8 +165,8 @@ public class OrderFormActivity extends AppCompatActivity {
             customerPhoneInput.setError(getString(R.string.error_field_required));
             return false;
         }
-        if (wilayaInput.getText().toString().trim().isEmpty()) {
-            wilayaInput.setError(getString(R.string.error_field_required));
+        if (wilayaSpinner.getSelectedItemPosition() == 0) {
+            Toast.makeText(this, getString(R.string.error_field_required), Toast.LENGTH_SHORT).show();
             return false;
         }
         if (comuneInput.getText().toString().trim().isEmpty()) {
@@ -174,7 +182,7 @@ public class OrderFormActivity extends AppCompatActivity {
         outState.putString("customerName", customerNameInput.getText().toString());
         outState.putString("customerEmail", customerEmailInput.getText().toString());
         outState.putString("customerPhone", customerPhoneInput.getText().toString());
-        outState.putString("wilaya", wilayaInput.getText().toString());
+        outState.putInt("wilayaPosition", wilayaSpinner.getSelectedItemPosition());
         outState.putString("comune", comuneInput.getText().toString());
         outState.putString("specialInstructions", specialInstructionsInput.getText().toString());
     }
@@ -183,7 +191,7 @@ public class OrderFormActivity extends AppCompatActivity {
         customerNameInput.setText(savedInstanceState.getString("customerName", ""));
         customerEmailInput.setText(savedInstanceState.getString("customerEmail", ""));
         customerPhoneInput.setText(savedInstanceState.getString("customerPhone", ""));
-        wilayaInput.setText(savedInstanceState.getString("wilaya", ""));
+        wilayaSpinner.setSelection(savedInstanceState.getInt("wilayaPosition", 0));
         comuneInput.setText(savedInstanceState.getString("comune", ""));
         specialInstructionsInput.setText(savedInstanceState.getString("specialInstructions", ""));
     }

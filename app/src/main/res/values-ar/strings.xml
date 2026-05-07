@@ -37,6 +37,67 @@
     <string name="animal_description">الوصف</string>
     <string name="animal_quantity_label">المتوفر: %1$d</string>
 
+    <!-- Wilayas List -->
+    <string-array name="wilayas_array">
+        <item>اختر الولاية</item>
+        <item>أدرار</item>
+        <item>الشلف</item>
+        <item>الأغواط</item>
+        <item>أم البواقي</item>
+        <item>باتنة</item>
+        <item>عنابة</item>
+        <item>عين الدفلة</item>
+        <item>البليدة</item>
+        <item>البويرة</item>
+        <item>تمنراست</item>
+        <item>تبسة</item>
+        <item>تلمسان</item>
+        <item>تيارت</item>
+        <item>تيزي وزو</item>
+        <item>الجزائر</item>
+        <item>الجلفة</item>
+        <item>جيجل</item>
+        <item>سطيف</item>
+        <item>سعيدة</item>
+        <item>سكيكدة</item>
+        <item>سيدي بلعباس</item>
+        <item>البيضاء</item>
+        <item>بجاية</item>
+        <item>مستغانم</item>
+        <item>مسيلة</item>
+        <item>معسكر</item>
+        <item>ورقلة</item>
+        <item>وهران</item>
+        <item>البيض</item>
+        <item>الوادي</item>
+        <item>الشلف</item>
+        <item>برج بوعريريج</item>
+        <item>بومرداس</item>
+        <item>الطارف</item>
+        <item>تندوف</item>
+        <item>تسمسيلت</item>
+        <item>الواد</item>
+        <item>خنشلة</item>
+        <item>سوق أهراس</item>
+        <item>تيبازة</item>
+        <item>ميلة</item>
+        <item>عين الدفلة</item>
+        <item>المدية</item>
+        <item>تيميمون</item>
+        <item>سيدي عيسى</item>
+        <item>داجت</item>
+        <item>إن قزام</item>
+        <item>توقورت</item>
+        <item>إن صالح</item>
+        <item>الرليزانة</item>
+        <item>عين تموشنت</item>
+        <item>غرداية</item>
+        <item>إليزي</item>
+        <item>بني عباس</item>
+        <item>المغير</item>
+        <item>المنيعة</item>
+    </string-array>
+
     <!-- Errors -->
     <string name="error_order_data_not_found">خطأ: لم يتم العثور على بيانات الطلب</string>
     <string name="error_field_required">هذا الحقل مطلوب</string>
