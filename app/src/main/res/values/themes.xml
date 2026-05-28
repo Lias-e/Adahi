@@ -1,8 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Adahi" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/adahi_primary</item>
+        <item name="colorOnPrimary">@color/adahi_on_primary</item>
+        <item name="colorPrimaryContainer">@color/adahi_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/adahi_on_primary_container</item>
+        <item name="colorSecondary">@color/adahi_secondary</item>
+        <item name="colorOnSecondary">@color/adahi_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/adahi_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/adahi_on_secondary_container</item>
+        <item name="colorTertiary">@color/adahi_tertiary</item>
+        <item name="colorOnTertiary">@color/adahi_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/adahi_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/adahi_on_tertiary_container</item>
+        <item name="android:colorBackground">@color/adahi_background</item>
+        <item name="colorBackground">@color/adahi_background</item>
+        <item name="colorOnBackground">@color/adahi_on_background</item>
+        <item name="colorSurface">@color/adahi_surface</item>
+        <item name="colorOnSurface">@color/adahi_on_surface</item>
+        <item name="colorSurfaceVariant">@color/adahi_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/adahi_on_surface_variant</item>
+        <item name="colorOutline">@color/adahi_outline</item>
+        <item name="colorOutlineVariant">@color/adahi_outline_variant</item>
+        <item name="colorError">@color/adahi_error</item>
+        <item name="colorErrorContainer">@color/adahi_error_container</item>
+        <item name="colorOnError">@color/adahi_on_error</item>
+        <item name="colorOnErrorContainer">@color/adahi_on_error_container</item>
     </style>
 
     <style name="Theme.Adahi" parent="Base.Theme.Adahi" />

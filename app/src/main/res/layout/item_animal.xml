@@ -1,69 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/item_background"
-    android:padding="16dp">
+    android:layout_marginBottom="16dp"
+    app:cardBackgroundColor="@color/adahi_surface_container_lowest"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="3dp">
 
-    <!-- Guideline for middle alignment -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineVertical"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        android:layoutDirection="rtl"
+        android:padding="16dp">
 
-    <!-- Animal Name -->
-    <TextView
-        android:id="@+id/animalName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Animal Name"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <ImageView
+            android:id="@+id/animalImage"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:background="@color/adahi_surface_container"
+            android:contentDescription="@string/animal_card_image_description"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/ic_menu_gallery"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Animal Type -->
-    <TextView
-        android:id="@+id/animalType"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Type: Sheep"
-        android:textSize="14sp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/animalName"
-        app:layout_constraintEnd_toStartOf="@id/guidelineVertical" />
+        <TextView
+            android:id="@+id/animalName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="كبش أولاد جلال"
+            android:textColor="@color/adahi_on_surface"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/animalImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/animalImage" />
 
-    <!-- Animal Price -->
-    <TextView
-        android:id="@+id/animalPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Price: Rs. 50000"
-        android:textSize="14sp"
-        android:textColor="@android:color/holo_green_dark"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/guidelineVertical"
-        app:layout_constraintTop_toBottomOf="@id/animalName"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/animalType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:text="الصنف: كبش"
+            android:textColor="@color/adahi_on_surface_variant"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/animalImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/animalName" />
 
-    <!-- Animal Description -->
-    <TextView
-        android:id="@+id/animalDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Healthy and well-fed animal"
-        android:textSize="13sp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/animalType"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/animalPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:text="78,000 د.ج"
+            android:textColor="@color/adahi_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/animalImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/animalType" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/animalDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="سلالة محلية أصيلة، مناسبة للحجز المباشر أو المعاينة."
+            android:textColor="@color/adahi_on_surface_variant"
+            android:textSize="13sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/animalImage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

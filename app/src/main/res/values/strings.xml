@@ -1,104 +1,140 @@
 <resources>
-    <string name="app_name">Adahi</string>
+    <string name="app_name">أضاحي الجزائر</string>
 
-    <!-- Animal List Activity Strings -->
-    <string name="animal_list_title">Available Animals</string>
+    <string name="animal_list_title">أضاحي الجزائر</string>
+    <string name="animal_detail_title">تفاصيل الأضحية</string>
+    <string name="order_form_title">إتمام الطلب</string>
+    <string name="order_confirmation_title">تفاصيل الطلب</string>
+    <string name="back_button">العودة للرئيسية</string>
 
-    <!-- Order Form Activity Strings -->
-    <string name="order_form_title">Order Form</string>
-    <string name="customer_name_hint">Full Name</string>
-    <string name="customer_email_hint">Email Address</string>
-    <string name="customer_phone_hint">Phone Number</string>
-    <string name="wilaya_hint">Wilaya</string>
-    <string name="comune_hint">Comune</string>
-    <string name="quantity_label">Quantity: 1</string>
-    <string name="special_instructions_hint">Special Instructions (Optional)</string>
-    <string name="confirm_button">Confirm Order</string>
-    <string name="cancel_button">Cancel</string>
+    <string name="customer_name_hint">الاسم الكامل</string>
+    <string name="customer_email_hint">البريد الإلكتروني</string>
+    <string name="customer_phone_hint">رقم الهاتف</string>
+    <string name="wilaya_hint">الولاية</string>
+    <string name="comune_hint">البلدية</string>
+    <string name="quantity_label">الكمية: 1</string>
+    <string name="special_instructions_hint">تعليمات خاصة (اختياري)</string>
+    <string name="confirm_button">تأكيد الطلب</string>
+    <string name="cancel_button">إلغاء</string>
 
-    <!-- Order Confirmation Activity Strings -->
-    <string name="order_confirmation_title">Order Confirmation</string>
-    <string name="back_button">Back to Home</string>
-    <string name="order_id_label">Order ID: %1$s</string>
-    <string name="name_label">Name: %1$s</string>
-    <string name="email_label">Email: %1$s</string>
-    <string name="phone_label">Phone: %1$s</string>
-    <string name="wilaya_label">Wilaya: %1$s</string>
-    <string name="comune_label">Comune: %1$s</string>
-    <string name="order_items_header">Order Items:</string>
-    <string name="item_summary">%1$s\nQuantity: %2$d\nPrice per unit: %3$s DZD\nSubtotal: %4$s DZD\n</string>
-    <string name="total_price_label">Total Price: %1$s DZD</string>
-    <string name="status_label">Status: %1$s</string>
+    <string name="order_id_label">رقم الطلب: %1$s</string>
+    <string name="name_label">الاسم: %1$s</string>
+    <string name="email_label">البريد الإلكتروني: %1$s</string>
+    <string name="phone_label">الهاتف: %1$s</string>
+    <string name="wilaya_label">الولاية: %1$s</string>
+    <string name="comune_label">البلدية: %1$s</string>
+    <string name="order_items_header">محتويات الطلب:</string>
+    <string name="item_summary">%1$s\nالكمية: %2$d\nسعر الوحدة: %3$s د.ج\nالمجموع الفرعي: %4$s د.ج\n</string>
+    <string name="total_price_label">السعر الإجمالي: %1$s د.ج</string>
+    <string name="status_label">الحالة: %1$s</string>
 
-    <!-- Animal Details -->
-    <string name="animal_type_label">Type: %1$s</string>
-    <string name="animal_price_label">Price: %1$s DZD</string>
-    <string name="animal_weight_label">Weight: %1$.2f kg</string>
-    <string name="animal_description">Description</string>
-    <string name="animal_quantity_label">Available: %1$d</string>
+    <string name="animal_type_label">الصنف: %1$s</string>
+    <string name="animal_price_label">السعر: %1$s د.ج</string>
+    <string name="animal_weight_label">الوزن: %1$.2f كغ</string>
+    <string name="animal_description">الوصف</string>
+    <string name="animal_quantity_label">المتوفر: %1$d</string>
+    <string name="animal_card_image_description">صورة الأضحية</string>
 
-    <!-- Wilayas List -->
+    <string name="location_title">تحديد الموقع</string>
+    <string name="wilaya_label_short">الولاية</string>
+    <string name="sales_point_label">نقطة البيع</string>
+    <string name="category_title">الصنف</string>
+    <string name="category_all">الكل</string>
+    <string name="category_sheep">كباش</string>
+    <string name="category_cows">أبقار</string>
+    <string name="category_goats">ماعز</string>
+    <string name="category_camels">إبل</string>
+    <string name="price_range_title">نطاق السعر (د.ج)</string>
+    <string name="price_range_low">أقل من 50,000</string>
+    <string name="price_range_mid_low">50,000 - 80,000</string>
+    <string name="price_range_mid_high">80,000 - 120,000</string>
+    <string name="price_range_high">أكثر من 120,000</string>
+    <string name="featured_offers_title">العروض المتوفرة</string>
+    <string name="sort_by_label">ترتيب حسب</string>
+    <string name="search_label">بحث</string>
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_orders">طلباتي</string>
+    <string name="nav_profile">حسابي</string>
+    <string name="fab_add_tracking">إضافة طلب للتتبع</string>
+    <string name="select_weight_title">اختر الوزن المفضل</string>
+    <string name="buy_now_title">شراء مباشر</string>
+    <string name="reserve_review_title">حجز للمعاينة</string>
+    <string name="arboun_note">عربون 3,000 د.ج لبدء عملية الوزن والفرز</string>
+    <string name="arboun_review_note">تثبيت موعد معاينة بعربون 3,000 د.ج</string>
+    <string name="final_price_note">* السعر النهائي يحدد بعد الوزن الفعلي عند الاستلام</string>
+    <string name="verified_health_badge">فحص بيطري معتمد</string>
+    <string name="breed_label">السلالة: %1$s</string>
+    <string name="age_label">العمر: %1$s</string>
+    <string name="gender_label">الجنس: %1$s</string>
+    <string name="health_status_label">الحالة الصحية: %1$s</string>
+    <string name="sales_point_current_label">نقطة البيع: %1$s</string>
+
     <string-array name="wilayas_array">
-        <item>Select Wilaya</item>
-        <item>Adrar</item>
-        <item>Chlef</item>
-        <item>Laghouat</item>
-        <item>Oum El Bouaghi</item>
-        <item>Batna</item>
-        <item>Annaba</item>
-        <item>Ait Defla</item>
-        <item>Blida</item>
-        <item>Bouira</item>
-        <item>Tamanrasset</item>
-        <item>Tebessa</item>
-        <item>Tlemcen</item>
-        <item>Tiaret</item>
-        <item>Tizi Ouzou</item>
-        <item>Algiers</item>
-        <item>Djelfa</item>
-        <item>Jijel</item>
-        <item>Sétif</item>
-        <item>Saïda</item>
-        <item>Skikda</item>
-        <item>Sidi Bel Abbès</item>
-        <item>Bidaoa</item>
-        <item>Bejaïa</item>
-        <item>Mostaganem</item>
-        <item>M\'Sila</item>
-        <item>Mascara</item>
-        <item>Ouargla</item>
-        <item>Oran</item>
-        <item>El Bayadh</item>
-        <item>El Oued</item>
-        <item>El Asnam</item>
-        <item>Bordj Bou Arréridj</item>
-        <item>Boumerdès</item>
-        <item>El Tarf</item>
-        <item>Tindouf</item>
-        <item>Tissemsilt</item>
-        <item>El Wad</item>
-        <item>Khenchela</item>
-        <item>Souk Ahras</item>
-        <item>Tipaza</item>
-        <item>Mila</item>
-        <item>Ain Defla</item>
-        <item>Médéa</item>
-        <item>Timimoun</item>
-        <item>Sidi Aïssa</item>
-        <item>Djanet</item>
-        <item>In Guezzam</item>
-        <item>Touggourt</item>
-        <item>In Salah</item>
-        <item>Relizane</item>
-        <item>Aïn Témouchent</item>
-        <item>Ghardaïa</item>
-        <item>Illizi</item>
-        <item>Béni Abbès</item>
-        <item>El Meghaier</item>
-        <item>El Menia</item>
+        <item>اختر الولاية</item>
+        <item>أدرار</item>
+        <item>الشلف</item>
+        <item>الأغواط</item>
+        <item>أم البواقي</item>
+        <item>باتنة</item>
+        <item>بجاية</item>
+        <item>بسكرة</item>
+        <item>بشار</item>
+        <item>البليدة</item>
+        <item>البويرة</item>
+        <item>تمنراست</item>
+        <item>تبسة</item>
+        <item>تلمسان</item>
+        <item>تيارت</item>
+        <item>تيزي وزو</item>
+        <item>الجزائر العاصمة</item>
+        <item>الجلفة</item>
+        <item>جيجل</item>
+        <item>سطيف</item>
+        <item>سعيدة</item>
+        <item>سكيكدة</item>
+        <item>سيدي بلعباس</item>
+        <item>عنابة</item>
+        <item>قالمة</item>
+        <item>قسنطينة</item>
+        <item>المدية</item>
+        <item>مستغانم</item>
+        <item>المسيلة</item>
+        <item>ورقلة</item>
+        <item>وهران</item>
+        <item>البيض</item>
+        <item>إليزي</item>
+        <item>برج بوعريريج</item>
+        <item>بومرداس</item>
+        <item>الطارف</item>
+        <item>تندوف</item>
+        <item>تسمسيلت</item>
+        <item>الوادي</item>
+        <item>خنشلة</item>
+        <item>سوق أهراس</item>
+        <item>تيبازة</item>
+        <item>ميلة</item>
+        <item>عين الدفلى</item>
+        <item>نعامة</item>
+        <item>عين تموشنت</item>
+        <item>غرداية</item>
+        <item>غليزان</item>
+        <item>تميمون</item>
+        <item>بني عباس</item>
+        <item>إن صالح</item>
+        <item>إن قزام</item>
+        <item>تقرت</item>
+        <item>جانت</item>
+        <item>المغير</item>
+        <item>المنيعة</item>
     </string-array>
 
-    <!-- Errors -->
-    <string name="error_order_data_not_found">Error: Order data not found</string>
-    <string name="error_field_required">This field is required</string>
+    <string-array name="sales_points_array">
+        <item>اختر نقطة البيع</item>
+        <item>سوق بئر توتة</item>
+        <item>نقطة بيع الحميز</item>
+        <item>مزرعة الدولة - القبة</item>
+    </string-array>
+
+    <string name="error_order_data_not_found">خطأ: لم يتم العثور على بيانات الطلب</string>
+    <string name="error_field_required">هذا الحقل مطلوب</string>
 </resources>

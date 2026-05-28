@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.android.adahi.R;
-import com.android.adahi.activities.OrderFormActivity;
+import com.android.adahi.activities.AnimalDetailActivity;
 import com.android.adahi.databinding.ItemAnimalBinding;
 import com.android.adahi.models.Animal;
 import java.util.ArrayList;
@@ -104,14 +104,19 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
                 if (listener != null) {
                     listener.onAnimalClick(animal);
                 }
-                // Navigate to OrderFormActivity with animal details
-                Intent intent = new Intent(context, OrderFormActivity.class);
+                // Navigate to the product detail screen with animal details
+                Intent intent = new Intent(context, AnimalDetailActivity.class);
                 intent.putExtra("animal_id", animal.getId());
                 intent.putExtra("animal_name", animal.getName());
                 intent.putExtra("animal_type", animal.getType());
                 intent.putExtra("animal_price", animal.getPrice());
                 intent.putExtra("animal_weight", animal.getWeight());
                 intent.putExtra("animal_description", animal.getDescription());
+                intent.putExtra("animal_breed", animal.getBreed());
+                intent.putExtra("animal_age", animal.getAge());
+                intent.putExtra("animal_gender", animal.getGender());
+                intent.putExtra("animal_health_status", animal.getHealthStatus());
+                intent.putExtra("animal_sales_point", animal.getSalesPoint());
                 context.startActivity(intent);
             });
         }

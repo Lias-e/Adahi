@@ -2,4 +2,54 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="adahi_primary">#154212</color>
+    <color name="adahi_primary_container">#2D5A27</color>
+    <color name="adahi_primary_fixed">#BCF0AE</color>
+    <color name="adahi_primary_fixed_dim">#A1D494</color>
+    <color name="adahi_on_primary">#FFFFFFFF</color>
+    <color name="adahi_on_primary_container">#9DD090</color>
+    <color name="adahi_on_primary_fixed">#002201</color>
+    <color name="adahi_on_primary_fixed_variant">#23501E</color>
+
+    <color name="adahi_secondary">#735C00</color>
+    <color name="adahi_secondary_container">#FED65B</color>
+    <color name="adahi_secondary_fixed">#FFE088</color>
+    <color name="adahi_secondary_fixed_dim">#E9C349</color>
+    <color name="adahi_on_secondary">#FFFFFFFF</color>
+    <color name="adahi_on_secondary_container">#745C00</color>
+    <color name="adahi_on_secondary_fixed">#241A00</color>
+    <color name="adahi_on_secondary_fixed_variant">#574500</color>
+
+    <color name="adahi_tertiary">#6B5D35</color>
+    <color name="adahi_tertiary_container">#BCAA7B</color>
+    <color name="adahi_tertiary_fixed">#F5E1AE</color>
+    <color name="adahi_tertiary_fixed_dim">#D8C594</color>
+    <color name="adahi_on_tertiary">#FFFFFFFF</color>
+    <color name="adahi_on_tertiary_container">#4B3E19</color>
+    <color name="adahi_on_tertiary_fixed">#241A00</color>
+    <color name="adahi_on_tertiary_fixed_variant">#524620</color>
+
+    <color name="adahi_background">#FAF9F6</color>
+    <color name="adahi_on_background">#1A1C1A</color>
+    <color name="adahi_surface">#FAF9F6</color>
+    <color name="adahi_on_surface">#1A1C1A</color>
+    <color name="adahi_surface_variant">#E3E2E0</color>
+    <color name="adahi_on_surface_variant">#42493E</color>
+    <color name="adahi_surface_container_lowest">#FFFFFF</color>
+    <color name="adahi_surface_container_low">#F4F3F1</color>
+    <color name="adahi_surface_container">#EFEEEB</color>
+    <color name="adahi_surface_container_high">#E9E8E5</color>
+    <color name="adahi_surface_container_highest">#E3E2E0</color>
+    <color name="adahi_surface_dim">#DBDAD7</color>
+    <color name="adahi_surface_bright">#FAF9F6</color>
+    <color name="adahi_surface_tint">#3B6934</color>
+
+    <color name="adahi_outline">#72796E</color>
+    <color name="adahi_outline_variant">#C2C9BB</color>
+
+    <color name="adahi_error">#BA1A1A</color>
+    <color name="adahi_error_container">#FFDAD6</color>
+    <color name="adahi_on_error">#FFFFFFFF</color>
+    <color name="adahi_on_error_container">#93000A</color>
 </resources>

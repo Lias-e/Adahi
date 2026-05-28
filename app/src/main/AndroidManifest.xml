@@ -28,6 +28,12 @@
             android:exported="false"
             android:label="@string/animal_list_title" />
 
+        <!-- Animal Detail Activity - Show animal details and reservation actions -->
+        <activity
+            android:name=".activities.AnimalDetailActivity"
+            android:exported="false"
+            android:label="@string/animal_detail_title" />
+
         <!-- Order Form Activity - Collect customer details and place order -->
         <activity
             android:name=".activities.OrderFormActivity"

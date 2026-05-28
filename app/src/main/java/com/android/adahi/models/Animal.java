@@ -13,6 +13,11 @@ public class Animal {
     private String description;
     private String imageUrl;
     private int quantity; // Available quantity
+    private String breed;
+    private String age;
+    private String gender;
+    private String healthStatus;
+    private String salesPoint;
 
     /**
      * Default constructor required for Firebase
@@ -33,6 +38,17 @@ public class Animal {
         this.description = description;
         this.imageUrl = imageUrl;
         this.quantity = quantity;
+    }
+
+    public Animal(String id, String name, String type, double price, double weight,
+                  String description, String imageUrl, int quantity,
+                  String breed, String age, String gender, String healthStatus, String salesPoint) {
+        this(id, name, type, price, weight, description, imageUrl, quantity);
+        this.breed = breed;
+        this.age = age;
+        this.gender = gender;
+        this.healthStatus = healthStatus;
+        this.salesPoint = salesPoint;
     }
 
     // Getters and Setters
@@ -100,6 +116,46 @@ public class Animal {
         this.quantity = quantity;
     }
 
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getHealthStatus() {
+        return healthStatus;
+    }
+
+    public void setHealthStatus(String healthStatus) {
+        this.healthStatus = healthStatus;
+    }
+
+    public String getSalesPoint() {
+        return salesPoint;
+    }
+
+    public void setSalesPoint(String salesPoint) {
+        this.salesPoint = salesPoint;
+    }
+
     @Override
     public String toString() {
         return "Animal{" +
@@ -109,6 +165,7 @@ public class Animal {
                 ", price=" + price +
                 ", weight=" + weight +
                 ", description='" + description + '\'' +
+                ", breed='" + breed + '\'' +
                 '}';
     }
 }

@@ -57,25 +57,20 @@ public class AnimalListActivity extends AppCompatActivity {
         
         progressBar = findViewById(R.id.progressBar);
 
-        animalAdapter = new AnimalAdapter(this, animal -> {
-            Log.d(TAG, "Animal selected: " + animal.getName());
-        });
+        animalAdapter = new AnimalAdapter(this, animal -> Log.d(TAG, "Animal selected: " + animal.getName()));
         animalRecyclerView.setAdapter(animalAdapter);
     }
 
-    /**
-     * Loads a hardcoded list of animals available in Algeria.
-     */
     private void loadPredefinedAnimals() {
         if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
 
         List<Animal> animals = new ArrayList<>();
-        
-        // Localized and relevant animals for Algeria
-        animals.add(new Animal("1", "Mouton Ouled Djellal", "Mouton", 65000.0, 45.0, "Race locale très prisée, excellente qualité de viande.", "", 10));
-        animals.add(new Animal("2", "Mouton Hamra", "Mouton", 58000.0, 38.0, "Race rustique de l\'Ouest algérien.", "", 15));
-        animals.add(new Animal("3", "Chèvre du Sahara", "Chèvre", 32000.0, 25.0, "Viande tendre et savoureuse.", "", 8));
-        animals.add(new Animal("4", "Veau de Sétif", "Veau", 220000.0, 350.0, "Jeune veau élevé naturellement.", "", 5));
+
+        animals.add(new Animal("1", "كبش أولاد جلال", "كباش", 78000.0, 58.0, "سلالة محلية أصيلة، فحص بيطري معتمد، ومناسبة للحجز المباشر.", "", 12, "أولاد جلال", "18 شهر", "ذكر", "مفحوص بيطرياً", "سوق بئر توتة"));
+        animals.add(new Animal("2", "عجل محلي", "أبقار", 245000.0, 230.0, "عجل بتغذية طبيعية، متوفر في نقطة بيع موثقة.", "", 4, "محلي", "24 شهر", "ذكر", "مفحوص بيطرياً", "نقطة بيع الحميز"));
+        animals.add(new Animal("3", "جدي السلالة الحمراء", "ماعز", 42000.0, 28.0, "مناسب للمعاينة والحجز بعربون، وزن متوسط.", "", 9, "السلالة الحمراء", "14 شهر", "أنثى", "سليم صحياً", "مزرعة الدولة - القبة"));
+        animals.add(new Animal("4", "جمل صحراوي", "إبل", 340000.0, 410.0, "حيوان قوي ومختار وفق المعايير الصحية.", "", 2, "صحراوي", "30 شهر", "ذكر", "فحص بيطري معتمد", "سوق بئر توتة"));
+        animals.add(new Animal("5", "كبش وهراني", "كباش", 65000.0, 52.0, "سلالة محلية مناسبة للعائلات، متوفر بعدة نقاط بيع.", "", 7, "وهراني", "20 شهر", "ذكر", "سليم صحياً", "نقطة بيع الحميز"));
 
         animalAdapter.setAnimals(animals);
         
