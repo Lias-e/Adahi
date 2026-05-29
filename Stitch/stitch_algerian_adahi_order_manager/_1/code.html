@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#bcf0ae",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#f5e1ae",
+                    "tertiary-fixed-dim": "#d8c594",
+                    "surface-dim": "#dbdad7",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "surface-container": "#efeeeb",
+                    "on-tertiary-fixed-variant": "#524620",
+                    "surface-container-high": "#e9e8e5",
+                    "surface-tint": "#3b6934",
+                    "on-surface": "#1a1c1a",
+                    "surface-bright": "#faf9f6",
+                    "primary-container": "#2d5a27",
+                    "surface-container-low": "#f4f3f1",
+                    "surface-variant": "#e3e2e0",
+                    "secondary": "#735c00",
+                    "on-primary-container": "#9dd090",
+                    "on-secondary-fixed": "#241a00",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#bcaa7b",
+                    "outline": "#72796e",
+                    "on-secondary-container": "#745c00",
+                    "on-primary-fixed-variant": "#23501e",
+                    "inverse-on-surface": "#f2f1ee",
+                    "primary-fixed-dim": "#a1d494",
+                    "secondary-fixed": "#ffe088",
+                    "outline-variant": "#c2c9bb",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface": "#faf9f6",
+                    "secondary-container": "#fed65b",
+                    "on-surface-variant": "#42493e",
+                    "tertiary": "#6b5d35",
+                    "on-background": "#1a1c1a",
+                    "inverse-primary": "#a1d494",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-tertiary-fixed": "#241a00",
+                    "on-tertiary-container": "#4b3e19",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#002201",
+                    "background": "#faf9f6",
+                    "inverse-surface": "#2f312f",
+                    "surface-container-highest": "#e3e2e0",
+                    "error": "#ba1a1a",
+                    "primary": "#154212",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "gutter": "16px",
+                    "container-max": "1280px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "label-md": ["IBM Plex Sans Arabic"],
+                    "price-display": ["IBM Plex Sans Arabic"],
+                    "body-lg": ["IBM Plex Sans Arabic"],
+                    "headline-lg-mobile": ["IBM Plex Sans Arabic"],
+                    "headline-lg": ["IBM Plex Sans Arabic"],
+                    "headline-md": ["IBM Plex Sans Arabic"],
+                    "headline-xl": ["IBM Plex Sans Arabic"],
+                    "body-md": ["IBM Plex Sans Arabic"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "price-display": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-xl": ["40px", {"lineHeight": "52px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            background-color: #faf9f6;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #154212 0%, #2d5a27 100%);
+        }
+        /* Custom scrollbar for horizontal lists */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-surface-dim flex items-center justify-between px-margin-mobile h-16 dir-rtl shadow-sm">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">menu</span>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">أضاحي الجزائر</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</div>
+<div class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 space-y-10">
+<!-- Location Selection Section -->
+<section class="bg-surface-container-low rounded-2xl p-6 space-y-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<h3 class="font-headline-md text-headline-md text-primary">تحديد الموقع</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mr-1">الولاية</label>
+<select class="w-full bg-surface-container-lowest border-outline-variant rounded-xl py-3 px-4 focus:ring-primary focus:border-primary">
+<option>اختر الولاية</option>
+<option>الجزائر العاصمة</option>
+<option>الجلفة</option>
+<option>الأغواط</option>
+<option>تيارت</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mr-1">نقطة البيع</label>
+<select class="w-full bg-surface-container-lowest border-outline-variant rounded-xl py-3 px-4 focus:ring-primary focus:border-primary">
+<option>اختر نقطة البيع</option>
+<option>سوق بئر توتة</option>
+<option>نقطة بيع الحميز</option>
+<option>مزرعة الدولة - القبة</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Filters Section -->
+<section class="space-y-8">
+<!-- Category Filters -->
+<div class="space-y-4">
+<h3 class="font-headline-md text-headline-md text-primary">الصنف</h3>
+<div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-3 rounded-full bg-primary text-on-primary shadow-lg transition-all">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-md text-label-md">الكل</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-3 rounded-full bg-surface-container-lowest border border-outline-variant hover:border-primary transition-all">
+<span class="material-symbols-outlined">eco</span>
+<span class="font-label-md text-label-md text-on-surface-variant">كباش</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-3 rounded-full bg-surface-container-lowest border border-outline-variant hover:border-primary transition-all">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-md text-label-md text-on-surface-variant">أبقار</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-3 rounded-full bg-surface-container-lowest border border-outline-variant hover:border-primary transition-all">
+<span class="material-symbols-outlined">grass</span>
+<span class="font-label-md text-label-md text-on-surface-variant">ماعز</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-3 rounded-full bg-surface-container-lowest border border-outline-variant hover:border-primary transition-all">
+<span class="material-symbols-outlined">terrain</span>
+<span class="font-label-md text-label-md text-on-surface-variant">إبل</span>
+</button>
+</div>
+</div>
+<!-- Price Range Filter -->
+<div class="space-y-4">
+<h3 class="font-headline-md text-headline-md text-primary">نطاق السعر (د.ج)</h3>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md hover:bg-primary-container/20 hover:border-primary">أقل من 50,000</button>
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md hover:bg-primary-container/20 hover:border-primary">50,000 - 80,000</button>
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md hover:bg-primary-container/20 hover:border-primary">80,000 - 120,000</button>
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md hover:bg-primary-container/20 hover:border-primary">أكثر من 120,000</button>
+</div>
+</div>
+</section>
+<!-- Listings Grid -->
+<section class="space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-primary">العروض المتوفرة</h3>
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1">
+                    ترتيب حسب
+                    <span class="material-symbols-outlined text-sm">swap_vert</span>
+</button>
+</div>
+<div class="bento-grid">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-surface-variant/30 group hover:-translate-y-1 transition-all duration-300">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A clean, studio-lit portrait of a healthy Ouled Djellal breed sheep, showcasing its pristine white fleece and strong physique." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAejdGNKO4NPksigjkwkFASINV7bgfBxeBaiegm9kazjEfW-Tte-9JqvjtSsHgT2rEX2pOYiNH5_mU26J2ELbVF62JfZDPUIBXw0lN3l4o9Vh0bZHz-QhZh2v18h7zSmN8ofDWrhWRbQc4I1RyYW0TUtWZ6etA4aICKA4wdz-sKqvQfc4fjMkewVb4QYMWK_9ZNW6jrmo8by0zNfc7xdHIdONWBGN4f5bTzL9lurdLcmq8HRZCRhkje1VXtSESi-MPY55lzNcRL7D0"/>
+<div class="absolute top-4 right-4 bg-primary text-on-primary px-3 py-1 rounded-full text-xs font-bold shadow-md">الأكثر طلباً</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface">كبش أولاد جلال</h4>
+<p class="text-on-surface-variant font-body-md text-body-md">سلالة محلية أصيلة</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-lg text-on-surface-variant font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">weight</span> 55-60 كغ
+                            </span>
+<span class="px-3 py-1 bg-surface-container rounded-lg text-on-surface-variant font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span> سوق بئر توتة
+                            </span>
+</div>
+<div class="flex justify-between items-center pt-4 border-t border-surface-variant/50">
+<span class="font-price-display text-price-display text-primary">78,000 د.ج</span>
+<button class="bg-primary text-on-primary p-3 rounded-xl active:scale-90 transition-transform">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-surface-variant/30 group hover:-translate-y-1 transition-all duration-300">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A detailed close-up of a high-quality cow intended for sacrifice, standing in a clean, modern farm environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_NyCfGbRVIryA3HmiCRCCMixWQXWTsIm7_vuvIrbl-4udhnJX0IKk2fYN151E95KJpIp83gZ44aSU45_b2q6rDvZbETD4FmmY8_HXoSlxsRMl45Rgo_yxqXd9SqZPmVBMk4MebqUfszp98y-mhKfFO1E712qsErGuB8T39fctkBssz0OtPjAJKFygI0J_rLMxcxy6ETsWIUofUndTNlOuW9JYgjEbU1w2NoXcKNcMXcCVf5XBx9OdoxDOvssp-qLmYT1lraRPoZA"/>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface">عجل محلي</h4>
+<p class="text-on-surface-variant font-body-md text-body-md">تربية جبلية طبيعية</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-lg text-on-surface-variant font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">weight</span> 220-250 كغ
+                            </span>
+<span class="px-3 py-1 bg-surface-container rounded-lg text-on-surface-variant font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span> نقطة بيع الحميز
+                            </span>
+</div>
+<div class="flex justify-between items-center pt-4 border-t border-surface-variant/50">
+<span class="font-price-display text-price-display text-primary">245,000 د.ج</span>
+<button class="bg-primary text-on-primary p-3 rounded-xl active:scale-90 transition-transform">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-surface-variant/30 group hover:-translate-y-1 transition-all duration-300">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A vibrant photograph of a sleek, healthy goat in an outdoor setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAovBnSE90-gIj7xrCCwu4UJpPg_LYuKITIottKNzRXxTH8e6RlCvSCc3pmmpKbV-42oEcVfHgy9R2KfmwTLbQfot8Q-8pf6fcJq6au50b4ENyXOZMEzZIGm-3UAES8GkslxKEG_D3LU70cA6B5U_IGi79ae3v9tzyjSaMg4PUGxEX962WaCJBPs53nar8GP-64JBktCXnBQhluV9NLLP168bcxh4A0beGhpyS7K-gGUUQ9zejaZ2LFSjQhmhwZQT9x2fY2Al_LqvI"/>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface">جدي السلالة الحمراء</h4>
+<p class="text-on-surface-variant font-body-md text-body-md">منطقة الصحراء</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-lg text-on-surface-variant font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">weight</span> 25-30 كغ
+                            </span>
+<span class="px-3 py-1 bg-surface-container rounded-lg text-on-surface-variant font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span> مزرعة القبة
+                            </span>
+</div>
+<div class="flex justify-between items-center pt-4 border-t border-surface-variant/50">
+<span class="font-price-display text-price-display text-primary">42,000 د.ج</span>
+<button class="bg-primary text-on-primary p-3 rounded-xl active:scale-90 transition-transform">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust Badges Section (Updated to remove delivery) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 py-8 border-y border-surface-variant/30">
+<div class="flex flex-col items-center text-center p-4 space-y-2">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<h5 class="font-headline-md text-headline-md text-on-surface">ضمان الأمانة</h5>
+<p class="text-on-surface-variant font-body-md text-body-md">جميع المواشي مختارة بعناية وفق الشروط الشرعية ومعاينة بيطرياً.</p>
+</div>
+<div class="flex flex-col items-center text-center p-4 space-y-2">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'FILL' 1;">payments</span>
+<h5 class="font-headline-md text-headline-md text-on-surface">دفع آمن</h5>
+<p class="text-on-surface-variant font-body-md text-body-md">خيارات دفع مرنة عند الاستلام في نقطة البيع أو عبر بريديموب.</p>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 dir-rtl shadow-lg bg-surface-container-lowest dark:bg-surface-container-low rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary-fixed rounded-full px-5 py-1 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-label-md">الرئيسية</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant/50 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-md text-label-md">طلباتي</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant/50 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">حسابي</span>
+</a>
+</nav>
+<!-- Contextual FAB -->
+<button class="fixed bottom-24 left-6 bg-primary text-on-primary p-4 rounded-full shadow-2xl z-40 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-2xl">add_shopping_cart</span>
+</button>
+<script>
+        // Micro-interaction for active states on filters
+        document.querySelectorAll('button.flex-shrink-0').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Determine group (category)
+                const container = this.closest('.flex');
+                container.querySelectorAll('button').forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary', 'shadow-lg');
+                    b.classList.add('bg-surface-container-lowest', 'border', 'border-outline-variant');
+                    const text = b.querySelector('span:not(.material-symbols-outlined)');
+                    if(text) text.classList.add('text-on-surface-variant');
+                });
+                this.classList.add('bg-primary', 'text-on-primary', 'shadow-lg');
+                this.classList.remove('bg-surface-container-lowest', 'border', 'border-outline-variant');
+                const text = this.querySelector('span:not(.material-symbols-outlined)');
+                if(text) text.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

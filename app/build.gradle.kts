@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     
     // RecyclerView for animal list
     implementation("androidx.recyclerview:recyclerview:1.3.2")

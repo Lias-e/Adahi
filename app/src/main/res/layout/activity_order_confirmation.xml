@@ -4,220 +4,375 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@color/adahi_background"
+    android:layoutDirection="rtl">
 
-    <!-- ScrollView for confirmation content -->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/backButton">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
 
-            <!-- Title -->
-            <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="@color/adahi_surface"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/back_button"
+                    android:padding="8dp"
+                    android:src="@android:drawable/ic_media_previous"
+                    android:tint="@color/adahi_primary" />
+
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/order_confirmation_title"
+                    android:textColor="@color/adahi_primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="أضاحي الجزائر"
+                    android:textColor="@color/adahi_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/order_confirmation_title"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_green_dark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp">
 
-            <!-- Order ID -->
-            <TextView
-                android:id="@+id/orderIdTextView"
-                android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/orderIdTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order ID: ORD-123456"
+                    android:textColor="@color/adahi_on_surface_variant"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/orderStatusTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/item_background"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="8dp"
+                    android:text="Status: Pending"
+                    android:textColor="@color/adahi_secondary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Order ID: ORD-123456"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/adahi_surface_container_lowest"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
 
-            <!-- Status -->
-            <TextView
-                android:id="@+id/orderStatusTextView"
-                android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="مبلغ العربون المستحق"
+                        android:textColor="@color/adahi_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/totalPriceTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Total Price: Rs. 50000"
+                        android:textColor="@color/adahi_primary"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="يرجى دفع مبلغ العربون لتأكيد حجز الأضحية وضمان توفرها."
+                        android:textColor="@color/adahi_on_surface_variant"
+                        android:textSize="14sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="16dp"
+                        android:text="الدفع عبر البطاقة الذهبية / CIB"
+                        android:textColor="@color/adahi_on_primary"
+                        app:backgroundTint="@color/adahi_primary"
+                        app:cornerRadius="16dp"
+                        app:icon="@android:drawable/ic_lock_lock"
+                        app:iconGravity="textStart"
+                        app:iconTint="@color/adahi_on_primary" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="10dp"
+                        android:text="الدفع عبر BaridiMob"
+                        android:textColor="@color/adahi_primary"
+                        app:backgroundTint="@color/adahi_surface_container_low"
+                        app:cornerRadius="16dp"
+                        app:strokeColor="@color/adahi_primary"
+                        app:strokeWidth="1dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="أو الدفع نقداً في نقطة البيع"
+                        android:textColor="@color/adahi_on_surface_variant"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Status: Pending"
-                android:textSize="14sp"
-                android:textColor="@android:color/holo_orange_dark"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/orderIdTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/adahi_surface_container_low"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
 
-            <!-- Divider 1 -->
-            <View
-                android:id="@+id/divider1"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/orderStatusTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-            <!-- Customer Details Header -->
-            <TextView
-                android:id="@+id/customerHeaderTextView"
-                android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="الخطوات القادمة"
+                        android:textColor="@color/adahi_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="1. بعد دفع العربون، سيتم تأكيد الحجز لك حصرياً."
+                        android:textColor="@color/adahi_on_surface_variant"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="2. عند الاستلام، سيتم وزن الأضحية فعلياً وتحديث السعر النهائي."
+                        android:textColor="@color/adahi_on_surface_variant"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="3. يتم خصم العربون من المبلغ الإجمالي المتبقي."
+                        android:textColor="@color/adahi_on_surface_variant"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Customer Details"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider1"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/adahi_surface_container_lowest"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
 
-            <!-- Customer Name -->
-            <TextView
-                android:id="@+id/customerNameTextView"
-                android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="تفاصيل الأضحية"
+                        android:textColor="@color/adahi_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/orderItemsHeaderTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="أولاد جلال"
+                        android:textColor="@color/adahi_on_surface"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/orderItemsTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="السلالة: أولاد جلال\nالوزن التقريبي: 55 - 60 كغ\nالعمر: 18 شهر"
+                        android:textColor="@color/adahi_on_surface_variant"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name: John Doe"
-                android:textSize="14sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/customerHeaderTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/adahi_surface_container_lowest"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
 
-            <!-- Customer Email -->
-            <TextView
-                android:id="@+id/customerEmailTextView"
-                android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="نقطة الاستلام والبيع"
+                        android:textColor="@color/adahi_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/wilayaTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Wilaya: Algiers"
+                        android:textColor="@color/adahi_on_surface"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/comuneTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Comune: Hydra"
+                        android:textColor="@color/adahi_on_surface"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email: john@example.com"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/customerNameTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/adahi_surface_container_lowest"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
 
-            <!-- Customer Phone -->
-            <TextView
-                android:id="@+id/customerPhoneTextView"
-                android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="معلومات المشتري"
+                        android:textColor="@color/adahi_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/customerNameTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Name: John Doe"
+                        android:textColor="@color/adahi_on_surface"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/customerEmailTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Email: john@example.com"
+                        android:textColor="@color/adahi_on_surface"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/customerPhoneTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Phone: +92 300 1234567"
+                        android:textColor="@color/adahi_on_surface"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone: +92 300 1234567"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/customerEmailTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:text="إلغاء الطلب"
+                android:textColor="@color/adahi_error"
+                app:backgroundTint="@color/adahi_surface_container_lowest"
+                app:cornerRadius="16dp"
+                app:strokeColor="@color/adahi_error"
+                app:strokeWidth="1dp" />
 
-            <!-- Wilaya -->
-            <TextView
-                android:id="@+id/wilayaTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Wilaya: Algiers"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/customerPhoneTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-            <!-- Comune -->
-            <TextView
-                android:id="@+id/comuneTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Comune: Hydra"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/wilayaTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Divider 2 -->
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/comuneTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Order Items Header -->
-            <TextView
-                android:id="@+id/orderItemsHeaderTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Order Items"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider2"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Order Items -->
-            <TextView
-                android:id="@+id/orderItemsTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="White Sheep\nQuantity: 1\nPrice per unit: Rs. 50000\nSubtotal: Rs. 50000"
-                android:textSize="14sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/orderItemsHeaderTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Divider 3 -->
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/orderItemsTextView"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Total Price -->
-            <TextView
-                android:id="@+id/totalPriceTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Total Price: Rs. 50000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_green_dark"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider3"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-    <!-- Back Button -->
     <Button
         android:id="@+id/backButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/back_button"
         android:layout_margin="16dp"
-        android:backgroundTint="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/adahi_surface_container_high"
+        android:text="@string/back_button"
+        android:textColor="@color/adahi_on_surface"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

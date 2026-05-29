@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.android.adahi.R;
 import com.android.adahi.models.Order;
 import com.android.adahi.utils.LocalStorageManager;
+import com.android.adahi.utils.AnimalUiUtils;
 
 import java.util.Locale;
 
@@ -89,7 +90,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             orderIdTextView.setText(getString(R.string.order_id_label, orderId));
 
             customerNameTextView.setText(getString(R.string.name_label, currentOrder.getCustomerName()));
-            customerEmailTextView.setText(getString(R.string.email_label, currentOrder.getCustomerEmail()));
+            customerEmailTextView.setText(getString(R.string.nin_label, currentOrder.getCustomerEmail()));
             customerPhoneTextView.setText(getString(R.string.phone_label, currentOrder.getCustomerPhone()));
             
             // New Wilaya and Comune fields
@@ -102,14 +103,14 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                     itemsText.append(getString(R.string.item_summary,
                             item.getAnimalName(),
                             item.getQuantity(),
-                            String.format(Locale.getDefault(), "%.2f", item.getPricePerUnit()),
-                            String.format(Locale.getDefault(), "%.2f", item.getSubtotal())
+                            AnimalUiUtils.formatPrice(item.getPricePerUnit()),
+                            AnimalUiUtils.formatPrice(item.getSubtotal())
                     ));
                 }
             }
             orderItemsTextView.setText(itemsText.toString());
 
-            totalPriceTextView.setText(getString(R.string.total_price_label, String.format(Locale.getDefault(), "%.2f", currentOrder.getTotalPrice())));
+            totalPriceTextView.setText(getString(R.string.total_price_label, AnimalUiUtils.formatPrice(currentOrder.getTotalPrice())));
             orderStatusTextView.setText(getString(R.string.status_label, currentOrder.getStatus()));
 
         } catch (Exception e) {

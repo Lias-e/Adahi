@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#bcf0ae",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#f5e1ae",
+                        "tertiary-fixed-dim": "#d8c594",
+                        "surface-dim": "#dbdad7",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "surface-container": "#efeeeb",
+                        "on-tertiary-fixed-variant": "#524620",
+                        "surface-container-high": "#e9e8e5",
+                        "surface-tint": "#3b6934",
+                        "on-surface": "#1a1c1a",
+                        "surface-bright": "#faf9f6",
+                        "primary-container": "#2d5a27",
+                        "surface-container-low": "#f4f3f1",
+                        "surface-variant": "#e3e2e0",
+                        "secondary": "#735c00",
+                        "on-primary-container": "#9dd090",
+                        "on-secondary-fixed": "#241a00",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#bcaa7b",
+                        "outline": "#72796e",
+                        "on-secondary-container": "#745c00",
+                        "on-primary-fixed-variant": "#23501e",
+                        "inverse-on-surface": "#f2f1ee",
+                        "primary-fixed-dim": "#a1d494",
+                        "secondary-fixed": "#ffe088",
+                        "outline-variant": "#c2c9bb",
+                        "on-secondary-fixed-variant": "#574500",
+                        "surface": "#faf9f6",
+                        "secondary-container": "#fed65b",
+                        "on-surface-variant": "#42493e",
+                        "tertiary": "#6b5d35",
+                        "on-background": "#1a1c1a",
+                        "inverse-primary": "#a1d494",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-tertiary-container": "#4b3e19",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#002201",
+                        "background": "#faf9f6",
+                        "inverse-surface": "#2f312f",
+                        "surface-container-highest": "#e3e2e0",
+                        "error": "#ba1a1a",
+                        "primary": "#154212",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["IBM Plex Sans Arabic"],
+                        "price-display": ["IBM Plex Sans Arabic"],
+                        "body-lg": ["IBM Plex Sans Arabic"],
+                        "headline-lg-mobile": ["IBM Plex Sans Arabic"],
+                        "headline-lg": ["IBM Plex Sans Arabic"],
+                        "headline-md": ["IBM Plex Sans Arabic"],
+                        "headline-xl": ["IBM Plex Sans Arabic"],
+                        "body-md": ["IBM Plex Sans Arabic"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #faf9f6;
+            color: #1a1c1a;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .active-weight {
+            border: 2px solid #2d5a27 !important;
+            background-color: #f4f3f1;
+        }
+    </style>
+</head>
+<body class="bg-surface">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-surface-dim flex items-center justify-between px-margin-mobile h-16 dir-rtl">
+<button aria-label="عودة" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">أضاحي الجزائر</h1>
+<div class="w-10"></div>
+</header>
+<main class="pb-12">
+<!-- Hero Image Gallery -->
+<section class="relative w-full max-w-container-max mx-auto overflow-hidden">
+<div class="relative aspect-video md:aspect-[21/9] w-full overflow-hidden">
+<img alt="خروف العيد" class="w-full h-full object-cover transition-opacity duration-300" id="main-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGawK7cAHiJYFCOjowPOZEiDbLcamKppIH6tLe5PFWgUiMgFKCU25uGDWkIr6qiMQ4DuXUxNz4gDleCSZ9IV9rn2xj_XMNjDri-YkS74UcnaC097oAnVRgjrxgc0aN-_d-zRnkCszuYSutG-ELHCstWKG4cR9ipdvO33lymXQWSBQyQ9kHjI0tJWUwvKD0eEG1T86nnmFVNMBzWU9Rf3uWpIRlgmJPRKOJxbZkoGFtfCr12AWIcxqP3X2jE4y3eSnhnppM-UjCx4M"/>
+<div class="absolute bottom-4 right-4 bg-primary text-white px-4 py-1.5 rounded-full font-label-md text-label-md flex items-center gap-2 shadow-lg">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified">verified</span>
+<span>سلالة أولاد جلال الأصيلة</span>
+</div>
+</div>
+<!-- Thumbnail Navigation -->
+<div class="flex gap-3 px-margin-mobile mt-4 overflow-x-auto hide-scrollbar">
+<button class="flex-shrink-0 w-20 h-20 rounded-xl border-2 border-primary overflow-hidden" onclick="changeImage(this, 'https://lh3.googleusercontent.com/aida-public/AB6AXuDGawK7cAHiJYFCOjowPOZEiDbLcamKppIH6tLe5PFWgUiMgFKCU25uGDWkIr6qiMQ4DuXUxNz4gDleCSZ9IV9rn2xj_XMNjDri-YkS74UcnaC097oAnVRgjrxgc0aN-_d-zRnkCszuYSutG-ELHCstWKG4cR9ipdvO33lymXQWSBQyQ9kHjI0tJWUwvKD0eEG1T86nnmFVNMBzWU9Rf3uWpIRlgmJPRKOJxbZkoGFtfCr12AWIcxqP3X2jE4y3eSnhnppM-UjCx4M')">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQgSXyZc_JsdKpU3p1jC9eqYgEJk_D7wu14mb0ns2l8ct037AaFvdY9aQBSICc3Njw_iwQRSjsPTp6HO8Ly2ubejUn7f-5_GMwvyNHBopHQO7efl57QFB_HZfgh7uJksnFDEkhAoajh8BgWJcz8gMWUEaFq6AYqdkW9ofp57lgVwch8pshhkVrUzsT5TNVYQvun2045hBGPtdpc-0dxd_Epjx0S4C98WNevWAzLpZOiVQHHAk139H6IlkudnjtUxw6aexYMex0sKc"/>
+</button>
+<button class="flex-shrink-0 w-20 h-20 rounded-xl border-2 border-transparent overflow-hidden" onclick="changeImage(this, 'https://lh3.googleusercontent.com/aida-public/AB6AXuAkQL7BRxi7AWJR4U_i-K5HM3Sh_SfygojHHilRQMJOIx6XYXfOMPXuAc1B3WAsjRrck4O6X0lUY0kRBYzai_pLxb3vad7wG0nfBOqxKwq3kP3GrOdp2vFenjtXrTms4kbGkpaW88WlbZVN7hKo-wwTTHpyJmx5T1IGWRr-EPcr66ljyeZVFXZRvxTL2f7_zG5odHSc1AQ6dxiHfogkXCw38QB4nL_kUwpekyyKLv-h9tYCkPCoD_e3cKCpIJ8aVFy375I2-KI6v7E')">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkQL7BRxi7AWJR4U_i-K5HM3Sh_SfygojHHilRQMJOIx6XYXfOMPXuAc1B3WAsjRrck4O6X0lUY0kRBYzai_pLxb3vad7wG0nfBOqxKwq3kP3GrOdp2vFenjtXrTms4kbGkpaW88WlbZVN7hKo-wwTTHpyJmx5T1IGWRr-EPcr66ljyeZVFXZRvxTL2f7_zG5odHSc1AQ6dxiHfogkXCw38QB4nL_kUwpekyyKLv-h9tYCkPCoD_e3cKCpIJ8aVFy375I2-KI6v7E"/>
+</button>
+<button class="flex-shrink-0 w-20 h-20 rounded-xl border-2 border-transparent overflow-hidden" onclick="changeImage(this, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCMDXJ1bzJfZBTziteO10jSk4_-_uJ472AonUg7HTlpjSk0X3J8eyn1i8VB26iML0EcJy0hktG7PwVh0IXNfYdYej7ymUmzrFKMk4yZ2EpxL2UyHhVY5nmTz8YEI5ZI3D1ClppXIUF-P9iyIiokjw29qfL3IfK7-qsfVREk5e0tNTHGkVxwXRTFcPifJ7vjqG4Lo8xI0GFxqg2St5GicbvuDm-RUzCF6nNULOGTh4l-h-GTF3CB0PlRYp1AWgzf0ulh0BKKKuuwxGk')">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMDXJ1bzJfZBTziteO10jSk4_-_uJ472AonUg7HTlpjSk0X3J8eyn1i8VB26iML0EcJy0hktG7PwVh0IXNfYdYej7ymUmzrFKMk4yZ2EpxL2UyHhVY5nmTz8YEI5ZI3D1ClppXIUF-P9iyIiokjw29qfL3IfK7-qsfVREk5e0tNTHGkVxwXRTFcPifJ7vjqG4Lo8xI0GFxqg2St5GicbvuDm-RUzCF6nNULOGTh4l-h-GTF3CB0PlRYp1AWgzf0ulh0BKKKuuwxGk"/>
+</button>
+</div>
+</section>
+<!-- Product Details Canvas -->
+<section class="mt-8 px-margin-mobile max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Side: Information -->
+<div class="lg:col-span-8 space-y-8">
+<div class="space-y-2">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">خروف العيد - الفئة الممتازة</h2>
+<div class="flex flex-wrap gap-4 text-on-surface-variant">
+<span class="flex items-center gap-1 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                            مزارع الجلفة، الجزائر
+                        </span>
+<span class="flex items-center gap-1 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="health_and_safety">health_and_safety</span>
+                            فحص بيطري معتمد
+                        </span>
+</div>
+</div>
+<!-- Sales Point Location -->
+<div class="bg-primary-container/10 p-4 rounded-xl border border-primary-container/20 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="storefront">storefront</span>
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold">موقع نقطة البيع (الاستلام)</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">الجزائر العاصمة، بئر توتة - المزرعة النموذجية (الطريق الوطني رقم 1)</p>
+</div>
+</div>
+<!-- Description Bento Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-surface-variant/50">
+<div class="flex items-center gap-3 mb-4 text-primary">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+<h3 class="font-headline-md text-headline-md">المواصفات</h3>
+</div>
+<ul class="space-y-3 font-body-md text-body-md text-on-surface-variant">
+<li class="flex justify-between border-b border-surface-variant pb-2">
+<span class="text-on-surface">الجنس:</span>
+<span>ذكر (كابش)</span>
+</li>
+<li class="flex justify-between border-b border-surface-variant pb-2">
+<span class="text-on-surface">السن:</span>
+<span>ثني (سنتان)</span>
+</li>
+<li class="font-body-md mt-2 leading-relaxed">
+                                سلالة "أولاد جلال" معروفة بجودة لحومها ونموها الطبيعي في مراعي مفتوحة.
+                            </li>
+</ul>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-surface-variant/50">
+<div class="flex items-center gap-3 mb-4 text-primary">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<h3 class="font-headline-md text-headline-md">الحالة الصحية</h3>
+</div>
+<ul class="space-y-2 font-body-md text-body-md text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+                                تطعيمات كاملة ومحدثة
+                            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+                                تغذية طبيعية 100%
+                            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+                                خالية من أي عيوب شرعية
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Right Side: Order Panel -->
+<div class="lg:col-span-4">
+<div class="sticky top-24 bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-surface-variant/50">
+<div class="mb-6">
+<span class="text-on-surface-variant font-label-md text-label-md block mb-1">السعر التقريبي</span>
+<div class="flex items-baseline gap-2">
+<span class="font-price-display text-headline-xl text-primary" id="price-display">78.000</span>
+<span class="font-label-md text-label-md text-primary">د.ج</span>
+</div>
+</div>
+<div class="space-y-4 mb-8">
+<label class="block font-headline-md text-headline-md text-on-surface mb-2">اختر الوزن المفضل</label>
+<div class="grid grid-cols-2 gap-3">
+<button class="weight-btn flex flex-col items-center justify-center p-4 rounded-xl border-2 border-outline-variant hover:border-primary-container transition-all" onclick="selectWeight(this, '68.000')">
+<span class="font-headline-md text-headline-md">45 - 50</span>
+<span class="font-label-md text-label-md text-on-surface-variant">كلغ</span>
+</button>
+<button class="weight-btn active-weight flex flex-col items-center justify-center p-4 rounded-xl border-2 border-outline-variant hover:border-primary-container transition-all" onclick="selectWeight(this, '78.000')">
+<span class="font-headline-md text-headline-md">55 - 60</span>
+<span class="font-label-md text-label-md text-on-surface-variant">كلغ</span>
+</button>
+<button class="weight-btn flex flex-col items-center justify-center p-4 rounded-xl border-2 border-outline-variant hover:border-primary-container transition-all" onclick="selectWeight(this, '92.000')">
+<span class="font-headline-md text-headline-md">65 - 70</span>
+<span class="font-label-md text-label-md text-on-surface-variant">كلغ</span>
+</button>
+<button class="weight-btn flex flex-col items-center justify-center p-4 rounded-xl border-2 border-outline-variant hover:border-primary-container transition-all" onclick="selectWeight(this, '115.000')">
+<span class="font-headline-md text-headline-md">+75</span>
+<span class="font-label-md text-label-md text-on-surface-variant">كلغ</span>
+</button>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="space-y-3">
+<button class="w-full bg-primary text-white p-4 rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all flex flex-col items-center justify-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="shopping_cart_checkout">shopping_cart_checkout</span>
+<span class="font-headline-md text-headline-md">شراء مباشر</span>
+</div>
+<span class="text-xs mt-1 opacity-90 text-primary-fixed">عربون 3,000 د.ج لبدء عملية الوزن والفرز</span>
+</button>
+<button class="w-full bg-surface-container border-2 border-primary text-primary p-4 rounded-xl hover:bg-surface-container-high active:scale-[0.98] transition-all flex flex-col items-center justify-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+<span class="font-headline-md text-headline-md">حجز للمعاينة</span>
+</div>
+<span class="text-xs mt-1 text-on-surface-variant">تثبيت موعد معاينة بعربون 3,000 د.ج</span>
+</button>
+</div>
+<p class="text-center mt-4 text-on-surface-variant font-label-md text-label-md">
+                        * السعر النهائي يحدد بعد الوزن الفعلي عند الاستلام
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<script>
+        function changeImage(btn, src) {
+            const mainImg = document.getElementById('main-image');
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = src;
+                mainImg.style.opacity = '1';
+            }, 150);
+
+            const thumbnails = btn.parentElement.children;
+            for (let thumb of thumbnails) {
+                thumb.classList.remove('border-primary');
+                thumb.classList.add('border-transparent');
+            }
+            btn.classList.remove('border-transparent');
+            btn.classList.add('border-primary');
+        }
+
+        function selectWeight(btn, price) {
+            const buttons = document.querySelectorAll('.weight-btn');
+            buttons.forEach(b => b.classList.remove('active-weight'));
+            btn.classList.add('active-weight');
+
+            const priceDisplay = document.getElementById('price-display');
+            priceDisplay.style.transform = 'translateY(-10px)';
+            priceDisplay.style.opacity = '0';
+            
+            setTimeout(() => {
+                priceDisplay.textContent = price;
+                priceDisplay.style.transform = 'translateY(0)';
+                priceDisplay.style.opacity = '1';
+            }, 200);
+        }
+        document.getElementById('price-display').style.transition = 'all 0.3s ease';
+    </script>
+</body></html>

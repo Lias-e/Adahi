@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.android.adahi.R;
 import com.android.adahi.activities.AnimalDetailActivity;
 import com.android.adahi.databinding.ItemAnimalBinding;
 import com.android.adahi.models.Animal;
+import com.android.adahi.utils.AnimalUiUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,12 +97,21 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
             
             // Use localized string formats with correct resource IDs
             binding.animalType.setText(context.getString(R.string.animal_type_label, animal.getType()));
-            binding.animalPrice.setText(context.getString(R.string.animal_price_label, String.format("%.2f", animal.getPrice())));
+            binding.animalPrice.setText(AnimalUiUtils.formatPrice(animal.getPrice()));
             
             binding.animalDescription.setText(animal.getDescription());
+            binding.animalWeightChip.setText(String.format(java.util.Locale.getDefault(), "%.0f كغ", animal.getWeight()));
+            binding.animalLocationChip.setText(animal.getSalesPoint() == null || animal.getSalesPoint().isEmpty() ? "نقطة بيع موثقة" : animal.getSalesPoint());
+            binding.animalBadge.setCardBackgroundColor(context.getColor(animal.getQuantity() > 3 ? R.color.adahi_primary : R.color.adahi_secondary));
+
+            Glide.with(binding.getRoot())
+                    .load(AnimalUiUtils.resolveImageUrl(animal))
+                    .placeholder(android.R.drawable.ic_menu_gallery)
+                    .error(android.R.drawable.ic_menu_gallery)
+                    .into(binding.animalImage);
 
             // Set click listener to navigate to order form
-            binding.getRoot().setOnClickListener(v -> {
+            Runnable openDetails = () -> {
                 if (listener != null) {
                     listener.onAnimalClick(animal);
                 }
@@ -118,7 +129,10 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
                 intent.putExtra("animal_health_status", animal.getHealthStatus());
                 intent.putExtra("animal_sales_point", animal.getSalesPoint());
                 context.startActivity(intent);
-            });
+            };
+
+            binding.getRoot().setOnClickListener(v -> openDetails.run());
+            binding.animalActionButton.setOnClickListener(v -> openDetails.run());
         }
     }
 }

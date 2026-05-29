@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.android.adahi.R;
 import com.android.adahi.models.Order;
 import com.android.adahi.utils.LocalStorageManager;
+import com.android.adahi.utils.AnimalUiUtils;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Locale;
@@ -100,7 +101,7 @@ public class OrderFormActivity extends AppCompatActivity {
 
         if (animalName != null) {
             selectedAnimalName.setText(animalName);
-            selectedAnimalPrice.setText(getString(R.string.animal_price_label, String.format(Locale.getDefault(), "%.2f", animalPrice)));
+            selectedAnimalPrice.setText(AnimalUiUtils.formatPrice(animalPrice));
         }
     }
 

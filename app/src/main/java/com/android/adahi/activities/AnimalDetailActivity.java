@@ -2,6 +2,7 @@ package com.android.adahi.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,9 +12,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.android.adahi.R;
-
-import java.util.Locale;
+import com.android.adahi.models.Animal;
+import com.android.adahi.utils.AnimalUiUtils;
 
 public class AnimalDetailActivity extends AppCompatActivity {
 
@@ -39,6 +41,8 @@ public class AnimalDetailActivity extends AppCompatActivity {
     private TextView healthStatusText;
     private TextView salesPointText;
     private TextView descriptionText;
+    private ImageView heroImage;
+    private ImageView backButton;
     private Button directPurchaseButton;
     private Button reviewReservationButton;
 
@@ -86,6 +90,8 @@ public class AnimalDetailActivity extends AppCompatActivity {
         healthStatusText = findViewById(R.id.animalHealthStatusText);
         salesPointText = findViewById(R.id.animalSalesPointText);
         descriptionText = findViewById(R.id.animalDetailDescription);
+        heroImage = findViewById(R.id.animalHeroImage);
+        backButton = findViewById(R.id.backButton);
         directPurchaseButton = findViewById(R.id.directPurchaseButton);
         reviewReservationButton = findViewById(R.id.reviewReservationButton);
     }
@@ -93,7 +99,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
     private void populateViews() {
         animalNameText.setText(animalName != null ? animalName : "");
         animalTypeText.setText(getString(R.string.animal_type_label, animalType != null ? animalType : ""));
-        animalPriceText.setText(String.format(Locale.getDefault(), "%.0f د.ج", animalPrice));
+        animalPriceText.setText(AnimalUiUtils.formatPrice(animalPrice));
         animalWeightText.setText(getString(R.string.animal_weight_label, animalWeight));
         breedText.setText(getString(R.string.breed_label, safeValue(animalBreed)));
         ageText.setText(getString(R.string.age_label, safeValue(animalAge)));
@@ -101,6 +107,25 @@ public class AnimalDetailActivity extends AppCompatActivity {
         healthStatusText.setText(getString(R.string.health_status_label, safeValue(animalHealthStatus)));
         salesPointText.setText(getString(R.string.sales_point_current_label, safeValue(animalSalesPoint)));
         descriptionText.setText(safeValue(animalDescription));
+
+        Animal previewAnimal = new Animal();
+        previewAnimal.setId(animalId);
+        previewAnimal.setName(animalName);
+        previewAnimal.setType(animalType);
+        previewAnimal.setPrice(animalPrice);
+        previewAnimal.setWeight(animalWeight);
+        previewAnimal.setDescription(animalDescription);
+        previewAnimal.setBreed(animalBreed);
+        previewAnimal.setAge(animalAge);
+        previewAnimal.setGender(animalGender);
+        previewAnimal.setHealthStatus(animalHealthStatus);
+        previewAnimal.setSalesPoint(animalSalesPoint);
+
+        Glide.with(this)
+            .load(AnimalUiUtils.resolveImageUrl(previewAnimal))
+            .placeholder(android.R.drawable.ic_menu_gallery)
+            .error(android.R.drawable.ic_menu_gallery)
+            .into(heroImage);
     }
 
     private String safeValue(String value) {
@@ -108,6 +133,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
     }
 
     private void setupActions() {
+        backButton.setOnClickListener(v -> finish());
         directPurchaseButton.setOnClickListener(v -> openOrderForm("direct"));
         reviewReservationButton.setOnClickListener(v -> openOrderForm("review"));
     }

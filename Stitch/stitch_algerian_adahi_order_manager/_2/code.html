@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#bcf0ae",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#f5e1ae",
+                      "tertiary-fixed-dim": "#d8c594",
+                      "surface-dim": "#dbdad7",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-error": "#ffffff",
+                      "surface-container": "#efeeeb",
+                      "on-tertiary-fixed-variant": "#524620",
+                      "surface-container-high": "#e9e8e5",
+                      "surface-tint": "#3b6934",
+                      "on-surface": "#1a1c1a",
+                      "surface-bright": "#faf9f6",
+                      "primary-container": "#2d5a27",
+                      "surface-container-low": "#f4f3f1",
+                      "surface-variant": "#e3e2e0",
+                      "secondary": "#735c00",
+                      "on-primary-container": "#9dd090",
+                      "on-secondary-fixed": "#241a00",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#bcaa7b",
+                      "outline": "#72796e",
+                      "on-secondary-container": "#745c00",
+                      "on-primary-fixed-variant": "#23501e",
+                      "inverse-on-surface": "#f2f1ee",
+                      "primary-fixed-dim": "#a1d494",
+                      "secondary-fixed": "#ffe088",
+                      "outline-variant": "#c2c9bb",
+                      "on-secondary-fixed-variant": "#574500",
+                      "surface": "#faf9f6",
+                      "secondary-container": "#fed65b",
+                      "on-surface-variant": "#42493e",
+                      "tertiary": "#6b5d35",
+                      "on-background": "#1a1c1a",
+                      "inverse-primary": "#a1d494",
+                      "secondary-fixed-dim": "#e9c349",
+                      "on-tertiary-fixed": "#241a00",
+                      "on-tertiary-container": "#4b3e19",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#002201",
+                      "background": "#faf9f6",
+                      "inverse-surface": "#2f312f",
+                      "surface-container-highest": "#e3e2e0",
+                      "error": "#ba1a1a",
+                      "primary": "#154212",
+                      "on-secondary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "gutter": "16px",
+                      "container-max": "1280px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "label-md": ["IBM Plex Sans Arabic"],
+                      "price-display": ["IBM Plex Sans Arabic"],
+                      "body-lg": ["IBM Plex Sans Arabic"],
+                      "headline-lg-mobile": ["IBM Plex Sans Arabic"],
+                      "headline-lg": ["IBM Plex Sans Arabic"],
+                      "headline-md": ["IBM Plex Sans Arabic"],
+                      "headline-xl": ["IBM Plex Sans Arabic"],
+                      "body-md": ["IBM Plex Sans Arabic"]
+              },
+              "fontSize": {
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "price-display": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-xl": ["40px", {"lineHeight": "52px", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #faf9f6;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Top AppBar -->
+<header class="w-full top-0 sticky z-50 flex items-center justify-between px-margin-mobile w-full h-16 dir-rtl bg-surface dark:bg-surface-dim">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed p-2 hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-95 duration-100 rounded-full" onclick="window.history.back()">
+                arrow_forward
+            </button>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">تفاصيل الطلب</h1>
+</div>
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">أضاحي الجزائر</div>
+</header>
+<main class="max-w-[800px] mx-auto px-margin-mobile py-8 pb-32">
+<!-- Order Identification Header -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant block mb-1">تاريخ الطلب: 12 ذو الحجة 1445</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary">طلب رقم #AD-992384</h2>
+</div>
+<div class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-xl font-label-md text-label-md inline-flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+                في انتظار دفع العربون
+            </div>
+</div>
+<!-- Arboun Payment Status Section -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(45,90,39,0.05)] mb-8 border border-secondary/20">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">مبلغ العربون المستحق</h3>
+<span class="text-secondary font-price-display text-price-display">3,000 د.ج</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                يرجى دفع مبلغ العربون لتأكيد حجز الأضحية وضمان توفرها.
+            </p>
+<div class="grid grid-cols-1 gap-3">
+<button class="flex items-center justify-center gap-3 w-full py-4 bg-primary text-on-primary rounded-xl font-body-lg text-body-lg shadow-md hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined">credit_card</span>
+                    الدفع عبر البطاقة الذهبية / CIB
+                </button>
+<button class="flex items-center justify-center gap-3 w-full py-4 border-2 border-primary text-primary rounded-xl font-body-lg text-body-lg hover:bg-primary-fixed/20 transition-all active:scale-95">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                    الدفع عبر BaridiMob
+                </button>
+<button class="flex items-center justify-center gap-3 w-full py-3 text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant/50 rounded-lg transition-all">
+                    أو الدفع نقداً في نقطة البيع
+                </button>
+</div>
+</section>
+<!-- Next Steps Section -->
+<section class="bg-primary-container/10 border border-primary/20 rounded-xl p-6 mb-8">
+<h3 class="font-headline-md text-headline-md text-primary mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined">info</span>
+                الخطوات القادمة
+            </h3>
+<ul class="space-y-3">
+<li class="flex gap-3 text-on-surface font-body-md text-body-md">
+<span class="text-primary font-bold">1.</span>
+<span>بعد دفع العربون، سيتم تأكيد حجز الأضحية لك حصرياً.</span>
+</li>
+<li class="flex gap-3 text-on-surface font-body-md text-body-md">
+<span class="text-primary font-bold">2.</span>
+<span>عند الاستلام، سيتم وزن الأضحية فعلياً وتحديث السعر النهائي بناءً على الوزن الحقيقي.</span>
+</li>
+<li class="flex gap-3 text-on-surface font-body-md text-body-md">
+<span class="text-primary font-bold">3.</span>
+<span>يتم خصم مبلغ العربون (3,000 د.ج) من المبلغ الإجمالي المتبقي.</span>
+</li>
+</ul>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Animal Details Card -->
+<section class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-outline-variant/30">
+<img class="w-full h-48 object-cover" data-alt="A high-resolution photograph of a majestic white Ouled Djellal sheep standing in a clean, sunlit farm enclosure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASTTZTaaxjJP6y3VHVj5W3jI5nBbTj1eBbKpeoAXK5P-QT8Lg6BjIi6gBCRQV3tVenH2sQoi1y9Y9AIZ_0dK5N4Bzmy1fwAawOjCX0JPKEqDjTuhKtXahoDHrHyaPMVmv_dtHkCz5Io_AEgdbJtYikX7k-IApRd8UZUn_Jqp_gY53_nIJ0MTrwKXtpJ4PupDZ0nS68BrCu_7F1z4CVuwqzp_dho72c3uw0WUu39KSnM_Aa87FUwftEQrfqsB7wv3uKh-dKlbSipZw"/>
+<div class="p-6">
+<h3 class="font-headline-md text-headline-md text-primary mb-4">تفاصيل الأضحية</h3>
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-body-md text-body-md">السلالة:</span>
+<span class="text-on-surface font-bold font-body-md text-body-md">أولاد جلال</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-body-md text-body-md">الوزن التقريبي:</span>
+<span class="text-on-surface font-bold font-body-md text-body-md">55 - 60 كغ</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-body-md text-body-md">العمر:</span>
+<span class="text-on-surface font-bold font-body-md text-body-md">18 شهر</span>
+</div>
+<div class="pt-4 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="text-on-surface-variant font-body-md text-body-md">السعر التقريبي:</span>
+<span class="text-primary font-price-display text-price-display">85.000 د.ج</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Customer & Pickup Info -->
+<section class="space-y-6">
+<!-- Sales Point Address -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-outline-variant/30 ring-2 ring-primary/10">
+<h3 class="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">storefront</span>
+                        نقطة الاستلام والبيع
+                    </h3>
+<div class="space-y-2">
+<p class="text-on-surface font-body-md text-body-md font-bold">مزرعة البركة للأغنام</p>
+<p class="text-on-surface font-body-md text-body-md">طريق الأربعاء، بئر توتة</p>
+<p class="text-on-surface font-body-md text-body-md">الجزائر العاصمة</p>
+<div class="mt-4 flex gap-2">
+<a class="flex items-center gap-2 text-primary font-label-md text-label-md hover:underline" href="#">
+<span class="material-symbols-outlined text-[18px]">map</span>
+                                عرض على الخريطة
+                            </a>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-outline-variant/30">
+<h3 class="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">person</span>
+                        معلومات المشتري
+                    </h3>
+<div class="space-y-3">
+<div>
+<span class="text-on-surface-variant font-label-md text-label-md block">الاسم الكامل:</span>
+<span class="text-on-surface font-body-md text-body-md font-medium">محمد أمين بن علي</span>
+</div>
+<div>
+<span class="text-on-surface-variant font-label-md text-label-md block">رقم الهاتف:</span>
+<span class="text-on-surface font-body-md text-body-md font-medium" dir="ltr">+213 550 12 34 56</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Cancel Action -->
+<div class="mt-12 flex justify-center">
+<button class="flex items-center gap-2 px-8 py-3 rounded-xl border-2 border-error text-error hover:bg-error-container/20 transition-all font-body-lg text-body-lg active:scale-95" onclick="toggleModal(true)">
+<span class="material-symbols-outlined">cancel</span>
+                إلغاء الطلب
+            </button>
+</div>
+</main>
+<!-- Cancel Confirmation Modal -->
+<div class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4" id="cancelModal">
+<div class="absolute inset-0 bg-on-surface/40 backdrop-blur-sm" onclick="toggleModal(false)"></div>
+<div class="relative bg-surface-container-lowest w-full max-w-md rounded-2xl p-8 shadow-2xl animate-in fade-in zoom-in duration-200">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-error-container text-error rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-4xl">warning</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">هل أنت متأكد من إلغاء الطلب؟</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">
+                    سيؤدي إلغاء الطلب إلى فقدان حجز هذه الأضحية. قد يتم تطبيق رسوم إلغاء طفيفة وفقاً للشروط والأحكام.
+                </p>
+<div class="flex flex-col w-full gap-3">
+<button class="w-full py-4 bg-error text-on-error rounded-xl font-body-lg text-body-lg shadow-lg hover:shadow-xl active:scale-[0.98] transition-all">
+                        نعم، إلغاء الطلب
+                    </button>
+<button class="w-full py-4 text-on-surface-variant font-body-lg text-body-lg hover:bg-surface-variant/50 rounded-xl transition-all" onclick="toggleModal(false)">
+                        تراجع عن الإلغاء
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar (Mandatory Shell) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 dir-rtl bg-surface-container-lowest dark:bg-surface-container-low shadow-[0px_-4px_20px_rgba(45,90,39,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant/50 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">الرئيسية</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary-fixed rounded-full px-5 py-1 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="font-label-md text-label-md">طلباتي</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-variant/50 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">حسابي</span>
+</a>
+</nav>
+<script>
+        function toggleModal(show) {
+            const modal = document.getElementById('cancelModal');
+            if (show) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body></html>

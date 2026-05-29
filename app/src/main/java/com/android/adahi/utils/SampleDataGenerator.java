@@ -20,22 +20,22 @@ public class SampleDataGenerator {
         // Sample Sheep
         animals.add(new Animal(
                 "1",
-                "White Sheep",
-                "Sheep",
+                "كبش أولاد جلال",
+                "كبش",
                 50000,
                 45.5,
-                "Healthy white sheep, perfect for Eid ul-Adha. Well-fed and vaccinated.",
+                "سلالة أولاد جلال أصيلة، مفحوصة بيطرياً ومناسبة للحجز المباشر.",
                 "",
                 5
         ));
 
         animals.add(new Animal(
                 "2",
-                "Black Sheep",
-                "Sheep",
+                "كبش أسود",
+                "كبش",
                 55000,
                 48.0,
-                "Premium quality black sheep with excellent health status.",
+                "كبش قوي ومعتنى به جيداً، مناسب للحجز والفرز السريع.",
                 "",
                 3
         ));
@@ -43,22 +43,22 @@ public class SampleDataGenerator {
         // Sample Goats
         animals.add(new Animal(
                 "3",
-                "Brown Goat",
-                "Goat",
+                "ماعز جبلي",
+                "ماعز",
                 45000,
                 40.0,
-                "Brown goat in perfect condition, ideal for the festival.",
+                "ماعز جبلي صحي ومربى في ظروف طبيعية مناسبة للموسم.",
                 "",
                 7
         ));
 
         animals.add(new Animal(
                 "4",
-                "White Goat",
-                "Goat",
+                "ماعز أبيض",
+                "ماعز",
                 48000,
                 42.0,
-                "White goat with white and brown markings, healthy and strong.",
+                "ماعز أبيض بصحة ممتازة وتغذية طبيعية ووزن مناسب للحجز.",
                 "",
                 4
         ));
@@ -66,22 +66,22 @@ public class SampleDataGenerator {
         // Sample Cows
         animals.add(new Animal(
                 "5",
-                "Red Cow",
-                "Cow",
+                "عجل محلي",
+                "عجل",
                 150000,
                 550.0,
-                "Large red cow, healthy and well-nourished. Sufficient meat for 7-8 people.",
+                "عجل محلي كبير بصحة جيدة وتغذية ممتازة، مناسب لعدة عائلات.",
                 "",
                 2
         ));
 
         animals.add(new Animal(
                 "6",
-                "Black Cow",
-                "Cow",
+                "عجل أسود",
+                "عجل",
                 160000,
                 580.0,
-                "Premium quality black cow with excellent meat quality.",
+                "عجل مميز بلون أسود وجودة لحم ممتازة ومراقبة صحية دقيقة.",
                 "",
                 2
         ));
@@ -89,11 +89,11 @@ public class SampleDataGenerator {
         // Sample Buffalo
         animals.add(new Animal(
                 "7",
-                "Water Buffalo",
-                "Buffalo",
+                "ثور ماء",
+                "ثور",
                 200000,
                 650.0,
-                "Strong water buffalo with premium meat quality. Sufficient for 10+ people.",
+                "ثور ماء قوي ولحمه ممتاز ويكفي لعدد كبير من العائلات.",
                 "",
                 1
         ));
@@ -106,7 +106,7 @@ public class SampleDataGenerator {
      * @return Array of animal type names
      */
     public static String[] getAnimalTypes() {
-        return new String[]{"Sheep", "Goat", "Cow", "Buffalo"};
+        return new String[]{"كبش", "ماعز", "عجل", "ثور"};
     }
 
     /**
@@ -116,16 +116,16 @@ public class SampleDataGenerator {
      */
     public static String getDefaultDescription(String animalType) {
         switch (animalType) {
-            case "Sheep":
-                return "Healthy sheep suitable for sacrifice during Eid ul-Adha.";
-            case "Goat":
-                return "Premium quality goat for the holy occasion.";
-            case "Cow":
-                return "Large cow providing meat for multiple families.";
-            case "Buffalo":
-                return "Strong buffalo with excellent meat quality for large gatherings.";
+            case "كبش":
+                return "كبش صحي ومناسب للأضحية والحجز المباشر.";
+            case "ماعز":
+                return "ماعز ممتاز للأضحية وفي حالة صحية جيدة.";
+            case "عجل":
+                return "عجل محلي يوفر لحمًا كافيًا لعدة عائلات.";
+            case "ثور":
+                return "ثور قوي وجيد للعائلات الكبيرة والمناسبات.";
             default:
-                return "Quality animal for Eid ul-Adha celebration.";
+                return "حيوان جيد ومناسب لموسم الأضاحي.";
         }
     }
 
@@ -136,16 +136,16 @@ public class SampleDataGenerator {
      */
     public static String getWeightRange(String animalType) {
         switch (animalType) {
-            case "Sheep":
-                return "40-50 kg";
-            case "Goat":
-                return "35-45 kg";
-            case "Cow":
-                return "500-700 kg";
-            case "Buffalo":
-                return "600-800 kg";
+            case "كبش":
+                return "40-50 كغ";
+            case "ماعز":
+                return "35-45 كغ";
+            case "عجل":
+                return "500-700 كغ";
+            case "ثور":
+                return "600-800 كغ";
             default:
-                return "Varies";
+                return "يختلف";
         }
     }
 }

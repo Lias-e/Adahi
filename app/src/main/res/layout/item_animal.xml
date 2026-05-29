@@ -4,81 +4,155 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="18dp"
     app:cardBackgroundColor="@color/adahi_surface_container_lowest"
     app:cardCornerRadius="24dp"
-    app:cardElevation="3dp">
+    app:cardElevation="0dp"
+    app:strokeColor="@color/adahi_outline_variant"
+    app:strokeWidth="1dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutDirection="rtl"
-        android:padding="16dp">
+        android:orientation="vertical"
+        android:padding="14dp">
 
-        <ImageView
-            android:id="@+id/animalImage"
-            android:layout_width="112dp"
-            android:layout_height="112dp"
-            android:background="@color/adahi_surface_container"
-            android:contentDescription="@string/animal_card_image_description"
-            android:scaleType="centerCrop"
-            android:src="@android:drawable/ic_menu_gallery"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="210dp">
 
-        <TextView
-            android:id="@+id/animalName"
-            android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/animalImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/animal_card_image_description"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/animalBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="12dp"
+                app:cardBackgroundColor="@color/adahi_primary"
+                app:cardCornerRadius="999dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:text="الأكثر طلباً"
+                    android:textColor="@color/adahi_on_primary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="كبش أولاد جلال"
-            android:textColor="@color/adahi_on_surface"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/animalImage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/animalImage" />
+            android:orientation="vertical"
+            android:paddingTop="14dp">
 
-        <TextView
-            android:id="@+id/animalType"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="16dp"
-            android:text="الصنف: كبش"
-            android:textColor="@color/adahi_on_surface_variant"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@id/animalImage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/animalName" />
+            <TextView
+                android:id="@+id/animalName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="كبش أولاد جلال"
+                android:textColor="@color/adahi_on_surface"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/animalPrice"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="16dp"
-            android:text="78,000 د.ج"
-            android:textColor="@color/adahi_primary"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/animalImage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/animalType" />
+            <TextView
+                android:id="@+id/animalType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="سلالة محلية أصيلة"
+                android:textColor="@color/adahi_on_surface_variant"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/animalDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="سلالة محلية أصيلة، مناسبة للحجز المباشر أو المعاينة."
-            android:textColor="@color/adahi_on_surface_variant"
-            android:textSize="13sp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/animalImage" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="end"
+                android:orientation="horizontal">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/animalWeightChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_background"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="8dp"
+                    android:text="55 - 60 كغ"
+                    android:textColor="@color/adahi_on_surface_variant"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/animalLocationChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/item_background"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="8dp"
+                    android:text="سوق بئر توتة"
+                    android:textColor="@color/adahi_on_surface_variant"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/animalActionButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="12dp"
+                    android:text=""
+                    app:backgroundTint="@color/adahi_primary"
+                    app:cornerRadius="14dp"
+                    app:icon="@android:drawable/ic_input_add"
+                    app:iconTint="@color/adahi_on_primary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/animalDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="فحص بيطري معتمد، تغذية طبيعية، وحجز موثق."
+                        android:textColor="@color/adahi_on_surface_variant"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/animalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="78.000 د.ج"
+                        android:textColor="@color/adahi_primary"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

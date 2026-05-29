@@ -1,8 +1,9 @@
 package com.android.adahi.activities;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.util.Log;
-import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.adahi.R;
 import com.android.adahi.adapters.AnimalAdapter;
+import com.android.adahi.activities.OrderTrackingActivity;
 import com.android.adahi.models.Animal;
 import com.android.adahi.utils.SampleDataGenerator;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -54,6 +56,7 @@ public class AnimalListActivity extends AppCompatActivity {
 
         // Initialize UI components
         initializeViews();
+        setupNavigation();
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -69,6 +72,26 @@ public class AnimalListActivity extends AppCompatActivity {
 
         animalAdapter = new AnimalAdapter(this, animal -> Log.d(TAG, "Animal selected: " + animal.getName()));
         animalRecyclerView.setAdapter(animalAdapter);
+    }
+
+    private void setupNavigation() {
+        LinearLayout homeTab = findViewById(R.id.navHomeTab);
+        LinearLayout ordersTab = findViewById(R.id.navOrdersTab);
+        LinearLayout profileTab = findViewById(R.id.navProfileTab);
+
+        if (homeTab != null) {
+            homeTab.setOnClickListener(v -> animalRecyclerView.smoothScrollToPosition(0));
+        }
+
+        if (ordersTab != null) {
+            ordersTab.setOnClickListener(v -> startActivity(new Intent(this, OrderTrackingActivity.class)));
+        }
+
+        if (profileTab != null) {
+            profileTab.setOnClickListener(v -> Toast.makeText(this, R.string.nav_profile, Toast.LENGTH_SHORT).show());
+        }
+
+        findViewById(R.id.fabAddTracking).setOnClickListener(v -> startActivity(new Intent(this, OrderTrackingActivity.class)));
     }
 
     private void loadAnimalsFromFirestore() {

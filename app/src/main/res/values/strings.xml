@@ -5,6 +5,7 @@
     <string name="animal_detail_title">تفاصيل الأضحية</string>
     <string name="order_form_title">إتمام الطلب</string>
     <string name="order_confirmation_title">تفاصيل الطلب</string>
+    <string name="order_tracking_title">تتبع الطلبات</string>
     <string name="back_button">العودة للرئيسية</string>
 
     <string name="customer_name_hint">الاسم الكامل</string>
@@ -20,6 +21,7 @@
     <string name="order_id_label">رقم الطلب: %1$s</string>
     <string name="name_label">الاسم: %1$s</string>
     <string name="email_label">البريد الإلكتروني: %1$s</string>
+    <string name="nin_label">رقم التعريف الوطني: %1$s</string>
     <string name="phone_label">الهاتف: %1$s</string>
     <string name="wilaya_label">الولاية: %1$s</string>
     <string name="comune_label">البلدية: %1$s</string>
@@ -55,6 +57,19 @@
     <string name="nav_home">الرئيسية</string>
     <string name="nav_orders">طلباتي</string>
     <string name="nav_profile">حسابي</string>
+    <string name="tracking_intro_title">تتبع طلباتك</string>
+    <string name="tracking_intro_subtitle">تابع حالة أضحيتك لحظة بلحظة لضمان وصولها في الموعد.</string>
+    <string name="tracking_add_title">إضافة طلب جديد</string>
+    <string name="tracking_order_number">رقم الطلب</string>
+    <string name="tracking_order_hint">مثال: #AD-2024-001</string>
+    <string name="tracking_add_button">إضافة للتتبع</string>
+    <string name="tracking_active_orders">طلباتي النشطة</string>
+    <string name="tracking_orders_count">%1$d طلبات</string>
+    <string name="tracking_processing">قيد المعالجة</string>
+    <string name="tracking_confirmed">مؤكد</string>
+    <string name="tracking_canceled">ملغى</string>
+    <string name="tracking_view">عرض</string>
+    <string name="tracking_delete">حذف</string>
     <string name="fab_add_tracking">إضافة طلب للتتبع</string>
     <string name="select_weight_title">اختر الوزن المفضل</string>
     <string name="buy_now_title">شراء مباشر</string>
