@@ -26,6 +26,9 @@
     <string name="error_firestore_save_failed">تعذر حفظ الطلب على Firestore</string>
     <string name="tracking_loading">جاري تحميل طلباتك...</string>
     <string name="tracking_empty_state">لا توجد طلبات بعد</string>
+    <string name="order_id_label_short">رقم الطلب</string>
+    <string name="order_id_copied">تم نسخ رقم الطلب</string>
+    <string name="error_order_copy_failed">تعذر نسخ رقم الطلب</string>
 
     <string name="order_id_label">رقم الطلب: %1$s</string>
     <string name="name_label">الاسم: %1$s</string>
@@ -49,6 +52,9 @@
     <string name="location_title">تحديد الموقع</string>
     <string name="wilaya_label_short">الولاية</string>
     <string name="sales_point_label">نقطة البيع</string>
+    <string name="sales_point_select_prompt">اختر نقطة البيع</string>
+    <string name="sales_point_select_wilaya_first">اختر الولاية أولاً</string>
+    <string name="sales_point_in_wilaya">نقطة البيع في %1$s</string>
     <string name="category_title">الصنف</string>
     <string name="category_all">الكل</string>
     <string name="category_sheep">كباش</string>

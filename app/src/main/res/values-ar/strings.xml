@@ -24,6 +24,9 @@
     <string name="error_firestore_save_failed">تعذر حفظ الطلب على Firestore</string>
     <string name="tracking_loading">جاري تحميل طلباتك...</string>
     <string name="tracking_empty_state">لا توجد طلبات بعد</string>
+    <string name="order_id_label_short">رقم الطلب</string>
+    <string name="order_id_copied">تم نسخ رقم الطلب</string>
+    <string name="error_order_copy_failed">تعذر نسخ رقم الطلب</string>
 
     <!-- Order Confirmation Activity Strings -->
     <string name="order_confirmation_title">تأكيد الطلب</string>
@@ -45,6 +48,10 @@
     <string name="animal_weight_label">الوزن: %1$.2f كغ</string>
     <string name="animal_description">الوصف</string>
     <string name="animal_quantity_label">المتوفر: %1$d</string>
+
+    <string name="sales_point_select_prompt">اختر نقطة البيع</string>
+    <string name="sales_point_select_wilaya_first">اختر الولاية أولاً</string>
+    <string name="sales_point_in_wilaya">نقطة البيع في %1$s</string>
 
     <!-- Wilayas List -->
     <string-array name="wilayas_array">

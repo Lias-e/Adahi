@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+
+actor Buyer
+
+rectangle "Adahi App" {
+  usecase "Browse Available Animals" as UC1
+  usecase "Filter Animals" as UC2
+  usecase "View Animal Details" as UC3
+  usecase "Place Order" as UC4
+  usecase "Enter Credentials" as UC5
+  usecase "Reserve Appointment" as UC6
+  usecase "View My Orders" as UC7
+  usecase "View My Reservations" as UC8
+}
+
+Buyer --> UC1
+Buyer --> UC2
+Buyer --> UC3
+Buyer --> UC4
+Buyer --> UC6
+Buyer --> UC7
+Buyer --> UC8
+
+UC4 ..> UC5 : <<include>>
+UC6 ..> UC5 : <<include>>
+UC2 ..> UC1 : <<extend>>
+UC3 ..> UC1 : <<extend>>
+
+@enduml

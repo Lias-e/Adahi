@@ -2,6 +2,8 @@ package com.android.adahi.activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +39,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     // Order data
     private Order currentOrder;
+    private String currentOrderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         totalPriceTextView = findViewById(R.id.totalPriceTextView);
         orderStatusTextView = findViewById(R.id.orderStatusTextView);
         backButton = findViewById(R.id.backButton);
+
+        orderIdTextView.setClickable(true);
+        orderIdTextView.setFocusable(true);
     }
 
     private void retrieveOrderData() {
@@ -82,8 +88,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         if (currentOrder == null) return;
 
         try {
-            String orderId = currentOrder.getOrderId() != null ? currentOrder.getOrderId() : "ORD-" + System.currentTimeMillis();
-            orderIdTextView.setText(getString(R.string.order_id_label, orderId));
+            currentOrderId = currentOrder.getOrderId() != null ? currentOrder.getOrderId() : "ORD-" + System.currentTimeMillis();
+            orderIdTextView.setText(getString(R.string.order_id_label, currentOrderId));
+            orderIdTextView.setOnClickListener(v -> copyOrderIdToClipboard());
 
             customerNameTextView.setText(getString(R.string.name_label, currentOrder.getCustomerName()));
             customerEmailTextView.setText(getString(R.string.nin_label, currentOrder.getCustomerEmail()));
@@ -114,6 +121,22 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(TAG, "Error displaying order confirmation", e);
         }
+    }
+
+    private void copyOrderIdToClipboard() {
+        if (currentOrderId == null || currentOrderId.trim().isEmpty()) {
+            Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        if (clipboardManager == null) {
+            Toast.makeText(this, R.string.error_order_copy_failed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(getString(R.string.order_id_label_short), currentOrderId));
+        Toast.makeText(this, R.string.order_id_copied, Toast.LENGTH_SHORT).show();
     }
 
     private void setupButtonListeners() {
