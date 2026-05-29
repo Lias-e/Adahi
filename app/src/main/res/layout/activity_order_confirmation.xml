@@ -87,6 +87,7 @@
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/paymentSectionCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -102,9 +103,10 @@
                     android:padding="20dp">
 
                     <TextView
+                        android:id="@+id/paymentSectionTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="مبلغ الدفع الحالي"
+                        android:text="@string/reservation_payment_title"
                         android:textColor="@color/adahi_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -120,30 +122,45 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/paymentSectionNoteTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="يرجى دفع الرسوم المناسبة لتأكيد عملية الشراء أو الحجز."
+                        android:text="@string/reservation_payment_note"
                         android:textColor="@color/adahi_on_surface_variant"
                         android:textSize="14sp" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/openPaymentLinkButton"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:layout_marginTop="16dp"
-                        android:text="الدفع عبر البطاقة الذهبية / CIB"
+                        android:text="@string/reservation_payment_button"
                         android:textColor="@color/adahi_on_primary"
                         app:backgroundTint="@color/adahi_primary"
                         app:cornerRadius="16dp"
-                        app:icon="@android:drawable/ic_lock_lock"
+                        app:icon="@android:drawable/ic_menu_view"
                         app:iconGravity="textStart"
                         app:iconTint="@color/adahi_on_primary" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/copyPaymentLinkButton"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:layout_marginTop="10dp"
-                        android:text="الدفع عبر BaridiMob"
+                        android:text="@string/reservation_payment_copy_button"
+                        android:textColor="@color/adahi_primary"
+                        app:backgroundTint="@color/adahi_surface_container_low"
+                        app:cornerRadius="16dp"
+                        app:strokeColor="@color/adahi_primary"
+                        app:strokeWidth="1dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/verifyPaymentButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/reservation_payment_verify_button"
                         android:textColor="@color/adahi_primary"
                         app:backgroundTint="@color/adahi_surface_container_low"
                         app:cornerRadius="16dp"

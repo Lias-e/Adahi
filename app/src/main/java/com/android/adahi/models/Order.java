@@ -21,6 +21,9 @@ public class Order implements Serializable {
     private double feeAmount;
     private long orderDate;
     private String status; // e.g., Pending, Confirmed, Delivered
+    private String paymentStatus;
+    private String checkoutId;
+    private String checkoutUrl;
 
     /**
      * Default constructor required for Firebase
@@ -29,6 +32,7 @@ public class Order implements Serializable {
         this.items = new ArrayList<>();
         this.orderDate = System.currentTimeMillis();
         this.status = "Pending";
+        this.paymentStatus = "pending";
     }
 
     /**
@@ -136,6 +140,30 @@ public class Order implements Serializable {
         this.status = status;
     }
 
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public String getCheckoutId() {
+        return checkoutId;
+    }
+
+    public void setCheckoutId(String checkoutId) {
+        this.checkoutId = checkoutId;
+    }
+
+    public String getCheckoutUrl() {
+        return checkoutUrl;
+    }
+
+    public void setCheckoutUrl(String checkoutUrl) {
+        this.checkoutUrl = checkoutUrl;
+    }
+
     /**
      * Calculate total price based on ordered items
      */
@@ -150,6 +178,7 @@ public class Order implements Serializable {
                 ", customerName='" + customerName + '\'' +
                 ", totalPrice=" + totalPrice +
                 ", status='" + status + '\'' +
+                ", paymentStatus='" + paymentStatus + '\'' +
                 '}';
     }
 

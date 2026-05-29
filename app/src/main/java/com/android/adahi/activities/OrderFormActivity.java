@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.android.adahi.R;
 import com.android.adahi.models.Order;
+import com.android.adahi.utils.ChargilyCheckoutClient;
 import com.android.adahi.utils.AnimalUiUtils;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -49,6 +50,7 @@ public class OrderFormActivity extends AppCompatActivity {
     private double animalPrice;
     private String orderType;
     private double feeAmount;
+    private String collectionName;
 
     private FirebaseFirestore db;
 
@@ -141,6 +143,8 @@ public class OrderFormActivity extends AppCompatActivity {
     private void handleConfirmOrder() {
         if (!validateInputs()) return;
 
+        confirmButton.setEnabled(false);
+
         try {
             String customerName = customerNameInput.getText().toString().trim();
             String customerEmail = customerEmailInput.getText().toString().trim();
@@ -151,10 +155,12 @@ public class OrderFormActivity extends AppCompatActivity {
             Order order = new Order(customerName, customerEmail, customerPhone, wilaya, orderType);
             order.setFeeAmount(feeAmount);
             order.setTotalPrice(feeAmount);
+            order.setStatus("Pending Payment");
+            order.setPaymentStatus("creating_checkout");
             order.addItem(new Order.OrderItem(animalId, animalName, quantity, animalPrice));
             order.calculateTotalPrice();
 
-            String collectionName = "reserve".equals(orderType) ? "reserve_orders" : "buy_orders";
+            collectionName = "reserve".equals(orderType) ? "reserve_orders" : "buy_orders";
             String orderId = db.collection(collectionName).document().getId();
             order.setOrderId(orderId);
 
@@ -163,14 +169,16 @@ public class OrderFormActivity extends AppCompatActivity {
                     .set(order)
                     .addOnSuccessListener(unused -> {
                         Log.d(TAG, "Order saved to Firestore: " + orderId);
-                        navigateToConfirmation(order);
+                        createChargilyCheckout(order, collectionName);
                     })
                     .addOnFailureListener(e -> {
                         Log.e(TAG, "Error saving order to Firestore", e);
+                        confirmButton.setEnabled(true);
                         Toast.makeText(this, R.string.error_firestore_save_failed, Toast.LENGTH_SHORT).show();
                     });
 
         } catch (Exception e) {
+            confirmButton.setEnabled(true);
             Log.e(TAG, "Error confirming order", e);
         }
     }
@@ -180,6 +188,49 @@ public class OrderFormActivity extends AppCompatActivity {
         intent.putExtra("order", order);
         startActivity(intent);
         finish();
+    }
+
+    private void createChargilyCheckout(Order order, String collectionName) {
+        ChargilyCheckoutClient.createCheckout(order, collectionName,
+                new ChargilyCheckoutClient.Callback() {
+                    @Override
+                    public void onSuccess(ChargilyCheckoutClient.ChargilyCheckoutResponse response) {
+                        runOnUiThread(() -> {
+                            order.setCheckoutId(response.getCheckoutId());
+                            order.setCheckoutUrl(response.getCheckoutUrl());
+                            order.setPaymentStatus("checkout_created");
+
+                            db.collection(collectionName)
+                                    .document(order.getOrderId())
+                                    .set(order)
+                                    .addOnSuccessListener(unused -> {
+                                        Log.d(TAG, "Chargily checkout created for order: " + order.getOrderId());
+                                        navigateToConfirmation(order);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e(TAG, "Error updating order with checkout data", e);
+                                        Toast.makeText(OrderFormActivity.this, R.string.error_firestore_save_failed, Toast.LENGTH_SHORT).show();
+                                    });
+                        });
+                    }
+
+                    @Override
+                    public void onError(String message, Exception exception) {
+                        runOnUiThread(() -> {
+                            Log.e(TAG, "Failed to create Chargily checkout: " + message, exception);
+                            order.setPaymentStatus("checkout_failed");
+                            order.setStatus("Payment Setup Failed");
+                            db.collection(collectionName)
+                                    .document(order.getOrderId())
+                                    .set(order)
+                                    .addOnCompleteListener(task -> {
+                                        confirmButton.setEnabled(true);
+                                        String errorMessage = message != null ? message : getString(R.string.error_firestore_save_failed);
+                                        Toast.makeText(OrderFormActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                                    });
+                        });
+                    }
+                });
     }
 
     private boolean validateInputs() {

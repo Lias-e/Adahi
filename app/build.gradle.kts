@@ -8,11 +8,21 @@ android {
     compileSdk = 36
 
     defaultConfig {
+        val chargilySecretKey = (project.findProperty("CHARGILY_SECRET_KEY") as String?)
+            ?: System.getenv("CHARGILY_SECRET_KEY")
+            ?: ""
+        val chargilyApiBaseUrl = (project.findProperty("CHARGILY_API_BASE_URL") as String?)
+            ?: System.getenv("CHARGILY_API_BASE_URL")
+            ?: "https://pay.chargily.net/test/api/v2"
+
         applicationId = "adhahi.com"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "CHARGILY_SECRET_KEY", "\"${chargilySecretKey.replace("\"", "\\\"")}\"")
+        buildConfigField("String", "CHARGILY_API_BASE_URL", "\"${chargilyApiBaseUrl.replace("\"", "\\\"")}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,6 +43,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
