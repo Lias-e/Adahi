@@ -130,12 +130,14 @@ public class OrderFormActivity extends AppCompatActivity {
             LocalStorageManager storageManager = new LocalStorageManager(this);
             String orderId = storageManager.saveOrder(order);
             order.setOrderId(orderId);
+            storageManager.updateOrder(order);
 
             // 2. Save to Firestore
             db.collection("orders")
-                .add(order)
-                .addOnSuccessListener(documentReference -> {
-                    Log.d(TAG, "Order saved to Firestore: " + documentReference.getId());
+                .document(orderId)
+                .set(order)
+                .addOnSuccessListener(unused -> {
+                    Log.d(TAG, "Order saved to Firestore: " + orderId);
                     navigateToConfirmation(order);
                 })
                 .addOnFailureListener(e -> {

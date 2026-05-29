@@ -1,8 +1,8 @@
-# Firebase Integration Guide for Adahi Application
+# Firebase Integration Guide for Adahi (Firestore)
 
 ## Overview
 
-This guide provides step-by-step instructions to integrate Firebase with the Adahi Ordering Application for cloud data synchronization and authentication.
+This guide shows how to connect the Adahi app to Firebase Cloud Firestore and how to seed the `animals` collection for development.
 
 ---
 
@@ -22,196 +22,147 @@ This guide provides step-by-step instructions to integrate Firebase with the Ada
 2. Enter package name: `com.android.adahi`
 3. Enter app name: "Adahi"
 4. Download `google-services.json`
-5. Place it in: `app/` directory (at same level as build.gradle.kts)
+5. Place it in the `app/` directory (same level as `build.gradle.kts`)
 
 ---
 
-## Step 3: Update Application Code
+## Step 3: Update Application Code (Firestore)
 
-### In OrderFormActivity.java - Add Firebase Upload:
+### In `OrderFormActivity.java` — Save orders to Firestore
 
 ```java
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-// Inside handleConfirmOrder() method, after saving to local storage:
-
-private void syncOrderToFirebase(Order order) {
-    try {
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("orders")
-                .child(order.getOrderId());
-
-        reference.setValue(order).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Log.d(TAG, "Order synced to Firebase: " + order.getOrderId());
-            } else {
-                Log.e(TAG, "Error syncing to Firebase: " + task.getException());
-            }
-        });
-    } catch (Exception e) {
-        Log.e(TAG, "Error uploading order: " + e.getMessage());
-    }
+private void saveOrderToFirestore(Order order) {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    db.collection("orders")
+      .document(order.getOrderId())
+      .set(order)
+      .addOnSuccessListener(aVoid -> Log.d(TAG, "Order saved: " + order.getOrderId()))
+      .addOnFailureListener(e -> Log.e(TAG, "Error saving order: ", e));
 }
 ```
 
-### In AnimalListActivity.java - Fetch from Firebase:
+### In `AnimalListActivity.java` — Read animals from Firestore
 
 ```java
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
-// Replace loadAnimals() method:
+private void loadAnimalsFromFirestore() {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    db.collection("animals")
+      .addSnapshotListener((QuerySnapshot snapshots, FirebaseFirestoreException e) -> {
+          if (e != null) {
+              Log.e(TAG, "Listen failed.", e);
+              showFallbackAnimals();
+              return;
+          }
 
-private void loadAnimals() {
-    try {
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("animals");
+          if (snapshots == null || snapshots.isEmpty()) {
+              showFallbackAnimals();
+              return;
+          }
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                List<Animal> animals = new ArrayList<>();
-                for (DataSnapshot animalSnapshot : snapshot.getChildren()) {
-                    Animal animal = animalSnapshot.getValue(Animal.class);
-                    if (animal != null) {
-                        animals.add(animal);
-                    }
-                }
-                animalAdapter.setAnimals(animals);
-                Log.d(TAG, "Loaded " + animals.size() + " animals from Firebase");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.e(TAG, "Error loading animals: " + error.getMessage());
-                Toast.makeText(AnimalListActivity.this,
-                    "Error loading animals", Toast.LENGTH_SHORT).show();
-                // Fallback to local data
-                loadLocalAnimals();
-            }
-        });
-    } catch (Exception e) {
-        Log.e(TAG, "Error: " + e.getMessage());
-        loadLocalAnimals();
-    }
-}
-
-private void loadLocalAnimals() {
-    List<Animal> animals = SampleDataGenerator.generateSampleAnimals();
-    animalAdapter.setAnimals(animals);
+          List<Animal> animals = snapshots.toObjects(Animal.class);
+          animalAdapter.setAnimals(animals);
+      });
 }
 ```
+
+Use `showFallbackAnimals()` (the existing `SampleDataGenerator`) if Firestore is empty or unavailable.
 
 ---
 
-## Step 4: Configure Firebase Database Rules
+## Step 4: Firestore Security Rules
 
-In Firebase Console:
+Open the Firebase Console -> Firestore -> Rules and use a minimal starter:
 
-1. Go to "Realtime Database"
-2. Click "Rules" tab
-3. Replace with:
+```
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /animals/{animalId} {
+      allow read: if true;
+      allow write: if false;
+    }
 
-```json
-{
-  "rules": {
-    "animals": {
-      ".read": true,
-      ".write": false
-    },
-    "orders": {
-      ".read": true,
-      ".write": true,
-      "$uid": {
-        ".validate": "newData.hasChildren(['orderId', 'customerName', 'totalPrice'])"
-      }
+    match /orders/{orderId} {
+      allow read: if true;
+      allow write: if request.auth != null;
     }
   }
 }
 ```
 
+Adjust rules before production — require authentication and proper validation for `orders` in real deployments.
+
 ---
 
-## Step 5: Add Sample Animals to Firebase (One-time Setup)
+## Step 5: Seed sample animals (recommended)
 
-Use Firebase Console or run this code once:
+This project includes a small seeder module (`seeder`) that uses the Firebase Admin SDK to write to the `animals` collection. Instructions:
 
-```java
-// Add this to AnimalListActivity onCreate (run once, then remove)
-private void uploadSampleAnimals() {
-    try {
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("animals");
+1. Obtain a Service Account JSON from the Firebase Console (Project Settings -> Service Accounts -> Generate new private key).
+2. On your machine set the env var `FIREBASE_SERVICE_ACCOUNT` to the absolute path of that JSON file.
+   - Optional: set `FIREBASE_PROJECT_ID` to `adhahi-73fad` if needed.
 
-        List<Animal> animals = SampleDataGenerator.generateSampleAnimals();
-        for (Animal animal : animals) {
-            reference.child(animal.getId()).setValue(animal)
-                .addOnSuccessListener(aVoid ->
-                    Log.d(TAG, "Animal uploaded: " + animal.getName()))
-                .addOnFailureListener(e ->
-                    Log.e(TAG, "Error uploading: " + e.getMessage()));
-        }
-    } catch (Exception e) {
-        Log.e(TAG, "Error: " + e.getMessage());
-    }
-}
+On macOS / Linux:
+
+```bash
+export FIREBASE_SERVICE_ACCOUNT=/path/to/serviceAccountKey.json
+export FIREBASE_PROJECT_ID=adhahi-73fad
+./gradlew :seeder:run
 ```
 
+On Windows (PowerShell):
+
+```powershell
+$env:FIREBASE_SERVICE_ACCOUNT = 'C:\path\to\serviceAccountKey.json'
+$env:FIREBASE_PROJECT_ID = 'adhahi-73fad'
+./gradlew :seeder:run
+```
+
+The seeder will write sample documents to the `animals` collection. A JSON seed file is provided at `seeder/animals_seed.json` for inspection or other import workflows.
+
+If you prefer a manual upload, open the Firestore Console and create documents in the `animals` collection using the sample objects in `seeder/animals_seed.json`.
+
 ---
 
-## Step 6: Optional - Add Authentication
+## Step 6: Optional — Authentication
 
-### In MainActivity.java:
+Initialize Firebase Auth in your app only if you require authenticated writes for orders:
 
 ```java
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.AuthResult;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 private FirebaseAuth mAuth;
 
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    EdgeToEdge.enable(this);
-    setContentView(R.layout.activity_main);
-
-    // Initialize Firebase Auth
     mAuth = FirebaseAuth.getInstance();
-
-    // Check if user is signed in
-    if (mAuth.getCurrentUser() != null) {
-        startActivity(new Intent(this, AnimalListActivity.class));
-    } else {
-        // Show login screen (implement LoginActivity)
-    }
-    finish();
 }
 ```
 
 ---
 
-## Step 7: Test Firebase Connection
+## Step 7: Test Firestore Connection
 
 1. Run the application
-2. Create an order
-3. In Firebase Console, go to "Realtime Database"
-4. Verify order appears in `orders` node
-5. Check structure matches Order model
+2. Open the app and view the animal list
+3. In Firebase Console, go to Firestore -> Data and inspect the `animals` collection
+4. Create an order in-app and verify a document appears in the `orders` collection
 
 ---
 
-## Firebase Database Structure
+## Firestore Data Structure (example)
+
+Collections and documents in Firestore (each document under `animals` is an animal object):
 
 ```
-Firebase Realtime Database
-├── animals/
-│   ├── 1/
+Firestore (collections)
+├── animals (collection)
+│   ├── 1 (document)
 │   │   ├── id: "1"
 │   │   ├── name: "White Sheep"
 │   │   ├── type: "Sheep"
@@ -220,135 +171,45 @@ Firebase Realtime Database
 │   │   ├── description: "..."
 │   │   ├── quantity: 5
 │   │   └── imageUrl: ""
-│   ├── 2/
+│   ├── 2 (document)
 │   └── ...
-│
-└── orders/
-    ├── ORD-1234567890/
+└── orders (collection)
+    ├── ORD-1234567890 (document)
     │   ├── orderId: "ORD-1234567890"
     │   ├── customerName: "John Doe"
-    │   ├── customerEmail: "john@example.com"
-    │   ├── customerPhone: "+92 300 1234567"
-    │   ├── customerAddress: "123 Main St"
     │   ├── totalPrice: 100000
-    │   ├── orderDate: 1234567890000
-    │   ├── status: "Pending"
-    │   ├── specialInstructions: "..."
-    │   └── items/
-    │       ├── 0/
-    │       │   ├── animalId: "1"
-    │       │   ├── animalName: "White Sheep"
-    │       │   ├── quantity: 2
-    │       │   ├── pricePerUnit: 50000
-    │       │   └── subtotal: 100000
-    │       └── ...
-    └── ORD-9876543210/
-        └── ...
+    │   └── items: [...]
+    └── ...
 ```
 
 ---
 
 ## Security Considerations
 
-1. **Data Validation**: Always validate data on client and server
-2. **Encryption**: Enable Firebase security rules
-3. **User Privacy**: Don't store unnecessary personal data
-4. **Rate Limiting**: Implement rate limits in Firebase functions
-5. **Backups**: Enable automated backups in Firebase Console
+- Validate inputs on client and server
+- Restrict writes with Firestore Rules and require authentication for `orders`
+- Do not commit service account keys to source control
 
 ---
 
 ## Troubleshooting
 
-### Issue: google-services.json not found
-
-**Solution**: Ensure file is in `app/` directory, not `app/src/main/`
-
-### Issue: Firebase connection timeout
-
-**Solution**:
-
-- Check internet connection
-- Verify Firebase project is active
-- Check Firebase Console for errors
-
-### Issue: Data not syncing
-
-**Solution**:
-
-- Verify database rules allow write access
-- Check order object structure matches database
-- Enable Firebase Analytics to debug
-
-### Issue: Authentication errors
-
-**Solution**:
-
-- Verify package name matches Firebase Console
-- Download fresh google-services.json
-- Check Firebase Auth is enabled in Console
-
----
-
-## Performance Optimization
-
-```java
-// Use offline persistence
-FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
-// Limit query results
-reference.limitToFirst(20).addValueEventListener(...);
-
-// Use transactions for critical operations
-reference.runTransaction(new Transaction.Handler() {
-    @Override
-    public Transaction.Result doTransaction(MutableData currentData) {
-        // Atomic operation
-        return Transaction.success(currentData);
-    }
-});
-```
-
----
-
-## Monitoring & Analytics
-
-In Firebase Console:
-
-1. Go to "Analytics"
-2. View user engagement metrics
-3. Track order conversion rates
-4. Monitor app performance
-5. View crash reports
-
----
-
-## Resources
-
-- [Firebase Android Setup](https://firebase.google.com/docs/android/setup)
-- [Firebase Realtime Database](https://firebase.google.com/docs/database)
-- [Firebase Authentication](https://firebase.google.com/docs/auth)
-- [Firebase Security Rules](https://firebase.google.com/docs/database/security)
+- `google-services.json` missing: ensure it's in `app/` (not `app/src/main/`)
+- Firestore empty: run the `seeder` module locally with a service account, or import `seeder/animals_seed.json` via the Console
+- Permission errors: check Firestore Rules and service account permissions
 
 ---
 
 ## Deployment Checklist
 
 - [ ] Firebase project created
-- [ ] google-services.json added to project
-- [ ] Firebase dependencies updated
-- [ ] Authentication implemented (optional)
-- [ ] Database rules configured
-- [ ] Sample data uploaded
+- [ ] `google-services.json` added to project
+- [ ] Firestore dependencies updated
+- [ ] Authentication implemented (if required)
+- [ ] Firestore rules configured
+- [ ] Sample data uploaded to `animals`
 - [ ] Order sync implemented
-- [ ] Animal list fetches from Firebase
-- [ ] Error handling for offline mode
-- [ ] Security rules tested
-- [ ] Performance optimized
-- [ ] Analytics enabled
 
 ---
 
-**Status**: Ready for Firebase Integration
-
-Follow these steps to seamlessly connect your Adahi application to Firebase for production-ready cloud synchronization.
+**Status**: Firestore integration guide updated. Follow the seeder instructions to populate `animals` for development.

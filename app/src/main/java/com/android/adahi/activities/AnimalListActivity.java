@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,20 +17,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.adahi.R;
 import com.android.adahi.adapters.AnimalAdapter;
 import com.android.adahi.models.Animal;
+import com.android.adahi.utils.SampleDataGenerator;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * AnimalListActivity displays a list of available Adahi animals.
- * Uses a predefined local list of animals.
+ * Loads animals from Firebase Firestore.
  */
 public class AnimalListActivity extends AppCompatActivity {
 
     private static final String TAG = "AnimalListActivity";
+    private static final String ANIMALS_COLLECTION = "animals";
     private RecyclerView animalRecyclerView;
     private AnimalAdapter animalAdapter;
     private ProgressBar progressBar;
+    private FirebaseFirestore firestore;
+    private ListenerRegistration animalsListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +55,10 @@ public class AnimalListActivity extends AppCompatActivity {
         // Initialize UI components
         initializeViews();
 
-        // Load predefined animals
-        loadPredefinedAnimals();
+        firestore = FirebaseFirestore.getInstance();
+
+        // Load animals from Firestore
+        loadAnimalsFromFirestore();
     }
 
     private void initializeViews() {
@@ -61,19 +71,62 @@ public class AnimalListActivity extends AppCompatActivity {
         animalRecyclerView.setAdapter(animalAdapter);
     }
 
-    private void loadPredefinedAnimals() {
+    private void loadAnimalsFromFirestore() {
         if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
 
-        List<Animal> animals = new ArrayList<>();
+        try {
+            if (animalsListener != null) {
+                animalsListener.remove();
+            }
 
-        animals.add(new Animal("1", "كبش أولاد جلال", "كباش", 78000.0, 58.0, "سلالة محلية أصيلة، فحص بيطري معتمد، ومناسبة للحجز المباشر.", "", 12, "أولاد جلال", "18 شهر", "ذكر", "مفحوص بيطرياً", "سوق بئر توتة"));
-        animals.add(new Animal("2", "عجل محلي", "أبقار", 245000.0, 230.0, "عجل بتغذية طبيعية، متوفر في نقطة بيع موثقة.", "", 4, "محلي", "24 شهر", "ذكر", "مفحوص بيطرياً", "نقطة بيع الحميز"));
-        animals.add(new Animal("3", "جدي السلالة الحمراء", "ماعز", 42000.0, 28.0, "مناسب للمعاينة والحجز بعربون، وزن متوسط.", "", 9, "السلالة الحمراء", "14 شهر", "أنثى", "سليم صحياً", "مزرعة الدولة - القبة"));
-        animals.add(new Animal("4", "جمل صحراوي", "إبل", 340000.0, 410.0, "حيوان قوي ومختار وفق المعايير الصحية.", "", 2, "صحراوي", "30 شهر", "ذكر", "فحص بيطري معتمد", "سوق بئر توتة"));
-        animals.add(new Animal("5", "كبش وهراني", "كباش", 65000.0, 52.0, "سلالة محلية مناسبة للعائلات، متوفر بعدة نقاط بيع.", "", 7, "وهراني", "20 شهر", "ذكر", "سليم صحياً", "نقطة بيع الحميز"));
+            animalsListener = firestore.collection(ANIMALS_COLLECTION)
+                    .addSnapshotListener((snapshot, error) -> {
+                        if (error != null) {
+                            Log.e(TAG, "Failed to load animals from Firestore", error);
+                            showFallbackAnimals("Failed to load animals from Firestore.");
+                            return;
+                        }
 
-        animalAdapter.setAnimals(animals);
-        
+                        List<Animal> animals = new ArrayList<>();
+                        if (snapshot != null) {
+                            for (DocumentSnapshot animalSnapshot : snapshot.getDocuments()) {
+                                Animal animal = animalSnapshot.toObject(Animal.class);
+                                if (animal != null) {
+                                    if (animal.getId() == null || animal.getId().trim().isEmpty()) {
+                                        animal.setId(animalSnapshot.getId());
+                                    }
+                                    animals.add(animal);
+                                }
+                            }
+                        }
+
+                        if (animals.isEmpty()) {
+                            Log.w(TAG, "No animals found in Firestore, using sample data.");
+                            showFallbackAnimals("Firestore is empty, showing sample animals.");
+                            return;
+                        }
+
+                        animalAdapter.setAnimals(animals);
+                        if (progressBar != null) progressBar.setVisibility(View.GONE);
+                    });
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected error loading animals from Firestore", e);
+            showFallbackAnimals("Firestore is unavailable, showing sample animals.");
+        }
+    }
+
+    private void showFallbackAnimals(String message) {
+        animalAdapter.setAnimals(SampleDataGenerator.generateSampleAnimals());
         if (progressBar != null) progressBar.setVisibility(View.GONE);
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (animalsListener != null) {
+            animalsListener.remove();
+            animalsListener = null;
+        }
     }
 }

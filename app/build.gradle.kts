@@ -51,17 +51,8 @@ dependencies {
     // Import the Firebase BoM (Bill of Materials) to manage Firebase SDK versions
     implementation(platform("com.google.firebase:firebase-bom:34.12.0"))
     
-    // Firebase Analytics
-    implementation("com.google.firebase:firebase-analytics")
-    
     // Cloud Firestore
     implementation("com.google.firebase:firebase-firestore")
-    
-    // Firebase Realtime Database
-    implementation("com.google.firebase:firebase-database")
-    
-    // Firebase Authentication
-    implementation("com.google.firebase:firebase-auth")
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

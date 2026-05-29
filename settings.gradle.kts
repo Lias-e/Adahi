@@ -24,4 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Adahi"
 include(":app")
+include(":seeder")
  

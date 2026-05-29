@@ -24,9 +24,7 @@
 ### Data Persistence - Firebase
 
 - [x] Firebase dependencies added:
-  - firebase-database (20.2.2)
-  - firebase-core (21.1.1)
-  - firebase-auth (22.1.2)
+  - firebase-firestore
 - [x] Firebase plugin configured in build.gradle.kts
 - [x] LocalStorageManager for immediate persistence
 - [x] Ready for Firebase integration (see FIREBASE_INTEGRATION_GUIDE.md)
@@ -253,9 +251,7 @@
 
 ### Firebase
 
-- [x] firebase-database (cloud database)
-- [x] firebase-core (Firebase foundation)
-- [x] firebase-auth (authentication)
+- [x] firebase-firestore (cloud database)
 
 ### Build Configuration
 

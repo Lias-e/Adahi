@@ -26,7 +26,7 @@ Successfully created a fully functional Android application for ordering Adahi (
 
 ### 3. **Data Persistence with Firebase** ✓
 
-- Firebase Realtime Database dependency added
+- Firebase Firestore dependency added
 - Firebase Auth dependency added
 - LocalStorageManager implements immediate local storage
 - Ready for Firebase integration
@@ -158,9 +158,7 @@ app/src/main/res/
 ```gradle
 androidx.recyclerview:recyclerview:1.3.2
 com.google.code.gson:gson:2.10.1
-com.google.firebase:firebase-database:20.2.2
-com.google.firebase:firebase-core:21.1.1
-com.google.firebase:firebase-auth:22.1.2
+com.google.firebase:firebase-firestore
 ```
 
 ### Key Technologies

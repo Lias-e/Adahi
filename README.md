@@ -246,13 +246,13 @@ android:theme="@style/Theme.Adahi"
 - **Persistence**: Survives app restart
 - **File**: `/data/data/com.android.adahi/shared_prefs/AdahiAppPrefs.xml`
 
-### Firebase Integration (When Ready)
+### Firebase Integration (Active)
 
-- **Storage**: Cloud (Firebase Realtime Database)
+- **Storage**: Cloud (Firebase Firestore)
 - **Format**: JSON
 - **Access**: Firebase SDK
-- **Real-time**: Live updates across devices
-- **Backup**: Automatic Firebase backups
+- **Real-time**: Live updates across devices via snapshot listeners
+- **Backup**: Managed by Firestore's cloud storage and replication
 
 ---
 
