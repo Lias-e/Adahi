@@ -22,6 +22,7 @@ public final class ChargilyCheckoutClient {
 
     private static final String TAG = "ChargilyCheckoutClient";
     private static final String CHECKOUTS_PATH = "/checkouts";
+    private static final String APP_RETURN_URL = "adahi://payment-return";
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 
     private ChargilyCheckoutClient() {
@@ -85,6 +86,8 @@ public final class ChargilyCheckoutClient {
                 requestBody.put("currency", "dzd");
                 requestBody.put("locale", "ar");
                 requestBody.put("description", order.getOrderType() + " order for Adahi");
+                requestBody.put("success_url", APP_RETURN_URL + "?result=success&orderId=" + order.getOrderId() + "&collectionName=" + collectionName);
+                requestBody.put("failure_url", APP_RETURN_URL + "?result=failure&orderId=" + order.getOrderId() + "&collectionName=" + collectionName);
                 requestBody.put("metadata", metadata);
 
                 URL url = new URL(joinUrl(BuildConfig.CHARGILY_API_BASE_URL, CHECKOUTS_PATH));

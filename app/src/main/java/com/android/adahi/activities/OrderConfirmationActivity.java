@@ -57,6 +57,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private String orderCollectionName;
     private FirebaseFirestore firestore;
     private ListenerRegistration orderListener;
+    private String pendingDeepLinkResult;
+    private boolean deepLinkHandled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,15 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         initializeViews();
         retrieveOrderData();
         displayOrderConfirmation();
+        handlePaymentReturnIntent(getIntent());
         setupButtonListeners();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handlePaymentReturnIntent(intent);
     }
 
     @Override
@@ -109,6 +119,14 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private void retrieveOrderData() {
         currentOrder = (Order) getIntent().getSerializableExtra("order");
         if (currentOrder == null) {
+            Uri data = getIntent() != null ? getIntent().getData() : null;
+            if (isPaymentReturnDeepLink(data)) {
+                currentOrderId = data.getQueryParameter("orderId");
+                orderCollectionName = data.getQueryParameter("collectionName");
+                fetchOrderFromDeepLink();
+                return;
+            }
+
             Log.e(TAG, "No order data received");
             Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
             finish();
@@ -151,9 +169,84 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             orderCollectionName = "reserve".equals(currentOrder.getOrderType()) ? "reserve_orders" : "buy_orders";
             configurePaymentSection();
             startOrderListener();
+            maybeHandlePendingDeepLink();
 
         } catch (Exception e) {
             Log.e(TAG, "Error displaying order confirmation", e);
+        }
+    }
+
+    private void fetchOrderFromDeepLink() {
+        if (firestore == null || currentOrderId == null || currentOrderId.trim().isEmpty() || orderCollectionName == null || orderCollectionName.trim().isEmpty()) {
+            Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        firestore.collection(orderCollectionName)
+                .document(currentOrderId)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    Order order = snapshot.toObject(Order.class);
+                    if (order == null) {
+                        Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
+
+                    currentOrder = order;
+                    if (currentOrder.getOrderId() == null || currentOrder.getOrderId().trim().isEmpty()) {
+                        currentOrder.setOrderId(currentOrderId);
+                    }
+                    displayOrderConfirmation();
+                })
+                .addOnFailureListener(error -> {
+                    Log.e(TAG, "Failed to load order from deep link", error);
+                    Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
+                    finish();
+                });
+    }
+
+    private boolean isPaymentReturnDeepLink(Uri uri) {
+        return uri != null
+                && "adahi".equals(uri.getScheme())
+                && "payment-return".equals(uri.getHost());
+    }
+
+    private void handlePaymentReturnIntent(Intent intent) {
+        if (intent == null) {
+            return;
+        }
+
+        Uri uri = intent.getData();
+        if (!isPaymentReturnDeepLink(uri)) {
+            return;
+        }
+
+        pendingDeepLinkResult = uri.getQueryParameter("result");
+        deepLinkHandled = false;
+        maybeHandlePendingDeepLink();
+    }
+
+    private void maybeHandlePendingDeepLink() {
+        if (deepLinkHandled || pendingDeepLinkResult == null || pendingDeepLinkResult.trim().isEmpty()) {
+            return;
+        }
+
+        if ("success".equalsIgnoreCase(pendingDeepLinkResult)) {
+            if (currentOrder == null || currentOrder.getCheckoutId() == null || currentOrder.getCheckoutId().trim().isEmpty()) {
+                return;
+            }
+
+            deepLinkHandled = true;
+            Toast.makeText(this, R.string.payment_return_verifying, Toast.LENGTH_SHORT).show();
+            verifyPaymentStatus();
+            return;
+        }
+
+        if ("failure".equalsIgnoreCase(pendingDeepLinkResult)) {
+            deepLinkHandled = true;
+            Toast.makeText(this, R.string.payment_return_failed, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -274,7 +367,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                     orderStatusTextView.setText(getString(R.string.status_label, currentOrder.getStatus()));
                     configurePaymentSection();
                     int messageRes = "paid".equals(nextPaymentStatus)
-                            ? R.string.reservation_payment_verify_paid
+                            ? R.string.payment_return_success
                             : R.string.reservation_payment_verify_pending;
                     Toast.makeText(OrderConfirmationActivity.this, messageRes, Toast.LENGTH_SHORT).show();
                 })

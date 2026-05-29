@@ -34,6 +34,9 @@
     <string name="reservation_payment_verify_paid">تم تأكيد الدفع بنجاح</string>
     <string name="reservation_payment_verify_pending">الدفع لم يكتمل بعد</string>
     <string name="reservation_payment_not_ready">لا يوجد Checkout صالح للتحقق منه</string>
+    <string name="payment_return_verifying">جاري التحقق من الدفع...</string>
+    <string name="payment_return_success">تم الدفع بنجاح</string>
+    <string name="payment_return_failed">لم يكتمل الدفع</string>
     <string name="order_type_label">نوع الطلب: %1$s</string>
     <string name="order_type_buy">شراء مباشر</string>
     <string name="order_type_reserve">حجز للمعاينة</string>

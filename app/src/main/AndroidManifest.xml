@@ -45,8 +45,20 @@
         <!-- Order Confirmation Activity - Display order summary -->
         <activity
             android:name=".activities.OrderConfirmationActivity"
-            android:exported="false"
-            android:label="@string/order_confirmation_title" />
+            android:exported="true"
+            android:label="@string/order_confirmation_title"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="payment-return"
+                    android:scheme="adahi" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".activities.OrderTrackingActivity"
