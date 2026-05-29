@@ -205,7 +205,7 @@
                             app:chipIconVisible="true"
                             app:chipStrokeColor="@color/adahi_primary_container"
                             app:chipStrokeWidth="0dp"
-                            app:textColor="@color/adahi_on_primary" />
+                            android:textColor="@color/adahi_on_primary" />
 
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"

@@ -14,7 +14,6 @@
         <item name="colorTertiaryContainer">@color/adahi_tertiary_container</item>
         <item name="colorOnTertiaryContainer">@color/adahi_on_tertiary_container</item>
         <item name="android:colorBackground">@color/adahi_background</item>
-        <item name="colorBackground">@color/adahi_background</item>
         <item name="colorOnBackground">@color/adahi_on_background</item>
         <item name="colorSurface">@color/adahi_surface</item>
         <item name="colorOnSurface">@color/adahi_on_surface</item>
