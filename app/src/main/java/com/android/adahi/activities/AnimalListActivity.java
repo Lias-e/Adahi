@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,7 +21,6 @@ import com.android.adahi.R;
 import com.android.adahi.adapters.AnimalAdapter;
 import com.android.adahi.activities.OrderTrackingActivity;
 import com.android.adahi.models.Animal;
-import com.android.adahi.utils.SampleDataGenerator;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -75,23 +76,10 @@ public class AnimalListActivity extends AppCompatActivity {
     }
 
     private void setupNavigation() {
-        LinearLayout homeTab = findViewById(R.id.navHomeTab);
-        LinearLayout ordersTab = findViewById(R.id.navOrdersTab);
-        LinearLayout profileTab = findViewById(R.id.navProfileTab);
-
-        if (homeTab != null) {
-            homeTab.setOnClickListener(v -> animalRecyclerView.smoothScrollToPosition(0));
+        TextView ordersAction = findViewById(R.id.ordersActionTextView);
+        if (ordersAction != null) {
+            ordersAction.setOnClickListener(v -> startActivity(new Intent(this, OrderTrackingActivity.class)));
         }
-
-        if (ordersTab != null) {
-            ordersTab.setOnClickListener(v -> startActivity(new Intent(this, OrderTrackingActivity.class)));
-        }
-
-        if (profileTab != null) {
-            profileTab.setOnClickListener(v -> Toast.makeText(this, R.string.nav_profile, Toast.LENGTH_SHORT).show());
-        }
-
-        findViewById(R.id.fabAddTracking).setOnClickListener(v -> startActivity(new Intent(this, OrderTrackingActivity.class)));
     }
 
     private void loadAnimalsFromFirestore() {
@@ -106,7 +94,7 @@ public class AnimalListActivity extends AppCompatActivity {
                     .addSnapshotListener((snapshot, error) -> {
                         if (error != null) {
                             Log.e(TAG, "Failed to load animals from Firestore", error);
-                            showFallbackAnimals("Failed to load animals from Firestore.");
+                            showEmptyAnimals("تعذر تحميل الأضاحي من Firestore");
                             return;
                         }
 
@@ -124,8 +112,8 @@ public class AnimalListActivity extends AppCompatActivity {
                         }
 
                         if (animals.isEmpty()) {
-                            Log.w(TAG, "No animals found in Firestore, using sample data.");
-                            showFallbackAnimals("Firestore is empty, showing sample animals.");
+                            Log.w(TAG, "No animals found in Firestore.");
+                            showEmptyAnimals("لا توجد أضاحٍ متاحة حالياً");
                             return;
                         }
 
@@ -134,12 +122,12 @@ public class AnimalListActivity extends AppCompatActivity {
                     });
         } catch (Exception e) {
             Log.e(TAG, "Unexpected error loading animals from Firestore", e);
-            showFallbackAnimals("Firestore is unavailable, showing sample animals.");
+            showEmptyAnimals("تعذر الوصول إلى Firestore");
         }
     }
 
-    private void showFallbackAnimals(String message) {
-        animalAdapter.setAnimals(SampleDataGenerator.generateSampleAnimals());
+    private void showEmptyAnimals(String message) {
+        animalAdapter.setAnimals(new ArrayList<>());
         if (progressBar != null) progressBar.setVisibility(View.GONE);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }

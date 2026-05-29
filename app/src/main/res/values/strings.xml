@@ -9,22 +9,31 @@
     <string name="back_button">العودة للرئيسية</string>
 
     <string name="customer_name_hint">الاسم الكامل</string>
-    <string name="customer_email_hint">البريد الإلكتروني</string>
+    <string name="customer_email_hint">رقم التعريف الوطني</string>
     <string name="customer_phone_hint">رقم الهاتف</string>
     <string name="wilaya_hint">الولاية</string>
-    <string name="comune_hint">البلدية</string>
     <string name="quantity_label">الكمية: 1</string>
-    <string name="special_instructions_hint">تعليمات خاصة (اختياري)</string>
     <string name="confirm_button">تأكيد الطلب</string>
     <string name="cancel_button">إلغاء</string>
+    <string name="buy_form_title">شراء مباشر</string>
+    <string name="reserve_form_title">حجز للمعاينة</string>
+    <string name="buy_confirm_button">دفع العربون 3,000 د.ج</string>
+    <string name="reserve_confirm_button">دفع رسوم الحجز 250 د.ج</string>
+    <string name="reservation_fee_note">رسوم الحجز 250 د.ج لتثبيت موعد المعاينة</string>
+    <string name="order_type_label">نوع الطلب: %1$s</string>
+    <string name="order_type_buy">شراء مباشر</string>
+    <string name="order_type_reserve">حجز للمعاينة</string>
+    <string name="error_firestore_save_failed">تعذر حفظ الطلب على Firestore</string>
+    <string name="tracking_loading">جاري تحميل طلباتك...</string>
+    <string name="tracking_empty_state">لا توجد طلبات بعد</string>
 
     <string name="order_id_label">رقم الطلب: %1$s</string>
     <string name="name_label">الاسم: %1$s</string>
-    <string name="email_label">البريد الإلكتروني: %1$s</string>
+    <string name="email_label">رقم التعريف الوطني: %1$s</string>
     <string name="nin_label">رقم التعريف الوطني: %1$s</string>
     <string name="phone_label">الهاتف: %1$s</string>
     <string name="wilaya_label">الولاية: %1$s</string>
-    <string name="comune_label">البلدية: %1$s</string>
+    <string name="fee_label">رسوم الطلب: %1$s د.ج</string>
     <string name="order_items_header">محتويات الطلب:</string>
     <string name="item_summary">%1$s\nالكمية: %2$d\nسعر الوحدة: %3$s د.ج\nالمجموع الفرعي: %4$s د.ج\n</string>
     <string name="total_price_label">السعر الإجمالي: %1$s د.ج</string>

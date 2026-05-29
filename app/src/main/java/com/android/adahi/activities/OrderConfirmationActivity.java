@@ -14,14 +14,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.android.adahi.R;
 import com.android.adahi.models.Order;
-import com.android.adahi.utils.LocalStorageManager;
 import com.android.adahi.utils.AnimalUiUtils;
-
-import java.util.Locale;
 
 /**
  * OrderConfirmationActivity displays the order summary and confirmation.
- * Updated to show Wilaya and Comune for Algerian localization.
  */
 public class OrderConfirmationActivity extends AppCompatActivity {
 
@@ -33,7 +29,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private TextView customerEmailTextView;
     private TextView customerPhoneTextView;
     private TextView wilayaTextView;
-    private TextView comuneTextView;
+    private TextView orderTypeTextView;
     private TextView orderItemsTextView;
     private TextView totalPriceTextView;
     private TextView orderStatusTextView;
@@ -66,7 +62,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         customerEmailTextView = findViewById(R.id.customerEmailTextView);
         customerPhoneTextView = findViewById(R.id.customerPhoneTextView);
         wilayaTextView = findViewById(R.id.wilayaTextView);
-        comuneTextView = findViewById(R.id.comuneTextView);
+        orderTypeTextView = findViewById(R.id.comuneTextView);
         orderItemsTextView = findViewById(R.id.orderItemsTextView);
         totalPriceTextView = findViewById(R.id.totalPriceTextView);
         orderStatusTextView = findViewById(R.id.orderStatusTextView);
@@ -93,9 +89,11 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             customerEmailTextView.setText(getString(R.string.nin_label, currentOrder.getCustomerEmail()));
             customerPhoneTextView.setText(getString(R.string.phone_label, currentOrder.getCustomerPhone()));
             
-            // New Wilaya and Comune fields
             wilayaTextView.setText(getString(R.string.wilaya_label, currentOrder.getWilaya()));
-            comuneTextView.setText(getString(R.string.comune_label, currentOrder.getComune()));
+            String orderType = "reserve".equals(currentOrder.getOrderType())
+                    ? getString(R.string.order_type_reserve)
+                    : getString(R.string.order_type_buy);
+            orderTypeTextView.setText(getString(R.string.order_type_label, orderType));
 
             StringBuilder itemsText = new StringBuilder(getString(R.string.order_items_header)).append("\n");
             if (currentOrder.getItems() != null) {
@@ -110,7 +108,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             }
             orderItemsTextView.setText(itemsText.toString());
 
-            totalPriceTextView.setText(getString(R.string.total_price_label, AnimalUiUtils.formatPrice(currentOrder.getTotalPrice())));
+            totalPriceTextView.setText(getString(R.string.fee_label, AnimalUiUtils.formatPrice(currentOrder.getFeeAmount())));
             orderStatusTextView.setText(getString(R.string.status_label, currentOrder.getStatus()));
 
         } catch (Exception e) {
@@ -120,13 +118,5 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     private void setupButtonListeners() {
         backButton.setOnClickListener(v -> finish());
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (currentOrder != null) {
-            new LocalStorageManager(this).saveOrder(currentOrder);
-        }
     }
 }

@@ -40,7 +40,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
     private TextView genderText;
     private TextView healthStatusText;
     private TextView salesPointText;
-    private TextView descriptionText;
+    
     private ImageView heroImage;
     private ImageView backButton;
     private Button directPurchaseButton;
@@ -87,9 +87,9 @@ public class AnimalDetailActivity extends AppCompatActivity {
         breedText = findViewById(R.id.animalBreedText);
         ageText = findViewById(R.id.animalAgeText);
         genderText = findViewById(R.id.animalGenderText);
-        healthStatusText = findViewById(R.id.animalHealthStatusText);
+        // reuse the detail description TextView to show health status + description
+        healthStatusText = findViewById(R.id.animalDetailDescription);
         salesPointText = findViewById(R.id.animalSalesPointText);
-        descriptionText = findViewById(R.id.animalDetailDescription);
         heroImage = findViewById(R.id.animalHeroImage);
         backButton = findViewById(R.id.backButton);
         directPurchaseButton = findViewById(R.id.directPurchaseButton);
@@ -104,9 +104,9 @@ public class AnimalDetailActivity extends AppCompatActivity {
         breedText.setText(getString(R.string.breed_label, safeValue(animalBreed)));
         ageText.setText(getString(R.string.age_label, safeValue(animalAge)));
         genderText.setText(getString(R.string.gender_label, safeValue(animalGender)));
-        healthStatusText.setText(getString(R.string.health_status_label, safeValue(animalHealthStatus)));
+        // show health status followed by the free-text description in the same block
+        healthStatusText.setText(getString(R.string.health_status_label, safeValue(animalHealthStatus)) + "\n\n" + safeValue(animalDescription));
         salesPointText.setText(getString(R.string.sales_point_current_label, safeValue(animalSalesPoint)));
-        descriptionText.setText(safeValue(animalDescription));
 
         Animal previewAnimal = new Animal();
         previewAnimal.setId(animalId);
@@ -134,11 +134,11 @@ public class AnimalDetailActivity extends AppCompatActivity {
 
     private void setupActions() {
         backButton.setOnClickListener(v -> finish());
-        directPurchaseButton.setOnClickListener(v -> openOrderForm("direct"));
-        reviewReservationButton.setOnClickListener(v -> openOrderForm("review"));
+        directPurchaseButton.setOnClickListener(v -> openOrderForm("buy"));
+        reviewReservationButton.setOnClickListener(v -> openOrderForm("reserve"));
     }
 
-    private void openOrderForm(String reservationMode) {
+    private void openOrderForm(String orderType) {
         Intent intent = new Intent(this, OrderFormActivity.class);
         intent.putExtra("animal_id", animalId);
         intent.putExtra("animal_name", animalName);
@@ -151,7 +151,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
         intent.putExtra("animal_gender", animalGender);
         intent.putExtra("animal_health_status", animalHealthStatus);
         intent.putExtra("animal_sales_point", animalSalesPoint);
-        intent.putExtra("reservation_mode", reservationMode);
+        intent.putExtra("order_type", orderType);
         startActivity(intent);
     }
 }

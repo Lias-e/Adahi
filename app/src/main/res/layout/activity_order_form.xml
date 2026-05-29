@@ -176,9 +176,10 @@
                     android:padding="20dp">
 
                     <TextView
+                        android:id="@+id/formTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ملخص الأضحية المختارة"
+                        android:text="@string/buy_form_title"
                         android:textColor="@color/adahi_primary"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -360,24 +361,6 @@
                     android:entries="@array/wilayas_array" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="البلدية"
-                    android:textColor="@color/adahi_on_surface_variant"
-                    android:textSize="13sp" />
-
-                <EditText
-                    android:id="@+id/comuneInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:drawable/edit_text"
-                    android:hint="اختر أقرب نقطة البيع"
-                    android:inputType="text"
-                    android:paddingHorizontal="16dp" />
-
-                <TextView
                     android:id="@+id/quantityLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -386,26 +369,6 @@
                     android:textColor="@color/adahi_on_surface_variant"
                     android:textSize="13sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="تعليمات خاصة (اختياري)"
-                    android:textColor="@color/adahi_on_surface_variant"
-                    android:textSize="13sp" />
-
-                <EditText
-                    android:id="@+id/specialInstructionsInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:drawable/edit_text"
-                    android:gravity="top"
-                    android:hint="مثال: الرجاء الاتصال قبل الوصول"
-                    android:inputType="textMultiLine"
-                    android:padding="16dp"
-                    android:minLines="4" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -424,25 +387,29 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="تأكيد دفع العربون"
+                            android:text="ملخص الرسوم"
                             android:textColor="@color/adahi_primary"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/feeNoteTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="لتأكيد الحجز، يتم دفع عربون 3,000 د.ج ويخصم من السعر النهائي عند الاستلام النهائي."
+                            android:text="@string/arboun_note"
                             android:textColor="@color/adahi_on_surface_variant"
                             android:textSize="14sp" />
 
-                        <CheckBox
-                            android:id="@+id/confirmArbounCheckBox"
+                        <TextView
+                            android:id="@+id/feeValueTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="أوافق على دفع مبلغ العربون لتأكيد الطلب" />
+                            android:text="3,000 د.ج"
+                            android:textColor="@color/adahi_primary"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -470,7 +437,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="مبلغ العربون"
+                android:text="مبلغ الدفع الحالي"
                 android:textColor="@color/adahi_on_surface_variant"
                 android:textSize="12sp" />
 
@@ -495,7 +462,7 @@
                 android:layout_height="56dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                android:text="دفع العربون وتأكيد الطلب"
+                android:text="@string/buy_confirm_button"
                 android:textColor="@color/adahi_on_primary"
                 app:backgroundTint="@color/adahi_primary"
                 app:cornerRadius="18dp"
@@ -509,7 +476,7 @@
                 android:layout_height="56dp"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="حجز للمعاينة"
+                android:text="@string/cancel_button"
                 android:textColor="@color/adahi_on_surface"
                 app:backgroundTint="@color/adahi_surface_container_high"
                 app:cornerRadius="18dp" />

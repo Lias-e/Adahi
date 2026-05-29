@@ -18,19 +18,17 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.android.adahi.R;
 import com.android.adahi.models.Order;
-import com.android.adahi.utils.LocalStorageManager;
 import com.android.adahi.utils.AnimalUiUtils;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Locale;
-
 /**
- * OrderFormActivity allows users to enter customer information and confirm order.
- * Orders are restricted to quantity 1 and use Wilaya/Comune for address.
+ * OrderFormActivity allows users to enter customer information and confirm either a buy order or a reservation.
  */
 public class OrderFormActivity extends AppCompatActivity {
 
     private static final String TAG = "OrderFormActivity";
+    private static final double BUY_FEE = 3000d;
+    private static final double RESERVATION_FEE = 250d;
 
     // UI Components
     private TextView selectedAnimalName;
@@ -39,15 +37,18 @@ public class OrderFormActivity extends AppCompatActivity {
     private EditText customerEmailInput;
     private EditText customerPhoneInput;
     private Spinner wilayaSpinner;
-    private EditText comuneInput;
-    private EditText specialInstructionsInput;
     private Button confirmButton;
     private Button cancelButton;
+    private TextView formTitleTextView;
+    private TextView feeValueTextView;
+    private TextView feeNoteTextView;
 
     // Animal details
     private String animalId;
     private String animalName;
     private double animalPrice;
+    private String orderType;
+    private double feeAmount;
 
     private FirebaseFirestore db;
 
@@ -67,6 +68,7 @@ public class OrderFormActivity extends AppCompatActivity {
 
         initializeViews();
         retrieveAnimalDetails();
+        configureMode();
         setupButtonListeners();
 
         if (savedInstanceState != null) {
@@ -81,10 +83,11 @@ public class OrderFormActivity extends AppCompatActivity {
         customerEmailInput = findViewById(R.id.customerEmailInput);
         customerPhoneInput = findViewById(R.id.customerPhoneInput);
         wilayaSpinner = findViewById(R.id.wilayaSpinner);
-        comuneInput = findViewById(R.id.comuneInput);
-        specialInstructionsInput = findViewById(R.id.specialInstructionsInput);
         confirmButton = findViewById(R.id.confirmOrderButton);
         cancelButton = findViewById(R.id.cancelOrderButton);
+        formTitleTextView = findViewById(R.id.formTitleTextView);
+        feeValueTextView = findViewById(R.id.feeValueTextView);
+        feeNoteTextView = findViewById(R.id.feeNoteTextView);
         
         // Setup Wilaya Spinner with ArrayAdapter
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -98,11 +101,36 @@ public class OrderFormActivity extends AppCompatActivity {
         animalId = intent.getStringExtra("animal_id");
         animalName = intent.getStringExtra("animal_name");
         animalPrice = intent.getDoubleExtra("animal_price", 0);
+        orderType = intent.getStringExtra("order_type");
+
+        if (orderType == null || orderType.trim().isEmpty()) {
+            orderType = "buy";
+        }
 
         if (animalName != null) {
             selectedAnimalName.setText(animalName);
             selectedAnimalPrice.setText(AnimalUiUtils.formatPrice(animalPrice));
         }
+    }
+
+    private void configureMode() {
+        boolean isReservation = "reserve".equals(orderType);
+        feeAmount = isReservation ? RESERVATION_FEE : BUY_FEE;
+
+        if (formTitleTextView != null) {
+            formTitleTextView.setText(isReservation ? R.string.reserve_review_title : R.string.buy_now_title);
+        }
+
+        if (feeValueTextView != null) {
+            feeValueTextView.setText(AnimalUiUtils.formatPrice(feeAmount));
+        }
+
+        if (feeNoteTextView != null) {
+            feeNoteTextView.setText(isReservation ? R.string.reservation_fee_note : R.string.arboun_note);
+        }
+
+        confirmButton.setText(isReservation ? R.string.reserve_confirm_button : R.string.buy_confirm_button);
+        cancelButton.setText(R.string.cancel_button);
     }
 
     private void setupButtonListeners() {
@@ -118,34 +146,29 @@ public class OrderFormActivity extends AppCompatActivity {
             String customerEmail = customerEmailInput.getText().toString().trim();
             String customerPhone = customerPhoneInput.getText().toString().trim();
             String wilaya = wilayaSpinner.getSelectedItem().toString().trim();
-            String comune = comuneInput.getText().toString().trim();
-            int quantity = 1; // Restricted to 1
-            String specialInstructions = specialInstructionsInput.getText().toString().trim();
+            int quantity = 1;
 
-            Order order = new Order(customerName, customerEmail, customerPhone, wilaya, comune);
-            order.setSpecialInstructions(specialInstructions);
+            Order order = new Order(customerName, customerEmail, customerPhone, wilaya, orderType);
+            order.setFeeAmount(feeAmount);
+            order.setTotalPrice(feeAmount);
             order.addItem(new Order.OrderItem(animalId, animalName, quantity, animalPrice));
             order.calculateTotalPrice();
 
-            // 1. Save to Local Storage
-            LocalStorageManager storageManager = new LocalStorageManager(this);
-            String orderId = storageManager.saveOrder(order);
+            String collectionName = "reserve".equals(orderType) ? "reserve_orders" : "buy_orders";
+            String orderId = db.collection(collectionName).document().getId();
             order.setOrderId(orderId);
-            storageManager.updateOrder(order);
 
-            // 2. Save to Firestore
-            db.collection("orders")
-                .document(orderId)
-                .set(order)
-                .addOnSuccessListener(unused -> {
-                    Log.d(TAG, "Order saved to Firestore: " + orderId);
-                    navigateToConfirmation(order);
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error saving order to Firestore", e);
-                    Toast.makeText(this, "Order saved locally. Connection failed.", Toast.LENGTH_SHORT).show();
-                    navigateToConfirmation(order);
-                });
+            db.collection(collectionName)
+                    .document(orderId)
+                    .set(order)
+                    .addOnSuccessListener(unused -> {
+                        Log.d(TAG, "Order saved to Firestore: " + orderId);
+                        navigateToConfirmation(order);
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e(TAG, "Error saving order to Firestore", e);
+                        Toast.makeText(this, R.string.error_firestore_save_failed, Toast.LENGTH_SHORT).show();
+                    });
 
         } catch (Exception e) {
             Log.e(TAG, "Error confirming order", e);
@@ -172,10 +195,6 @@ public class OrderFormActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.error_field_required), Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (comuneInput.getText().toString().trim().isEmpty()) {
-            comuneInput.setError(getString(R.string.error_field_required));
-            return false;
-        }
         return true;
     }
 
@@ -186,8 +205,6 @@ public class OrderFormActivity extends AppCompatActivity {
         outState.putString("customerEmail", customerEmailInput.getText().toString());
         outState.putString("customerPhone", customerPhoneInput.getText().toString());
         outState.putInt("wilayaPosition", wilayaSpinner.getSelectedItemPosition());
-        outState.putString("comune", comuneInput.getText().toString());
-        outState.putString("specialInstructions", specialInstructionsInput.getText().toString());
     }
 
     private void restoreSavedData(Bundle savedInstanceState) {
@@ -195,7 +212,5 @@ public class OrderFormActivity extends AppCompatActivity {
         customerEmailInput.setText(savedInstanceState.getString("customerEmail", ""));
         customerPhoneInput.setText(savedInstanceState.getString("customerPhone", ""));
         wilayaSpinner.setSelection(savedInstanceState.getInt("wilayaPosition", 0));
-        comuneInput.setText(savedInstanceState.getString("comune", ""));
-        specialInstructionsInput.setText(savedInstanceState.getString("specialInstructions", ""));
     }
 }

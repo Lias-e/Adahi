@@ -15,12 +15,12 @@ public class Order implements Serializable {
     private String customerEmail;
     private String customerPhone;
     private String wilaya;
-    private String comune;
+    private String orderType;
     private List<OrderItem> items;
     private double totalPrice;
+    private double feeAmount;
     private long orderDate;
     private String status; // e.g., Pending, Confirmed, Delivered
-    private String specialInstructions;
 
     /**
      * Default constructor required for Firebase
@@ -34,13 +34,13 @@ public class Order implements Serializable {
     /**
      * Constructor with customer details
      */
-    public Order(String customerName, String customerEmail, String customerPhone, String wilaya, String comune) {
+    public Order(String customerName, String customerEmail, String customerPhone, String wilaya, String orderType) {
         this();
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerPhone = customerPhone;
         this.wilaya = wilaya;
-        this.comune = comune;
+        this.orderType = orderType;
     }
 
     // Getters and Setters
@@ -84,12 +84,12 @@ public class Order implements Serializable {
         this.wilaya = wilaya;
     }
 
-    public String getComune() {
-        return comune;
+    public String getOrderType() {
+        return orderType;
     }
 
-    public void setComune(String comune) {
-        this.comune = comune;
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 
     public List<OrderItem> getItems() {
@@ -112,6 +112,14 @@ public class Order implements Serializable {
         this.totalPrice = totalPrice;
     }
 
+    public double getFeeAmount() {
+        return feeAmount;
+    }
+
+    public void setFeeAmount(double feeAmount) {
+        this.feeAmount = feeAmount;
+    }
+
     public long getOrderDate() {
         return orderDate;
     }
@@ -128,22 +136,11 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public String getSpecialInstructions() {
-        return specialInstructions;
-    }
-
-    public void setSpecialInstructions(String specialInstructions) {
-        this.specialInstructions = specialInstructions;
-    }
-
     /**
      * Calculate total price based on ordered items
      */
     public void calculateTotalPrice() {
-        totalPrice = 0;
-        for (OrderItem item : items) {
-            totalPrice += item.getSubtotal();
-        }
+        totalPrice = feeAmount;
     }
 
     @Override

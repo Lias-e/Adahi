@@ -69,7 +69,7 @@
                     android:id="@+id/orderIdTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order ID: ORD-123456"
+                    android:text="رقم الطلب: ORD-123456"
                     android:textColor="@color/adahi_on_surface_variant"
                     android:textSize="13sp" />
 
@@ -81,7 +81,7 @@
                     android:background="@drawable/item_background"
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="8dp"
-                    android:text="Status: Pending"
+                    android:text="الحالة: قيد المعالجة"
                     android:textColor="@color/adahi_secondary"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -104,7 +104,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="مبلغ العربون المستحق"
+                        android:text="مبلغ الدفع الحالي"
                         android:textColor="@color/adahi_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -114,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Total Price: Rs. 50000"
+                        android:text="رسوم الطلب: 0 د.ج"
                         android:textColor="@color/adahi_primary"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -123,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="يرجى دفع مبلغ العربون لتأكيد حجز الأضحية وضمان توفرها."
+                        android:text="يرجى دفع الرسوم المناسبة لتأكيد عملية الشراء أو الحجز."
                         android:textColor="@color/adahi_on_surface_variant"
                         android:textSize="14sp" />
 
@@ -187,7 +187,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="1. بعد دفع العربون، سيتم تأكيد الحجز لك حصرياً."
+                        android:text="1. بعد الدفع، يتم حفظ الطلب فوراً داخل طلباتي."
                         android:textColor="@color/adahi_on_surface_variant"
                         android:textSize="14sp" />
 
@@ -195,7 +195,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="2. عند الاستلام، سيتم وزن الأضحية فعلياً وتحديث السعر النهائي."
+                        android:text="2. يبقى نوع الطلب واضحاً: شراء مباشر أو حجز للمعاينة."
                         android:textColor="@color/adahi_on_surface_variant"
                         android:textSize="14sp" />
 
@@ -203,7 +203,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="3. يتم خصم العربون من المبلغ الإجمالي المتبقي."
+                        android:text="3. الرسوم غير قابلة للاسترجاع بحسب نوع الطلب."
                         android:textColor="@color/adahi_on_surface_variant"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -237,7 +237,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="أولاد جلال"
+                        android:text="الأضحية المختارة"
                         android:textColor="@color/adahi_on_surface"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -281,7 +281,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="Wilaya: Algiers"
+                        android:text="الولاية: ---"
                         android:textColor="@color/adahi_on_surface"
                         android:textSize="14sp" />
 
@@ -290,7 +290,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="Comune: Hydra"
+                        android:text="نوع الطلب: شراء مباشر"
                         android:textColor="@color/adahi_on_surface"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -324,7 +324,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="Name: John Doe"
+                        android:text="الاسم: ---"
                         android:textColor="@color/adahi_on_surface"
                         android:textSize="14sp" />
 
@@ -333,7 +333,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="Email: john@example.com"
+                        android:text="رقم التعريف الوطني: ---"
                         android:textColor="@color/adahi_on_surface"
                         android:textSize="14sp" />
 
@@ -342,7 +342,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="Phone: +92 300 1234567"
+                        android:text="الهاتف: ---"
                         android:textColor="@color/adahi_on_surface"
                         android:textSize="14sp" />
                 </LinearLayout>
