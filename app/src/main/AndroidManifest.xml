@@ -60,6 +60,12 @@
             </intent-filter>
         </activity>
 
+        <!-- In-app payment WebView activity -->
+        <activity
+            android:name=".activities.PaymentWebViewActivity"
+            android:exported="false"
+            android:label="@string/reservation_payment_title" />
+
         <activity
             android:name=".activities.OrderTrackingActivity"
             android:exported="false"

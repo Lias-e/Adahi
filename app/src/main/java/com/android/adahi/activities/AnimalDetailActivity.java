@@ -38,13 +38,15 @@ public class AnimalDetailActivity extends AppCompatActivity {
     private TextView breedText;
     private TextView ageText;
     private TextView genderText;
-    private TextView healthStatusText;
     private TextView salesPointText;
     
     private ImageView heroImage;
     private ImageView backButton;
     private Button directPurchaseButton;
-    private Button reviewReservationButton;
+    private TextView weightRange1;
+    private TextView weightRange2;
+    private TextView weightRange3;
+    private TextView weightRange4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,13 +89,16 @@ public class AnimalDetailActivity extends AppCompatActivity {
         breedText = findViewById(R.id.animalBreedText);
         ageText = findViewById(R.id.animalAgeText);
         genderText = findViewById(R.id.animalGenderText);
-        // reuse the detail description TextView to show health status + description
-        healthStatusText = findViewById(R.id.animalDetailDescription);
+        // description removed — only show health/status via breed/age/gender fields
         salesPointText = findViewById(R.id.animalSalesPointText);
         heroImage = findViewById(R.id.animalHeroImage);
         backButton = findViewById(R.id.backButton);
         directPurchaseButton = findViewById(R.id.directPurchaseButton);
-        reviewReservationButton = findViewById(R.id.reviewReservationButton);
+
+        weightRange1 = findViewById(R.id.weightRange1);
+        weightRange2 = findViewById(R.id.weightRange2);
+        weightRange3 = findViewById(R.id.weightRange3);
+        weightRange4 = findViewById(R.id.weightRange4);
     }
 
     private void populateViews() {
@@ -104,8 +109,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
         breedText.setText(getString(R.string.breed_label, safeValue(animalBreed)));
         ageText.setText(getString(R.string.age_label, safeValue(animalAge)));
         genderText.setText(getString(R.string.gender_label, safeValue(animalGender)));
-        // show health status followed by the free-text description in the same block
-        healthStatusText.setText(getString(R.string.health_status_label, safeValue(animalHealthStatus)) + "\n\n" + safeValue(animalDescription));
+        // description removed — do not display free-text description
         salesPointText.setText(getString(R.string.sales_point_current_label, safeValue(animalSalesPoint)));
 
         Animal previewAnimal = new Animal();
@@ -135,7 +139,11 @@ public class AnimalDetailActivity extends AppCompatActivity {
     private void setupActions() {
         backButton.setOnClickListener(v -> finish());
         directPurchaseButton.setOnClickListener(v -> openOrderForm("buy"));
-        reviewReservationButton.setOnClickListener(v -> openOrderForm("reserve"));
+        // weight range clicks filter the list by selected range
+        weightRange1.setOnClickListener(v -> openListForWeight(40, 50));
+        weightRange2.setOnClickListener(v -> openListForWeight(55, 60));
+        weightRange3.setOnClickListener(v -> openListForWeight(65, 70));
+        weightRange4.setOnClickListener(v -> openListForWeight(75, Double.MAX_VALUE));
     }
 
     private void openOrderForm(String orderType) {
@@ -152,6 +160,13 @@ public class AnimalDetailActivity extends AppCompatActivity {
         intent.putExtra("animal_health_status", animalHealthStatus);
         intent.putExtra("animal_sales_point", animalSalesPoint);
         intent.putExtra("order_type", orderType);
+        startActivity(intent);
+    }
+
+    private void openListForWeight(double minKg, double maxKg) {
+        Intent intent = new Intent(this, AnimalListActivity.class);
+        intent.putExtra("filter_weight_min", minKg);
+        intent.putExtra("filter_weight_max", maxKg);
         startActivity(intent);
     }
 }

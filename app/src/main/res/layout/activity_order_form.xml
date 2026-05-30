@@ -344,21 +344,7 @@
                     android:inputType="textEmailAddress"
                     android:paddingHorizontal="16dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="الولاية"
-                    android:textColor="@color/adahi_on_surface_variant"
-                    android:textSize="13sp" />
-
-                <Spinner
-                    android:id="@+id/wilayaSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:drawable/edit_text"
-                    android:entries="@array/wilayas_array" />
+                <!-- Wilaya removed from buy form -->
 
                 <TextView
                     android:id="@+id/quantityLabel"

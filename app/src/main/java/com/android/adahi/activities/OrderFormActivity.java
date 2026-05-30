@@ -29,7 +29,6 @@ public class OrderFormActivity extends AppCompatActivity {
 
     private static final String TAG = "OrderFormActivity";
     private static final double BUY_FEE = 3000d;
-    private static final double RESERVATION_FEE = 250d;
 
     // UI Components
     private TextView selectedAnimalName;
@@ -37,7 +36,6 @@ public class OrderFormActivity extends AppCompatActivity {
     private EditText customerNameInput;
     private EditText customerEmailInput;
     private EditText customerPhoneInput;
-    private Spinner wilayaSpinner;
     private Button confirmButton;
     private Button cancelButton;
     private TextView formTitleTextView;
@@ -84,18 +82,13 @@ public class OrderFormActivity extends AppCompatActivity {
         customerNameInput = findViewById(R.id.customerNameInput);
         customerEmailInput = findViewById(R.id.customerEmailInput);
         customerPhoneInput = findViewById(R.id.customerPhoneInput);
-        wilayaSpinner = findViewById(R.id.wilayaSpinner);
         confirmButton = findViewById(R.id.confirmOrderButton);
         cancelButton = findViewById(R.id.cancelOrderButton);
         formTitleTextView = findViewById(R.id.formTitleTextView);
         feeValueTextView = findViewById(R.id.feeValueTextView);
         feeNoteTextView = findViewById(R.id.feeNoteTextView);
         
-        // Setup Wilaya Spinner with ArrayAdapter
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.wilayas_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        wilayaSpinner.setAdapter(adapter);
+        // Wilaya removed from buy form
     }
 
     private void retrieveAnimalDetails() {
@@ -116,22 +109,19 @@ public class OrderFormActivity extends AppCompatActivity {
     }
 
     private void configureMode() {
-        boolean isReservation = "reserve".equals(orderType);
-        feeAmount = isReservation ? RESERVATION_FEE : BUY_FEE;
-
+        // Only buy flow supported
+        orderType = "buy";
+        feeAmount = BUY_FEE;
         if (formTitleTextView != null) {
-            formTitleTextView.setText(isReservation ? R.string.reserve_review_title : R.string.buy_now_title);
+            formTitleTextView.setText(R.string.buy_now_title);
         }
-
         if (feeValueTextView != null) {
             feeValueTextView.setText(AnimalUiUtils.formatPrice(feeAmount));
         }
-
         if (feeNoteTextView != null) {
-            feeNoteTextView.setText(isReservation ? R.string.reservation_fee_note : R.string.arboun_note);
+            feeNoteTextView.setText(R.string.arboun_note);
         }
-
-        confirmButton.setText(isReservation ? R.string.reserve_confirm_button : R.string.buy_confirm_button);
+        confirmButton.setText(R.string.buy_confirm_button);
         cancelButton.setText(R.string.cancel_button);
     }
 
@@ -149,7 +139,7 @@ public class OrderFormActivity extends AppCompatActivity {
             String customerName = customerNameInput.getText().toString().trim();
             String customerEmail = customerEmailInput.getText().toString().trim();
             String customerPhone = customerPhoneInput.getText().toString().trim();
-            String wilaya = wilayaSpinner.getSelectedItem().toString().trim();
+            String wilaya = "";
             int quantity = 1;
 
             Order order = new Order(customerName, customerEmail, customerPhone, wilaya, orderType);
@@ -160,7 +150,7 @@ public class OrderFormActivity extends AppCompatActivity {
             order.addItem(new Order.OrderItem(animalId, animalName, quantity, animalPrice));
             order.calculateTotalPrice();
 
-            collectionName = "reserve".equals(orderType) ? "reserve_orders" : "buy_orders";
+            collectionName = "buy_orders";
             String orderId = db.collection(collectionName).document().getId();
             order.setOrderId(orderId);
 
@@ -242,10 +232,7 @@ public class OrderFormActivity extends AppCompatActivity {
             customerPhoneInput.setError(getString(R.string.error_field_required));
             return false;
         }
-        if (wilayaSpinner.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, getString(R.string.error_field_required), Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        // wilaya not required for buy flow
         return true;
     }
 
@@ -255,13 +242,11 @@ public class OrderFormActivity extends AppCompatActivity {
         outState.putString("customerName", customerNameInput.getText().toString());
         outState.putString("customerEmail", customerEmailInput.getText().toString());
         outState.putString("customerPhone", customerPhoneInput.getText().toString());
-        outState.putInt("wilayaPosition", wilayaSpinner.getSelectedItemPosition());
     }
 
     private void restoreSavedData(Bundle savedInstanceState) {
         customerNameInput.setText(savedInstanceState.getString("customerName", ""));
         customerEmailInput.setText(savedInstanceState.getString("customerEmail", ""));
         customerPhoneInput.setText(savedInstanceState.getString("customerPhone", ""));
-        wilayaSpinner.setSelection(savedInstanceState.getInt("wilayaPosition", 0));
     }
 }

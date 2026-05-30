@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">أضاحي الجزائر</string>
+    <string name="app_name">أغنام الجزائر</string>
 
-    <string name="animal_list_title">أضاحي الجزائر</string>
+    <string name="animal_list_title">سلالات الأغنام حسب الولاية</string>
     <string name="animal_detail_title">تفاصيل الأضحية</string>
     <string name="order_form_title">إتمام الطلب</string>
     <string name="order_confirmation_title">تفاصيل الطلب</string>
@@ -66,25 +66,15 @@
     <string name="animal_quantity_label">المتوفر: %1$d</string>
     <string name="animal_card_image_description">صورة الأضحية</string>
 
-    <string name="location_title">تحديد الموقع</string>
-    <string name="wilaya_label_short">الولاية</string>
-    <string name="sales_point_label">نقطة البيع</string>
-    <string name="sales_point_select_prompt">اختر نقطة البيع</string>
-    <string name="sales_point_select_wilaya_first">اختر الولاية أولاً</string>
-    <string name="sales_point_in_wilaya">نقطة البيع في %1$s</string>
-    <string name="category_title">الصنف</string>
-    <string name="category_all">الكل</string>
-    <string name="category_sheep">كباش</string>
-    <string name="category_cows">أبقار</string>
-    <string name="category_goats">ماعز</string>
-    <string name="category_camels">إبل</string>
-    <string name="price_range_title">نطاق السعر (د.ج)</string>
-    <string name="price_range_low">أقل من 50,000</string>
-    <string name="price_range_mid_low">50,000 - 80,000</string>
-    <string name="price_range_mid_high">80,000 - 120,000</string>
-    <string name="price_range_high">أكثر من 120,000</string>
-    <string name="featured_offers_title">العروض المتوفرة</string>
-    <string name="sort_by_label">ترتيب حسب</string>
+    <string name="sheep_wilaya_prompt">اختر ولاية الإقامة لعرض سلالات الأغنام المتاحة وغير المتاحة.</string>
+    <string name="sheep_wilaya_prompt_short">اختر الولاية من الأعلى لبدء العرض.</string>
+    <string name="sheep_wilaya_selected">الولاية المختارة: %1$s</string>
+    <string name="sheep_wilaya_not_found">لا توجد بيانات لهذه الولاية: %1$s</string>
+    <string name="sheep_no_breeds_available">لا توجد سلالات أغنام محفوظة لهذه الولاية حالياً.</string>
+    <string name="sheep_status_available">متاح</string>
+    <string name="sheep_status_unavailable">غير متاح</string>
+    <string name="sheep_details_available">السلالة متاحة في هذه الولاية.</string>
+    <string name="sheep_details_unavailable">السلالة غير متاحة حالياً في هذه الولاية.</string>
     <string name="search_label">بحث</string>
     <string name="nav_home">الرئيسية</string>
     <string name="nav_orders">طلباتي</string>

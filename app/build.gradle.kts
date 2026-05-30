@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
@@ -8,11 +10,25 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        val chargilySecretKey = (project.findProperty("CHARGILY_SECRET_KEY") as String?)
-            ?: System.getenv("CHARGILY_SECRET_KEY")
+        val localProperties = Properties().apply {
+            val localPropertiesFile = rootProject.file("local.properties")
+            if (localPropertiesFile.exists()) {
+                localPropertiesFile.inputStream().use { load(it) }
+            }
+        }
+
+        fun resolveConfigValue(key: String): String? {
+            return (project.findProperty(key) as String?)
+                ?: System.getenv(key)
+                ?: localProperties.getProperty(key)
+        }
+
+        val chargilySecretKey = resolveConfigValue("CHARGILY_SECRET_KEY")
+            ?: resolveConfigValue("CHARGILY_PRIVATE_KEY")
             ?: ""
-        val chargilyApiBaseUrl = (project.findProperty("CHARGILY_API_BASE_URL") as String?)
-            ?: System.getenv("CHARGILY_API_BASE_URL")
+        val chargilyPublicKey = resolveConfigValue("CHARGILY_PUBLIC_KEY")
+            ?: ""
+        val chargilyApiBaseUrl = resolveConfigValue("CHARGILY_API_BASE_URL")
             ?: "https://pay.chargily.net/test/api/v2"
 
         applicationId = "adhahi.com"
@@ -23,6 +39,9 @@ android {
 
         buildConfigField("String", "CHARGILY_SECRET_KEY", "\"${chargilySecretKey.replace("\"", "\\\"")}\"")
         buildConfigField("String", "CHARGILY_API_BASE_URL", "\"${chargilyApiBaseUrl.replace("\"", "\\\"")}\"")
+        buildConfigField("String", "CHARGILY_PUBLIC_KEY", "\"${chargilyPublicKey.replace("\"", "\\\"")}\"")
+        buildConfigField("String", "CHARGILY_PRIVATE_KEY", "\"${chargilySecretKey.replace("\"", "\\\"")}\"")
+        buildConfigField("String", "CHARGILY_APP_RETURN_URL", "\"${project.findProperty("CHARGILY_APP_RETURN_URL") ?: "https://adahi.app/payment-return"}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -65,6 +84,8 @@ dependencies {
     
     // Cloud Firestore
     implementation("com.google.firebase:firebase-firestore")
+    // Custom Tabs / Browser integration for secure in-app browser
+    implementation("androidx.browser:browser:1.5.0")
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

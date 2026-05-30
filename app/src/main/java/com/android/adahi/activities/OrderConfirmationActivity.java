@@ -6,6 +6,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.content.ActivityNotFoundException;
+import androidx.browser.customtabs.CustomTabsIntent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,8 +32,8 @@ import com.google.firebase.firestore.ListenerRegistration;
 public class OrderConfirmationActivity extends AppCompatActivity {
 
     private static final String TAG = "OrderConfirmationActivity";
-    private static final String CHARGILY_RESERVATION_PAYMENT_URL = "http://pay.chargily.com/test/payment-links/01kstvtc3dfd9w76t3eyb3805c";
-    private static final String CHARGILY_ARBOUN_PAYMENT_URL = "http://pay.chargily.com/test/payment-links/01kstw3m7cq60eyynqr5crd0n5";
+    private static final String CHARGILY_RESERVATION_PAYMENT_URL = "https://pay.chargily.com/test/payment-links/01kstvtc3dfd9w76t3eyb3805c";
+    private static final String CHARGILY_ARBOUN_PAYMENT_URL = "https://pay.chargily.com/test/payment-links/01kstw3m7cq60eyynqr5crd0n5";
 
     // UI Components
     private TextView orderIdTextView;
@@ -59,6 +61,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private ListenerRegistration orderListener;
     private String pendingDeepLinkResult;
     private boolean deepLinkHandled;
+    private long lastAutoVerifyAt = 0L;
+    private static final long AUTO_VERIFY_COOLDOWN_MS = 10_000L; // 10s cooldown
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,24 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         startOrderListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        maybeAutoVerifyOnResume();
+    }
+
+    private void maybeAutoVerifyOnResume() {
+        if (currentOrder == null) return;
+        String checkoutId = currentOrder.getCheckoutId();
+        if (checkoutId == null || checkoutId.trim().isEmpty()) return;
+        String paymentStatus = currentOrder.getPaymentStatus();
+        if (paymentStatus != null && "paid".equalsIgnoreCase(paymentStatus)) return;
+        long now = System.currentTimeMillis();
+        if (now - lastAutoVerifyAt < AUTO_VERIFY_COOLDOWN_MS) return;
+        lastAutoVerifyAt = now;
+        verifyPaymentStatus();
     }
 
     private void initializeViews() {
@@ -427,11 +449,34 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             String checkoutUrl = currentOrder != null && currentOrder.getCheckoutUrl() != null && !currentOrder.getCheckoutUrl().trim().isEmpty()
                     ? currentOrder.getCheckoutUrl()
                     : getFallbackPaymentUrl();
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(checkoutUrl));
-            startActivity(intent);
+
+            Uri uri = Uri.parse(checkoutUrl);
+            try {
+                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+                customTabsIntent.launchUrl(this, uri);
+            } catch (ActivityNotFoundException ex) {
+                // No browser available, fallback to in-app WebView activity
+                Intent intent = new Intent(this, PaymentWebViewActivity.class);
+                intent.putExtra(PaymentWebViewActivity.EXTRA_URL, checkoutUrl);
+                startActivityForResult(intent, 1234);
+            }
         } catch (Exception e) {
             Log.e(TAG, "Error opening Chargily payment link", e);
             Toast.makeText(this, R.string.reservation_payment_link_open_failed, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1234) {
+            if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+                // Received the return URL from the WebView activity, handle as deep link
+                Uri uri = data.getData();
+                handlePaymentReturnIntent(new Intent(Intent.ACTION_VIEW, uri));
+            } else {
+                // user cancelled or closed webview — do nothing
+            }
         }
     }
 

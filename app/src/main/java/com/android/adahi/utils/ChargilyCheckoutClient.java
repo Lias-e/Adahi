@@ -22,7 +22,9 @@ public final class ChargilyCheckoutClient {
 
     private static final String TAG = "ChargilyCheckoutClient";
     private static final String CHECKOUTS_PATH = "/checkouts";
-    private static final String APP_RETURN_URL = "adahi://payment-return";
+    // Chargily requires success/failure URLs to use http or https. Use the configured
+    // app return URL from BuildConfig so it can be overridden per environment.
+    private static final String APP_RETURN_URL = com.android.adahi.BuildConfig.CHARGILY_APP_RETURN_URL;
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 
     private ChargilyCheckoutClient() {

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Adahi</string>
+    <string name="app_name">Aghnam Algérie</string>
 
     <!-- Animal List Activity Strings -->
-    <string name="animal_list_title">Animaux Disponibles</string>
+    <string name="animal_list_title">Souches de moutons par wilaya</string>
 
     <!-- Order Form Activity Strings -->
     <string name="order_form_title">Formulaire de Commande</string>
