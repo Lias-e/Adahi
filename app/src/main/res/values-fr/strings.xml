@@ -2,7 +2,7 @@
     <string name="app_name">Aghnam Algérie</string>
 
     <!-- Animal List Activity Strings -->
-    <string name="animal_list_title">Souches de moutons par wilaya</string>
+    <string name="animal_list_title">Souches de moutons disponibles</string>
 
     <!-- Order Form Activity Strings -->
     <string name="order_form_title">Formulaire de Commande</string>

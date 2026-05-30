@@ -8,66 +8,44 @@
     android:background="@color/adahi_background"
     android:layoutDirection="rtl">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/locationCard"
+    <LinearLayout
+        android:id="@+id/headerBar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:cardBackgroundColor="@color/adahi_surface_container_low"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="0dp"
+        android:layout_height="64dp"
+        android:background="@color/adahi_surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_weight="1"
+            android:gravity="center"
+                    android:text="أضاحي"
+            android:textColor="@color/adahi_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/animal_list_title"
-                android:textColor="@color/adahi_primary"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="@string/sheep_wilaya_prompt"
-                android:textColor="@color/adahi_on_surface_variant"
-                android:textSize="14sp" />
-
-            <Spinner
-                android:id="@+id/wilayaSelector"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="@android:drawable/edit_text"
-                android:entries="@array/wilayas_array" />
-
-            <TextView
-                android:id="@+id/wilayaSummaryTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/sheep_wilaya_prompt_short"
-                android:textColor="@color/adahi_on_surface_variant"
-                android:textSize="13sp" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ordersButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/nav_orders"
+            android:textColor="@color/adahi_on_primary"
+            app:backgroundTint="@color/adahi_primary"
+            app:cornerRadius="14dp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/emptyStateTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
         android:textColor="@color/adahi_on_surface_variant"
@@ -76,8 +54,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/locationCard"
-        tools:text="اختر الولاية لعرض سلالات الأغنام المتاحة" />
+        app:layout_constraintTop_toBottomOf="@id/headerBar"
+        tools:text="استعرض السلالات المتاحة" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/breedRecyclerView"
@@ -91,7 +69,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/locationCard"
+        app:layout_constraintTop_toBottomOf="@id/headerBar"
         tools:itemCount="3"
         tools:listitem="@layout/item_sheep_breed_availability" />
 

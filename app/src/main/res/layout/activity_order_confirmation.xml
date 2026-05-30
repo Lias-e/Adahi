@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/backButton"
+        app:layout_constraintBottom_toTopOf="@id/buttonContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,12 +31,13 @@
                 android:paddingHorizontal="16dp">
 
                 <ImageView
+                    android:id="@+id/backButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:contentDescription="@string/back_button"
                     android:padding="8dp"
                     android:src="@android:drawable/ic_media_previous"
-                    android:tint="@color/adahi_primary" />
+                    app:tint="@color/adahi_primary" />
 
                 <TextView
                     android:id="@+id/titleTextView"
@@ -85,146 +86,6 @@
                     android:textColor="@color/adahi_secondary"
                     android:textSize="14sp" />
             </LinearLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/paymentSectionCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/adahi_surface_container_lowest"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:id="@+id/paymentSectionTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/reservation_payment_title"
-                        android:textColor="@color/adahi_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/totalPriceTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="رسوم الطلب: 0 د.ج"
-                        android:textColor="@color/adahi_primary"
-                        android:textSize="28sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/paymentSectionNoteTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/reservation_payment_note"
-                        android:textColor="@color/adahi_on_surface_variant"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/openPaymentLinkButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/reservation_payment_button"
-                        android:textColor="@color/adahi_on_primary"
-                        app:backgroundTint="@color/adahi_primary"
-                        app:cornerRadius="16dp"
-                        app:icon="@android:drawable/ic_menu_view"
-                        app:iconGravity="textStart"
-                        app:iconTint="@color/adahi_on_primary" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/copyPaymentLinkButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/reservation_payment_copy_button"
-                        android:textColor="@color/adahi_primary"
-                        app:backgroundTint="@color/adahi_surface_container_low"
-                        app:cornerRadius="16dp"
-                        app:strokeColor="@color/adahi_primary"
-                        app:strokeWidth="1dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/verifyPaymentButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/reservation_payment_verify_button"
-                        android:textColor="@color/adahi_primary"
-                        app:backgroundTint="@color/adahi_surface_container_low"
-                        app:cornerRadius="16dp"
-                        app:strokeColor="@color/adahi_primary"
-                        app:strokeWidth="1dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="أو الدفع نقداً في نقطة البيع"
-                        android:textColor="@color/adahi_on_surface_variant"
-                        android:textSize="13sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/adahi_surface_container_low"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="الخطوات القادمة"
-                        android:textColor="@color/adahi_primary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="1. بعد الدفع، يتم حفظ الطلب فوراً داخل طلباتي."
-                        android:textColor="@color/adahi_on_surface_variant"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="2. يبقى نوع الطلب واضحاً: شراء مباشر أو حجز للمعاينة."
-                        android:textColor="@color/adahi_on_surface_variant"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="3. الرسوم غير قابلة للاسترجاع بحسب نوع الطلب."
-                        android:textColor="@color/adahi_on_surface_variant"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -302,14 +163,6 @@
                         android:textColor="@color/adahi_on_surface"
                         android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/comuneTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="نوع الطلب: شراء مباشر"
-                        android:textColor="@color/adahi_on_surface"
-                        android:textSize="14sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -365,31 +218,31 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:text="إلغاء الطلب"
-                android:textColor="@color/adahi_error"
-                app:backgroundTint="@color/adahi_surface_container_lowest"
-                app:cornerRadius="16dp"
-                app:strokeColor="@color/adahi_error"
-                app:strokeWidth="1dp" />
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/backButton"
+    <LinearLayout
+        android:id="@+id/buttonContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/adahi_surface_container_high"
-        android:text="@string/back_button"
-        android:textColor="@color/adahi_on_surface"
+        android:background="@color/adahi_surface_container_lowest"
+        android:orientation="vertical"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submitOrderButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/confirm_button"
+            android:textColor="@color/adahi_on_primary"
+            app:backgroundTint="@color/adahi_primary"
+            app:cornerRadius="18dp"
+            app:icon="@android:drawable/ic_lock_lock"
+            app:iconGravity="textStart"
+            app:iconTint="@color/adahi_on_primary" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,20 +13,22 @@ import com.android.adahi.R;
 import com.android.adahi.models.Order;
 import com.android.adahi.utils.AnimalUiUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class OrderTrackingAdapter extends RecyclerView.Adapter<OrderTrackingAdapter.OrderViewHolder> {
 
+    public interface OnOrderClickListener {
+        void onOrderClick(Order order);
+    }
+
     private final Context context;
     private final List<Order> orders = new ArrayList<>();
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", new Locale("ar"));
+    private final OnOrderClickListener onOrderClickListener;
 
-    public OrderTrackingAdapter(Context context) {
+    public OrderTrackingAdapter(Context context, OnOrderClickListener onOrderClickListener) {
         this.context = context;
+        this.onOrderClickListener = onOrderClickListener;
     }
 
     public void setOrders(List<Order> newOrders) {
@@ -56,40 +58,37 @@ public class OrderTrackingAdapter extends RecyclerView.Adapter<OrderTrackingAdap
     }
 
     class OrderViewHolder extends RecyclerView.ViewHolder {
-        private final TextView orderIdTextView;
         private final TextView animalNameTextView;
-        private final TextView orderTypeTextView;
-        private final TextView orderDateTextView;
-        private final TextView orderFeeTextView;
-        private final TextView orderStatusTextView;
+        private final TextView orderPlaceTextView;
+        private final TextView orderPriceTextView;
 
         OrderViewHolder(@NonNull View itemView) {
             super(itemView);
-            orderIdTextView = itemView.findViewById(R.id.orderIdTextView);
             animalNameTextView = itemView.findViewById(R.id.animalNameTextView);
-            orderTypeTextView = itemView.findViewById(R.id.orderTypeTextView);
-            orderDateTextView = itemView.findViewById(R.id.orderDateTextView);
-            orderFeeTextView = itemView.findViewById(R.id.orderFeeTextView);
-            orderStatusTextView = itemView.findViewById(R.id.orderStatusTextView);
+            orderPlaceTextView = itemView.findViewById(R.id.orderPlaceTextView);
+            orderPriceTextView = itemView.findViewById(R.id.orderPriceTextView);
         }
 
         void bind(Order order) {
-            orderIdTextView.setText(context.getString(R.string.order_id_label, safeValue(order.getOrderId())));
-
             String animalName = "-";
             if (order.getItems() != null && !order.getItems().isEmpty()) {
                 animalName = safeValue(order.getItems().get(0).getAnimalName());
             }
             animalNameTextView.setText(animalName);
 
-            String typeLabel = "reserve".equals(order.getOrderType())
-                    ? context.getString(R.string.order_type_reserve)
-                    : context.getString(R.string.order_type_buy);
-            orderTypeTextView.setText(context.getString(R.string.order_type_label, typeLabel));
+            orderPlaceTextView.setText(context.getString(R.string.wilaya_label, safeValue(order.getWilaya())));
 
-            orderDateTextView.setText(dateFormat.format(new Date(order.getOrderDate())));
-            orderFeeTextView.setText(context.getString(R.string.fee_label, AnimalUiUtils.formatPrice(order.getFeeAmount())));
-            orderStatusTextView.setText(context.getString(R.string.status_label, safeValue(order.getStatus())));
+            double price = order.getTotalPrice();
+            if (price <= 0 && order.getItems() != null && !order.getItems().isEmpty()) {
+                price = order.getItems().get(0).getSubtotal();
+            }
+            orderPriceTextView.setText(AnimalUiUtils.formatPrice(price));
+
+            itemView.setOnClickListener(v -> {
+                if (onOrderClickListener != null) {
+                    onOrderClickListener.onOrderClick(order);
+                }
+            });
         }
 
         private String safeValue(String value) {

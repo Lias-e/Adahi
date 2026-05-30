@@ -38,20 +38,29 @@ public class SeedFirebaseAnimals {
             String projectId = System.getenv("FIREBASE_PROJECT_ID");
 
             if (saPath == null || saPath.isEmpty()) {
-                System.err.println("FIREBASE_SERVICE_ACCOUNT environment variable is not set.");
-                System.exit(2);
+                System.out.println("FIREBASE_SERVICE_ACCOUNT environment variable is not set; will try Application Default Credentials.");
             }
             if (projectId == null || projectId.isEmpty()) {
                 projectId = DEFAULT_PROJECT_ID;
                 System.out.println("FIREBASE_PROJECT_ID not set. Using default project id: " + projectId);
             }
 
-            InputStream serviceAccount = new FileInputStream(saPath);
-
-            FirebaseOptions options = FirebaseOptions.builder()
+                FirebaseOptions options;
+                if (saPath != null && !saPath.isEmpty()) {
+                InputStream serviceAccount = new FileInputStream(saPath);
+                options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setProjectId(projectId)
                     .build();
+                } else {
+                // Attempt to use Application Default Credentials (gcloud auth application-default login)
+                System.out.println("FIREBASE_SERVICE_ACCOUNT not set. Trying Application Default Credentials...");
+                GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
+                options = FirebaseOptions.builder()
+                    .setCredentials(credentials)
+                    .setProjectId(projectId)
+                    .build();
+                }
 
             FirebaseApp app;
             if (FirebaseApp.getApps().isEmpty()) {

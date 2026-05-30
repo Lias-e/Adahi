@@ -5,10 +5,8 @@ import android.util.Log;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.net.Uri;
-import android.content.ActivityNotFoundException;
-import androidx.browser.customtabs.CustomTabsIntent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,8 +18,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.android.adahi.R;
+import com.android.adahi.data.LocalOrderDbHelper;
 import com.android.adahi.models.Order;
-import com.android.adahi.utils.ChargilyCheckoutClient;
 import com.android.adahi.utils.AnimalUiUtils;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -32,37 +30,30 @@ import com.google.firebase.firestore.ListenerRegistration;
 public class OrderConfirmationActivity extends AppCompatActivity {
 
     private static final String TAG = "OrderConfirmationActivity";
-    private static final String CHARGILY_RESERVATION_PAYMENT_URL = "https://pay.chargily.com/test/payment-links/01kstvtc3dfd9w76t3eyb3805c";
-    private static final String CHARGILY_ARBOUN_PAYMENT_URL = "https://pay.chargily.com/test/payment-links/01kstw3m7cq60eyynqr5crd0n5";
-
+    private static final String BUY_ORDERS_COLLECTION = "buy_orders";
+    private static final String RESERVE_ORDERS_COLLECTION = "reserve_orders";
     // UI Components
+    private ImageView backButton;
     private TextView orderIdTextView;
     private TextView customerNameTextView;
     private TextView customerEmailTextView;
     private TextView customerPhoneTextView;
     private TextView wilayaTextView;
-    private TextView orderTypeTextView;
     private TextView orderItemsTextView;
-    private TextView totalPriceTextView;
     private TextView orderStatusTextView;
-    private View paymentSectionCard;
-    private TextView paymentSectionTitleTextView;
-    private TextView paymentSectionNoteTextView;
-    private Button openPaymentLinkButton;
-    private Button copyPaymentLinkButton;
-    private Button verifyPaymentButton;
-    private Button backButton;
+    private Button submitOrderButton;
+    private View buttonContainer;
 
     // Order data
     private Order currentOrder;
     private String currentOrderId;
     private String orderCollectionName;
     private FirebaseFirestore firestore;
+    private LocalOrderDbHelper localDb;
     private ListenerRegistration orderListener;
     private String pendingDeepLinkResult;
     private boolean deepLinkHandled;
-    private long lastAutoVerifyAt = 0L;
-    private static final long AUTO_VERIFY_COOLDOWN_MS = 10_000L; // 10s cooldown
+    private boolean allowSubmitOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +62,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_confirmation);
 
         firestore = FirebaseFirestore.getInstance();
+        localDb = new LocalOrderDbHelper(this);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -80,16 +72,12 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         initializeViews();
         retrieveOrderData();
-        displayOrderConfirmation();
-        handlePaymentReturnIntent(getIntent());
+        if (currentOrder != null) {
+            displayOrderConfirmation();
+        } else if (currentOrderId != null && !currentOrderId.trim().isEmpty()) {
+            fetchOrderById();
+        }
         setupButtonListeners();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        setIntent(intent);
-        handlePaymentReturnIntent(intent);
     }
 
     @Override
@@ -98,57 +86,46 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         startOrderListener();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        maybeAutoVerifyOnResume();
-    }
-
-    private void maybeAutoVerifyOnResume() {
-        if (currentOrder == null) return;
-        String checkoutId = currentOrder.getCheckoutId();
-        if (checkoutId == null || checkoutId.trim().isEmpty()) return;
-        String paymentStatus = currentOrder.getPaymentStatus();
-        if (paymentStatus != null && "paid".equalsIgnoreCase(paymentStatus)) return;
-        long now = System.currentTimeMillis();
-        if (now - lastAutoVerifyAt < AUTO_VERIFY_COOLDOWN_MS) return;
-        lastAutoVerifyAt = now;
-        verifyPaymentStatus();
-    }
-
     private void initializeViews() {
+        backButton = findViewById(R.id.backButton);
         orderIdTextView = findViewById(R.id.orderIdTextView);
         customerNameTextView = findViewById(R.id.customerNameTextView);
         customerEmailTextView = findViewById(R.id.customerEmailTextView);
         customerPhoneTextView = findViewById(R.id.customerPhoneTextView);
         wilayaTextView = findViewById(R.id.wilayaTextView);
-        orderTypeTextView = findViewById(R.id.comuneTextView);
         orderItemsTextView = findViewById(R.id.orderItemsTextView);
-        totalPriceTextView = findViewById(R.id.totalPriceTextView);
         orderStatusTextView = findViewById(R.id.orderStatusTextView);
-        paymentSectionCard = findViewById(R.id.paymentSectionCard);
-        paymentSectionTitleTextView = findViewById(R.id.paymentSectionTitleTextView);
-        paymentSectionNoteTextView = findViewById(R.id.paymentSectionNoteTextView);
-        openPaymentLinkButton = findViewById(R.id.openPaymentLinkButton);
-        copyPaymentLinkButton = findViewById(R.id.copyPaymentLinkButton);
-        verifyPaymentButton = findViewById(R.id.verifyPaymentButton);
-        backButton = findViewById(R.id.backButton);
+        buttonContainer = findViewById(R.id.buttonContainer);
+        submitOrderButton = findViewById(R.id.submitOrderButton);
 
         orderIdTextView.setClickable(true);
         orderIdTextView.setFocusable(true);
     }
 
     private void retrieveOrderData() {
-        currentOrder = (Order) getIntent().getSerializableExtra("order");
-        if (currentOrder == null) {
-            Uri data = getIntent() != null ? getIntent().getData() : null;
-            if (isPaymentReturnDeepLink(data)) {
-                currentOrderId = data.getQueryParameter("orderId");
-                orderCollectionName = data.getQueryParameter("collectionName");
-                fetchOrderFromDeepLink();
-                return;
-            }
+        Intent intent = getIntent();
+        currentOrder = (Order) intent.getSerializableExtra("order");
+        currentOrderId = intent.getStringExtra("order_id");
+        orderCollectionName = intent.getStringExtra("order_collection");
+        allowSubmitOrder = intent.getBooleanExtra("allow_submit", false);
 
+        if (currentOrder != null) {
+            if (currentOrder.getOrderId() == null || currentOrder.getOrderId().trim().isEmpty()) {
+                if (currentOrderId != null && !currentOrderId.trim().isEmpty()) {
+                    currentOrder.setOrderId(currentOrderId);
+                } else {
+                    currentOrder.setOrderId("ORD-" + System.currentTimeMillis());
+                }
+            }
+            currentOrderId = currentOrder.getOrderId();
+            if (orderCollectionName == null || orderCollectionName.trim().isEmpty()) {
+                orderCollectionName = "reserve".equals(currentOrder.getOrderType()) ? RESERVE_ORDERS_COLLECTION : BUY_ORDERS_COLLECTION;
+            }
+            updateSubmitButtonVisibility();
+            return;
+        }
+
+        if (currentOrderId == null || currentOrderId.trim().isEmpty()) {
             Log.e(TAG, "No order data received");
             Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
             finish();
@@ -168,10 +145,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             customerPhoneTextView.setText(getString(R.string.phone_label, currentOrder.getCustomerPhone()));
             
             wilayaTextView.setText(getString(R.string.wilaya_label, currentOrder.getWilaya()));
-            String orderType = "reserve".equals(currentOrder.getOrderType())
-                    ? getString(R.string.order_type_reserve)
-                    : getString(R.string.order_type_buy);
-            orderTypeTextView.setText(getString(R.string.order_type_label, orderType));
 
             StringBuilder itemsText = new StringBuilder(getString(R.string.order_items_header)).append("\n");
             if (currentOrder.getItems() != null) {
@@ -186,221 +159,98 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             }
             orderItemsTextView.setText(itemsText.toString());
 
-            totalPriceTextView.setText(getString(R.string.fee_label, AnimalUiUtils.formatPrice(currentOrder.getFeeAmount())));
             orderStatusTextView.setText(getString(R.string.status_label, currentOrder.getStatus()));
-            orderCollectionName = "reserve".equals(currentOrder.getOrderType()) ? "reserve_orders" : "buy_orders";
-            configurePaymentSection();
+            orderCollectionName = "reserve".equals(currentOrder.getOrderType()) ? RESERVE_ORDERS_COLLECTION : BUY_ORDERS_COLLECTION;
+            updateSubmitButtonVisibility();
             startOrderListener();
-            maybeHandlePendingDeepLink();
 
         } catch (Exception e) {
             Log.e(TAG, "Error displaying order confirmation", e);
         }
     }
 
-    private void fetchOrderFromDeepLink() {
-        if (firestore == null || currentOrderId == null || currentOrderId.trim().isEmpty() || orderCollectionName == null || orderCollectionName.trim().isEmpty()) {
+    private void fetchOrderById() {
+        if (firestore == null || currentOrderId == null || currentOrderId.trim().isEmpty()) {
             Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        firestore.collection(orderCollectionName)
-                .document(currentOrderId)
-                .get()
-                .addOnSuccessListener(snapshot -> {
-                    Order order = snapshot.toObject(Order.class);
-                    if (order == null) {
-                        Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
-                        finish();
-                        return;
-                    }
-
-                    currentOrder = order;
-                    if (currentOrder.getOrderId() == null || currentOrder.getOrderId().trim().isEmpty()) {
-                        currentOrder.setOrderId(currentOrderId);
-                    }
-                    displayOrderConfirmation();
-                })
-                .addOnFailureListener(error -> {
-                    Log.e(TAG, "Failed to load order from deep link", error);
-                    Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
-                    finish();
-                });
-    }
-
-    private boolean isPaymentReturnDeepLink(Uri uri) {
-        return uri != null
-                && "adahi".equals(uri.getScheme())
-                && "payment-return".equals(uri.getHost());
-    }
-
-    private void handlePaymentReturnIntent(Intent intent) {
-        if (intent == null) {
-            return;
-        }
-
-        Uri uri = intent.getData();
-        if (!isPaymentReturnDeepLink(uri)) {
-            return;
-        }
-
-        pendingDeepLinkResult = uri.getQueryParameter("result");
-        deepLinkHandled = false;
-        maybeHandlePendingDeepLink();
-    }
-
-    private void maybeHandlePendingDeepLink() {
-        if (deepLinkHandled || pendingDeepLinkResult == null || pendingDeepLinkResult.trim().isEmpty()) {
-            return;
-        }
-
-        if ("success".equalsIgnoreCase(pendingDeepLinkResult)) {
-            if (currentOrder == null || currentOrder.getCheckoutId() == null || currentOrder.getCheckoutId().trim().isEmpty()) {
+        fetchOrderFromCollection(BUY_ORDERS_COLLECTION, order -> {
+            if (order != null) {
+                currentOrder = order;
+                orderCollectionName = BUY_ORDERS_COLLECTION;
+                displayOrderConfirmation();
                 return;
             }
 
-            deepLinkHandled = true;
-            Toast.makeText(this, R.string.payment_return_verifying, Toast.LENGTH_SHORT).show();
-            verifyPaymentStatus();
-            return;
-        }
+            fetchOrderFromCollection(RESERVE_ORDERS_COLLECTION, reserveOrder -> {
+                if (reserveOrder != null) {
+                    currentOrder = reserveOrder;
+                    orderCollectionName = RESERVE_ORDERS_COLLECTION;
+                    displayOrderConfirmation();
+                    return;
+                }
 
-        if ("failure".equalsIgnoreCase(pendingDeepLinkResult)) {
-            deepLinkHandled = true;
-            Toast.makeText(this, R.string.payment_return_failed, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void configurePaymentSection() {
-        boolean isReservationOrder = currentOrder != null && "reserve".equals(currentOrder.getOrderType());
-        boolean isBuyOrder = currentOrder != null && "buy".equals(currentOrder.getOrderType());
-        boolean isPaymentOrder = isReservationOrder || isBuyOrder;
-        boolean isPaid = currentOrder != null && "paid".equalsIgnoreCase(currentOrder.getPaymentStatus());
-        if (paymentSectionCard != null) {
-            paymentSectionCard.setVisibility(isPaymentOrder ? View.VISIBLE : View.GONE);
-        }
-
-        if (!isPaymentOrder) {
-            return;
-        }
-
-        if (paymentSectionTitleTextView != null) {
-            paymentSectionTitleTextView.setText(isReservationOrder
-                    ? R.string.reservation_payment_title
-                    : R.string.arboun_payment_title);
-        }
-
-        if (paymentSectionNoteTextView != null) {
-            if (isPaid) {
-                paymentSectionNoteTextView.setText("تم تأكيد الدفع عبر Chargily Pay.");
-            } else {
-                paymentSectionNoteTextView.setText(isReservationOrder
-                        ? getString(R.string.reservation_payment_note)
-                        : getString(R.string.arboun_payment_note));
-            }
-        }
-
-        if (openPaymentLinkButton != null) {
-            openPaymentLinkButton.setEnabled(!isPaid);
-            openPaymentLinkButton.setText(isPaid ? "تم الدفع" : getString(R.string.reservation_payment_button));
-            openPaymentLinkButton.setOnClickListener(v -> openChargilyPaymentLink());
-        }
-
-        if (copyPaymentLinkButton != null) {
-            copyPaymentLinkButton.setEnabled(!isPaid);
-            copyPaymentLinkButton.setOnClickListener(v -> copyPaymentLinkToClipboard());
-        }
-
-        if (verifyPaymentButton != null) {
-            verifyPaymentButton.setEnabled(!isPaid);
-            verifyPaymentButton.setText(isPaid ? getString(R.string.reservation_payment_verified_button) : getString(R.string.reservation_payment_verify_button));
-            verifyPaymentButton.setOnClickListener(v -> verifyPaymentStatus());
-        }
-    }
-
-    private void verifyPaymentStatus() {
-        if (currentOrder == null || currentOrder.getCheckoutId() == null || currentOrder.getCheckoutId().trim().isEmpty()) {
-            Toast.makeText(this, R.string.reservation_payment_not_ready, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (verifyPaymentButton != null) {
-            verifyPaymentButton.setEnabled(false);
-        }
-
-        ChargilyCheckoutClient.fetchCheckoutStatus(currentOrder.getCheckoutId(), new ChargilyCheckoutClient.CheckoutStatusCallback() {
-            @Override
-            public void onSuccess(String status) {
-                runOnUiThread(() -> applyCheckoutStatus(status));
-            }
-
-            @Override
-            public void onError(String message, Exception exception) {
-                runOnUiThread(() -> {
-                    Log.e(TAG, "Failed to verify payment status", exception);
-                    if (verifyPaymentButton != null) {
-                        verifyPaymentButton.setEnabled(true);
-                    }
-                    Toast.makeText(OrderConfirmationActivity.this, message == null ? getString(R.string.reservation_payment_verify_failed) : message, Toast.LENGTH_LONG).show();
-                });
-            }
+                Log.e(TAG, "Failed to load order by id: " + currentOrderId);
+                Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
+                finish();
+            });
         });
     }
 
-    private void applyCheckoutStatus(String status) {
-        String normalizedStatus = status == null ? "pending" : status.trim().toLowerCase();
-        String nextOrderStatus;
-        String nextPaymentStatus;
+    private void fetchOrderFromCollection(String collectionName, OrderLoadCallback callback) {
+        firestore.collection(collectionName)
+                .document(currentOrderId)
+                .get()
+                .addOnSuccessListener(snapshot -> callback.onResult(snapshot.toObject(Order.class)))
+                .addOnFailureListener(error -> {
+                    Log.e(TAG, "Failed to load order from collection: " + collectionName, error);
+                    callback.onResult(null);
+                });
+    }
 
-        switch (normalizedStatus) {
-            case "paid":
-                nextOrderStatus = "Paid";
-                nextPaymentStatus = "paid";
-                break;
-            case "failed":
-                nextOrderStatus = "Payment Failed";
-                nextPaymentStatus = "failed";
-                break;
-            case "canceled":
-                nextOrderStatus = "Payment Canceled";
-                nextPaymentStatus = "canceled";
-                break;
-            default:
-                nextOrderStatus = "Pending Payment";
-                nextPaymentStatus = "pending";
-                break;
+    private interface OrderLoadCallback {
+        void onResult(Order order);
+    }
+
+    private void updateSubmitButtonVisibility() {
+        if (submitOrderButton == null) {
+            return;
         }
+        buttonContainer.setVisibility(allowSubmitOrder ? View.VISIBLE : View.GONE);
+        submitOrderButton.setVisibility(allowSubmitOrder ? View.VISIBLE : View.GONE);
+        submitOrderButton.setOnClickListener(v -> submitOrder());
+    }
 
-        if (currentOrder == null || currentOrderId == null || orderCollectionName == null) {
-            if (verifyPaymentButton != null) {
-                verifyPaymentButton.setEnabled(true);
-            }
+    private void submitOrder() {
+        if (currentOrder == null || currentOrderId == null || currentOrderId.trim().isEmpty()) {
+            Toast.makeText(this, R.string.error_order_data_not_found, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        currentOrder.setStatus(nextOrderStatus);
-        currentOrder.setPaymentStatus(nextPaymentStatus);
+        String collection = "reserve".equals(currentOrder.getOrderType()) ? RESERVE_ORDERS_COLLECTION : BUY_ORDERS_COLLECTION;
+        currentOrder.setOrderId(currentOrderId);
+        currentOrder.setStatus("Submitted");
 
-        firestore.collection(orderCollectionName)
+        submitOrderButton.setEnabled(false);
+        firestore.collection(collection)
                 .document(currentOrderId)
                 .set(currentOrder)
                 .addOnSuccessListener(unused -> {
-                    orderStatusTextView.setText(getString(R.string.status_label, currentOrder.getStatus()));
-                    configurePaymentSection();
-                    int messageRes = "paid".equals(nextPaymentStatus)
-                            ? R.string.payment_return_success
-                            : R.string.reservation_payment_verify_pending;
-                    Toast.makeText(OrderConfirmationActivity.this, messageRes, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Order submitted to Firestore: " + currentOrderId);
+                    localDb.insertOrder(currentOrderId, System.currentTimeMillis());
+                    Toast.makeText(this, R.string.confirm_order_dialog_positive, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, OrderTrackingActivity.class));
+                    finish();
                 })
                 .addOnFailureListener(error -> {
-                    Log.e(TAG, "Failed to persist verified payment status", error);
-                    if (verifyPaymentButton != null) {
-                        verifyPaymentButton.setEnabled(true);
-                    }
-                    Toast.makeText(OrderConfirmationActivity.this, R.string.error_firestore_save_failed, Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Error submitting order", error);
+                    submitOrderButton.setEnabled(true);
+                    Toast.makeText(this, R.string.error_firestore_save_failed, Toast.LENGTH_SHORT).show();
                 });
     }
+
 
     private void startOrderListener() {
         if (firestore == null || currentOrderId == null || currentOrderId.trim().isEmpty() || orderCollectionName == null) {
@@ -434,77 +284,10 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                     customerEmailTextView.setText(getString(R.string.nin_label, currentOrder.getCustomerEmail()));
                     customerPhoneTextView.setText(getString(R.string.phone_label, currentOrder.getCustomerPhone()));
                     wilayaTextView.setText(getString(R.string.wilaya_label, currentOrder.getWilaya()));
-                    String updatedOrderType = "reserve".equals(currentOrder.getOrderType())
-                            ? getString(R.string.order_type_reserve)
-                            : getString(R.string.order_type_buy);
-                    orderTypeTextView.setText(getString(R.string.order_type_label, updatedOrderType));
-                    totalPriceTextView.setText(getString(R.string.fee_label, AnimalUiUtils.formatPrice(currentOrder.getFeeAmount())));
                     orderStatusTextView.setText(getString(R.string.status_label, currentOrder.getStatus()));
-                    configurePaymentSection();
                 });
     }
-
-    private void openChargilyPaymentLink() {
-        try {
-            String checkoutUrl = currentOrder != null && currentOrder.getCheckoutUrl() != null && !currentOrder.getCheckoutUrl().trim().isEmpty()
-                    ? currentOrder.getCheckoutUrl()
-                    : getFallbackPaymentUrl();
-
-            Uri uri = Uri.parse(checkoutUrl);
-            try {
-                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
-                customTabsIntent.launchUrl(this, uri);
-            } catch (ActivityNotFoundException ex) {
-                // No browser available, fallback to in-app WebView activity
-                Intent intent = new Intent(this, PaymentWebViewActivity.class);
-                intent.putExtra(PaymentWebViewActivity.EXTRA_URL, checkoutUrl);
-                startActivityForResult(intent, 1234);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error opening Chargily payment link", e);
-            Toast.makeText(this, R.string.reservation_payment_link_open_failed, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1234) {
-            if (resultCode == RESULT_OK && data != null && data.getData() != null) {
-                // Received the return URL from the WebView activity, handle as deep link
-                Uri uri = data.getData();
-                handlePaymentReturnIntent(new Intent(Intent.ACTION_VIEW, uri));
-            } else {
-                // user cancelled or closed webview — do nothing
-            }
-        }
-    }
-
-    private void copyPaymentLinkToClipboard() {
-        try {
-            ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-            if (clipboardManager == null) {
-                Toast.makeText(this, R.string.error_order_copy_failed, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            String checkoutUrl = currentOrder != null && currentOrder.getCheckoutUrl() != null && !currentOrder.getCheckoutUrl().trim().isEmpty()
-                    ? currentOrder.getCheckoutUrl()
-                    : getFallbackPaymentUrl();
-            clipboardManager.setPrimaryClip(ClipData.newPlainText(getString(R.string.reservation_payment_button), checkoutUrl));
-            Toast.makeText(this, R.string.reservation_payment_link_copied, Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Log.e(TAG, "Error copying Chargily payment link", e);
-            Toast.makeText(this, R.string.error_order_copy_failed, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private String getFallbackPaymentUrl() {
-        if (currentOrder != null && "buy".equals(currentOrder.getOrderType())) {
-            return CHARGILY_ARBOUN_PAYMENT_URL;
-        }
-        return CHARGILY_RESERVATION_PAYMENT_URL;
-    }
+    
 
     private void copyOrderIdToClipboard() {
         if (currentOrderId == null || currentOrderId.trim().isEmpty()) {
@@ -524,6 +307,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     private void setupButtonListeners() {
         backButton.setOnClickListener(v -> finish());
+        updateSubmitButtonVisibility();
     }
 
     @Override

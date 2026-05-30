@@ -2,7 +2,7 @@
     <string name="app_name">أغنام الجزائر</string>
 
     <!-- Animal List Activity Strings -->
-    <string name="animal_list_title">سلالات الأغنام حسب الولاية</string>
+    <string name="animal_list_title">سلالات الأغنام المتاحة</string>
 
     <!-- Order Form Activity Strings -->
     <string name="order_form_title">استمارة الطلب</string>
@@ -13,13 +13,11 @@
     <string name="quantity_label">الكمية: 1</string>
     <string name="confirm_button">تأكيد الطلب</string>
     <string name="cancel_button">إلغاء</string>
-    <string name="buy_form_title">شراء مباشر</string>
+    <string name="buy_form_title">طلب</string>
     <string name="reserve_form_title">حجز للمعاينة</string>
-    <string name="buy_confirm_button">دفع العربون 3,000 د.ج</string>
-    <string name="reserve_confirm_button">دفع رسوم الحجز 250 د.ج</string>
-    <string name="reservation_fee_note">رسوم الحجز 250 د.ج لتثبيت موعد المعاينة</string>
+    <!-- Payment strings removed from base; deprecated in this build -->
     <string name="order_type_label">نوع الطلب: %1$s</string>
-    <string name="order_type_buy">شراء مباشر</string>
+    <string name="order_type_buy">طلب</string>
     <string name="order_type_reserve">حجز للمعاينة</string>
     <string name="error_firestore_save_failed">تعذر حفظ الطلب على Firestore</string>
     <string name="tracking_loading">جاري تحميل طلباتك...</string>
@@ -36,21 +34,25 @@
     <string name="email_label">رقم التعريف الوطني: %1$s</string>
     <string name="phone_label">الهاتف: %1$s</string>
     <string name="wilaya_label">الولاية: %1$s</string>
-    <string name="fee_label">رسوم الطلب: %1$s د.ج</string>
+    <string name="fee_label">رسوم الطلب: %1$s</string>
     <string name="order_items_header">مواد الطلب:</string>
-    <string name="item_summary">%1$s\nالكمية: %2$d\nسعر الوحدة: %3$s د.ج\nالمجموع الفرعي: %4$s د.ج\n</string>
-    <string name="total_price_label">السعر الإجمالي: %1$s د.ج</string>
+    <string name="item_summary">%1$s\nالكمية: %2$d\nسعر الوحدة: %3$s\nالمجموع الفرعي: %4$s\n</string>
+    <string name="total_price_label">السعر الإجمالي: %1$s</string>
     <string name="status_label">الحالة: %1$s</string>
 
     <!-- Animal Details -->
     <string name="animal_type_label">النوع: %1$s</string>
-    <string name="animal_price_label">السعر: %1$s د.ج</string>
+    <string name="animal_price_label">السعر: %1$s</string>
     <string name="animal_weight_label">الوزن: %1$.2f كغ</string>
     <string name="animal_description">الوصف</string>
     <string name="animal_quantity_label">المتوفر: %1$d</string>
 
-    <string name="sheep_wilaya_prompt">اختر ولاية الإقامة لعرض سلالات الأغنام المتاحة وغير المتاحة.</string>
-    <string name="sheep_wilaya_prompt_short">اختر الولاية من الأعلى لبدء العرض.</string>
+    <string name="sheep_wilaya_prompt">تصفح سلالات الأغنام المتاحة حالياً.</string>
+    <string name="sheep_wilaya_prompt_short">استعرض السلالات المتاحة من القائمة.</string>
+        <string name="confirm_order_dialog_title">تأكيد الطلب</string>
+        <string name="confirm_order_dialog_message">هل تريد تأكيد هذا الطلب الآن؟</string>
+        <string name="confirm_order_dialog_positive">تأكيد</string>
+        <string name="confirm_order_dialog_negative">رجوع</string>
     <string name="sheep_wilaya_selected">الولاية المختارة: %1$s</string>
     <string name="sheep_wilaya_not_found">لا توجد بيانات لهذه الولاية: %1$s</string>
     <string name="sheep_no_breeds_available">لا توجد سلالات أغنام محفوظة لهذه الولاية حالياً.</string>

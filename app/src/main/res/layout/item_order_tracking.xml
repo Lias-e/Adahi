@@ -17,55 +17,32 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/orderIdTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/adahi_on_surface_variant"
-            android:textSize="13sp" />
-
-        <TextView
             android:id="@+id/animalNameTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:text="اسم الأضحية"
             android:textColor="@color/adahi_on_surface"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/orderTypeTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/orderPlaceTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="@color/adahi_primary"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/orderDateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:text="الولاية: ---"
             android:textColor="@color/adahi_on_surface_variant"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/orderFeeTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/orderPriceTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="12dp"
+            android:gravity="end"
+            android:text="0 د.ج"
             android:textColor="@color/adahi_primary"
             android:textSize="22sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/orderStatusTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/item_background"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp"
-            android:textColor="@color/adahi_secondary"
-            android:textSize="14sp" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

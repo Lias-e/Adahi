@@ -33,8 +33,8 @@ public class AnimalDetailActivity extends AppCompatActivity {
 
     private TextView animalNameText;
     private TextView animalTypeText;
-    private TextView animalPriceText;
     private TextView animalWeightText;
+    private TextView animalDescriptionText;
     private TextView breedText;
     private TextView ageText;
     private TextView genderText;
@@ -43,10 +43,6 @@ public class AnimalDetailActivity extends AppCompatActivity {
     private ImageView heroImage;
     private ImageView backButton;
     private Button directPurchaseButton;
-    private TextView weightRange1;
-    private TextView weightRange2;
-    private TextView weightRange3;
-    private TextView weightRange4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,32 +80,25 @@ public class AnimalDetailActivity extends AppCompatActivity {
     private void bindViews() {
         animalNameText = findViewById(R.id.animalDetailName);
         animalTypeText = findViewById(R.id.animalDetailType);
-        animalPriceText = findViewById(R.id.animalDetailPrice);
         animalWeightText = findViewById(R.id.animalDetailWeight);
+        animalDescriptionText = findViewById(R.id.animalDescriptionText);
         breedText = findViewById(R.id.animalBreedText);
         ageText = findViewById(R.id.animalAgeText);
         genderText = findViewById(R.id.animalGenderText);
-        // description removed — only show health/status via breed/age/gender fields
         salesPointText = findViewById(R.id.animalSalesPointText);
         heroImage = findViewById(R.id.animalHeroImage);
         backButton = findViewById(R.id.backButton);
         directPurchaseButton = findViewById(R.id.directPurchaseButton);
-
-        weightRange1 = findViewById(R.id.weightRange1);
-        weightRange2 = findViewById(R.id.weightRange2);
-        weightRange3 = findViewById(R.id.weightRange3);
-        weightRange4 = findViewById(R.id.weightRange4);
     }
 
     private void populateViews() {
         animalNameText.setText(animalName != null ? animalName : "");
         animalTypeText.setText(getString(R.string.animal_type_label, animalType != null ? animalType : ""));
-        animalPriceText.setText(AnimalUiUtils.formatPrice(animalPrice));
         animalWeightText.setText(getString(R.string.animal_weight_label, animalWeight));
+        animalDescriptionText.setText(safeValue(animalDescription));
         breedText.setText(getString(R.string.breed_label, safeValue(animalBreed)));
         ageText.setText(getString(R.string.age_label, safeValue(animalAge)));
         genderText.setText(getString(R.string.gender_label, safeValue(animalGender)));
-        // description removed — do not display free-text description
         salesPointText.setText(getString(R.string.sales_point_current_label, safeValue(animalSalesPoint)));
 
         Animal previewAnimal = new Animal();
@@ -139,11 +128,6 @@ public class AnimalDetailActivity extends AppCompatActivity {
     private void setupActions() {
         backButton.setOnClickListener(v -> finish());
         directPurchaseButton.setOnClickListener(v -> openOrderForm("buy"));
-        // weight range clicks filter the list by selected range
-        weightRange1.setOnClickListener(v -> openListForWeight(40, 50));
-        weightRange2.setOnClickListener(v -> openListForWeight(55, 60));
-        weightRange3.setOnClickListener(v -> openListForWeight(65, 70));
-        weightRange4.setOnClickListener(v -> openListForWeight(75, Double.MAX_VALUE));
     }
 
     private void openOrderForm(String orderType) {
@@ -163,10 +147,4 @@ public class AnimalDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openListForWeight(double minKg, double maxKg) {
-        Intent intent = new Intent(this, AnimalListActivity.class);
-        intent.putExtra("filter_weight_min", minKg);
-        intent.putExtra("filter_weight_max", maxKg);
-        startActivity(intent);
-    }
 }

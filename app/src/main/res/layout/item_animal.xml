@@ -29,27 +29,6 @@
                 android:contentDescription="@string/animal_card_image_description"
                 android:scaleType="centerCrop"
                 android:src="@android:drawable/ic_menu_gallery" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/animalBadge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|end"
-                android:layout_margin="12dp"
-                app:cardBackgroundColor="@color/adahi_primary"
-                app:cardCornerRadius="999dp"
-                app:cardElevation="0dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="6dp"
-                    android:text="الأكثر طلباً"
-                    android:textColor="@color/adahi_on_primary"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </com.google.android.material.card.MaterialCardView>
         </FrameLayout>
 
         <LinearLayout

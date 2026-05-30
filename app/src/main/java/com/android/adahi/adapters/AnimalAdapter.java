@@ -102,7 +102,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
             binding.animalDescription.setText(animal.getDescription());
             binding.animalWeightChip.setText(String.format(java.util.Locale.getDefault(), "%.0f كغ", animal.getWeight()));
             binding.animalLocationChip.setText(animal.getSalesPoint() == null || animal.getSalesPoint().isEmpty() ? "نقطة بيع موثقة" : animal.getSalesPoint());
-            binding.animalBadge.setCardBackgroundColor(context.getColor(animal.getQuantity() > 3 ? R.color.adahi_primary : R.color.adahi_secondary));
+            // Removed the obsolete animal badge binding
 
             Glide.with(binding.getRoot())
                     .load(AnimalUiUtils.resolveImageUrl(animal))

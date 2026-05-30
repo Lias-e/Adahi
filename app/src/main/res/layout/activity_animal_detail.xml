@@ -38,7 +38,7 @@
                     android:contentDescription="@string/back_button"
                     android:padding="8dp"
                     android:src="@android:drawable/ic_media_previous"
-                    android:tint="@color/adahi_primary" />
+                    app:tint="@color/adahi_primary" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -56,82 +56,16 @@
                     android:contentDescription="@string/search_label"
                     android:padding="8dp"
                     android:src="@android:drawable/ic_menu_search"
-                    android:tint="@color/adahi_on_surface_variant" />
+                    app:tint="@color/adahi_on_surface_variant" />
             </LinearLayout>
 
-            <FrameLayout
+            <ImageView
+                android:id="@+id/animalHeroImage"
                 android:layout_width="match_parent"
-                android:layout_height="280dp">
-
-                <ImageView
-                    android:id="@+id/animalHeroImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/animal_card_image_description"
-                    android:scaleType="centerCrop"
-                    android:src="@android:drawable/ic_menu_gallery" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_margin="16dp"
-                    app:cardBackgroundColor="@color/adahi_primary"
-                    app:cardCornerRadius="999dp"
-                    app:cardElevation="0dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="8dp"
-                        android:text="فحص بيطري معتمد"
-                        android:textColor="@color/adahi_on_primary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </com.google.android.material.card.MaterialCardView>
-            </FrameLayout>
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layoutDirection="rtl"
-                    android:paddingHorizontal="16dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="88dp"
-                        android:layout_height="88dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/item_background"
-                        android:contentDescription="@string/animal_card_image_description"
-                        android:src="@android:drawable/ic_menu_gallery"
-                        android:scaleType="centerCrop" />
-
-                    <ImageView
-                        android:layout_width="88dp"
-                        android:layout_height="88dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/item_background"
-                        android:contentDescription="@string/animal_card_image_description"
-                        android:src="@android:drawable/ic_menu_gallery"
-                        android:scaleType="centerCrop" />
-
-                    <ImageView
-                        android:layout_width="88dp"
-                        android:layout_height="88dp"
-                        android:background="@drawable/item_background"
-                        android:contentDescription="@string/animal_card_image_description"
-                        android:src="@android:drawable/ic_menu_gallery"
-                        android:scaleType="centerCrop" />
-                </LinearLayout>
-            </HorizontalScrollView>
+                android:layout_height="280dp"
+                android:contentDescription="@string/animal_card_image_description"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -181,15 +115,39 @@
                         tools:text="الوزن: 58 كغ" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/animalDetailPrice"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:textColor="@color/adahi_primary"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    tools:text="78.000 د.ج" />
+                    android:layout_marginTop="16dp"
+                    app:cardBackgroundColor="@color/adahi_surface_container_lowest"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="الوصف"
+                            android:textColor="@color/adahi_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/animalDescriptionText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/adahi_on_surface_variant"
+                            android:textSize="14sp"
+                            tools:text="أضحية مختارة بعناية وتناسب الذبح في موسم العيد." />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -253,96 +211,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/adahi_surface_container_lowest"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <!-- Description removed per request -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/weightRange1"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/item_background"
-                                android:padding="14dp"
-                                android:text="45 - 50 كغ"
-                                android:textColor="@color/adahi_on_surface"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/weightRange2"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/item_background"
-                                android:padding="14dp"
-                                android:text="55 - 60 كغ"
-                                android:textColor="@color/adahi_primary"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/weightRange3"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/item_background"
-                                android:padding="14dp"
-                                android:text="65 - 70 كغ"
-                                android:textColor="@color/adahi_on_surface"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/weightRange4"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/item_background"
-                                android:padding="14dp"
-                                android:text="+75 كغ"
-                                android:textColor="@color/adahi_on_surface"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -358,34 +226,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="العربون 3,000 د.ج"
-                android:textColor="@color/adahi_on_surface_variant"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="السعر النهائي يحدد بعد الوزن"
-                android:textColor="@color/adahi_secondary"
-                android:textSize="12sp" />
-        </LinearLayout>
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/directPurchaseButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="شراء مباشر"
+            android:text="@string/buy_now_title"
             android:textColor="@color/adahi_on_primary"
             app:backgroundTint="@color/adahi_primary"
             app:cornerRadius="16dp"

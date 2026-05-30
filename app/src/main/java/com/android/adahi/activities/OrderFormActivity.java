@@ -18,9 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.android.adahi.R;
 import com.android.adahi.models.Order;
-import com.android.adahi.utils.ChargilyCheckoutClient;
 import com.android.adahi.utils.AnimalUiUtils;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * OrderFormActivity allows users to enter customer information and confirm either a buy order or a reservation.
@@ -28,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class OrderFormActivity extends AppCompatActivity {
 
     private static final String TAG = "OrderFormActivity";
-    private static final double BUY_FEE = 3000d;
+    private static final double BUY_FEE = 0d;
 
     // UI Components
     private TextView selectedAnimalName;
@@ -36,11 +34,10 @@ public class OrderFormActivity extends AppCompatActivity {
     private EditText customerNameInput;
     private EditText customerEmailInput;
     private EditText customerPhoneInput;
+    private Spinner wilayaSpinner;
     private Button confirmButton;
     private Button cancelButton;
     private TextView formTitleTextView;
-    private TextView feeValueTextView;
-    private TextView feeNoteTextView;
 
     // Animal details
     private String animalId;
@@ -50,15 +47,11 @@ public class OrderFormActivity extends AppCompatActivity {
     private double feeAmount;
     private String collectionName;
 
-    private FirebaseFirestore db;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_order_form);
-
-        db = FirebaseFirestore.getInstance();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -67,6 +60,7 @@ public class OrderFormActivity extends AppCompatActivity {
         });
 
         initializeViews();
+        setupWilayaSpinner();
         retrieveAnimalDetails();
         configureMode();
         setupButtonListeners();
@@ -82,13 +76,20 @@ public class OrderFormActivity extends AppCompatActivity {
         customerNameInput = findViewById(R.id.customerNameInput);
         customerEmailInput = findViewById(R.id.customerEmailInput);
         customerPhoneInput = findViewById(R.id.customerPhoneInput);
+        wilayaSpinner = findViewById(R.id.wilayaSpinner);
         confirmButton = findViewById(R.id.confirmOrderButton);
         cancelButton = findViewById(R.id.cancelOrderButton);
         formTitleTextView = findViewById(R.id.formTitleTextView);
-        feeValueTextView = findViewById(R.id.feeValueTextView);
-        feeNoteTextView = findViewById(R.id.feeNoteTextView);
-        
-        // Wilaya removed from buy form
+    }
+
+    private void setupWilayaSpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.wilayas_array,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        wilayaSpinner.setAdapter(adapter);
     }
 
     private void retrieveAnimalDetails() {
@@ -115,60 +116,39 @@ public class OrderFormActivity extends AppCompatActivity {
         if (formTitleTextView != null) {
             formTitleTextView.setText(R.string.buy_now_title);
         }
-        if (feeValueTextView != null) {
-            feeValueTextView.setText(AnimalUiUtils.formatPrice(feeAmount));
-        }
-        if (feeNoteTextView != null) {
-            feeNoteTextView.setText(R.string.arboun_note);
-        }
-        confirmButton.setText(R.string.buy_confirm_button);
+        confirmButton.setText(R.string.confirm_button);
         cancelButton.setText(R.string.cancel_button);
     }
 
     private void setupButtonListeners() {
-        confirmButton.setOnClickListener(v -> handleConfirmOrder());
+        confirmButton.setOnClickListener(v -> prepareOrderPreview());
         cancelButton.setOnClickListener(v -> finish());
     }
 
-    private void handleConfirmOrder() {
+    private void prepareOrderPreview() {
         if (!validateInputs()) return;
-
-        confirmButton.setEnabled(false);
 
         try {
             String customerName = customerNameInput.getText().toString().trim();
             String customerEmail = customerEmailInput.getText().toString().trim();
             String customerPhone = customerPhoneInput.getText().toString().trim();
-            String wilaya = "";
+            String wilaya = wilayaSpinner.getSelectedItemPosition() > 0
+                    ? String.valueOf(wilayaSpinner.getSelectedItem())
+                    : "";
             int quantity = 1;
 
             Order order = new Order(customerName, customerEmail, customerPhone, wilaya, orderType);
+            order.setOrderId("ORD-" + System.currentTimeMillis());
             order.setFeeAmount(feeAmount);
             order.setTotalPrice(feeAmount);
-            order.setStatus("Pending Payment");
-            order.setPaymentStatus("creating_checkout");
+            order.setStatus("Submitted");
+            order.setPaymentStatus("none");
             order.addItem(new Order.OrderItem(animalId, animalName, quantity, animalPrice));
             order.calculateTotalPrice();
 
-            collectionName = "buy_orders";
-            String orderId = db.collection(collectionName).document().getId();
-            order.setOrderId(orderId);
-
-            db.collection(collectionName)
-                    .document(orderId)
-                    .set(order)
-                    .addOnSuccessListener(unused -> {
-                        Log.d(TAG, "Order saved to Firestore: " + orderId);
-                        createChargilyCheckout(order, collectionName);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e(TAG, "Error saving order to Firestore", e);
-                        confirmButton.setEnabled(true);
-                        Toast.makeText(this, R.string.error_firestore_save_failed, Toast.LENGTH_SHORT).show();
-                    });
+            navigateToConfirmation(order);
 
         } catch (Exception e) {
-            confirmButton.setEnabled(true);
             Log.e(TAG, "Error confirming order", e);
         }
     }
@@ -176,51 +156,8 @@ public class OrderFormActivity extends AppCompatActivity {
     private void navigateToConfirmation(Order order) {
         Intent intent = new Intent(this, OrderConfirmationActivity.class);
         intent.putExtra("order", order);
+        intent.putExtra("allow_submit", true);
         startActivity(intent);
-        finish();
-    }
-
-    private void createChargilyCheckout(Order order, String collectionName) {
-        ChargilyCheckoutClient.createCheckout(order, collectionName,
-                new ChargilyCheckoutClient.Callback() {
-                    @Override
-                    public void onSuccess(ChargilyCheckoutClient.ChargilyCheckoutResponse response) {
-                        runOnUiThread(() -> {
-                            order.setCheckoutId(response.getCheckoutId());
-                            order.setCheckoutUrl(response.getCheckoutUrl());
-                            order.setPaymentStatus("checkout_created");
-
-                            db.collection(collectionName)
-                                    .document(order.getOrderId())
-                                    .set(order)
-                                    .addOnSuccessListener(unused -> {
-                                        Log.d(TAG, "Chargily checkout created for order: " + order.getOrderId());
-                                        navigateToConfirmation(order);
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        Log.e(TAG, "Error updating order with checkout data", e);
-                                        Toast.makeText(OrderFormActivity.this, R.string.error_firestore_save_failed, Toast.LENGTH_SHORT).show();
-                                    });
-                        });
-                    }
-
-                    @Override
-                    public void onError(String message, Exception exception) {
-                        runOnUiThread(() -> {
-                            Log.e(TAG, "Failed to create Chargily checkout: " + message, exception);
-                            order.setPaymentStatus("checkout_failed");
-                            order.setStatus("Payment Setup Failed");
-                            db.collection(collectionName)
-                                    .document(order.getOrderId())
-                                    .set(order)
-                                    .addOnCompleteListener(task -> {
-                                        confirmButton.setEnabled(true);
-                                        String errorMessage = message != null ? message : getString(R.string.error_firestore_save_failed);
-                                        Toast.makeText(OrderFormActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-                                    });
-                        });
-                    }
-                });
     }
 
     private boolean validateInputs() {
@@ -232,7 +169,10 @@ public class OrderFormActivity extends AppCompatActivity {
             customerPhoneInput.setError(getString(R.string.error_field_required));
             return false;
         }
-        // wilaya not required for buy flow
+        if (wilayaSpinner.getSelectedItemPosition() <= 0) {
+            Toast.makeText(this, R.string.error_field_required, Toast.LENGTH_SHORT).show();
+            return false;
+        }
         return true;
     }
 
@@ -242,11 +182,16 @@ public class OrderFormActivity extends AppCompatActivity {
         outState.putString("customerName", customerNameInput.getText().toString());
         outState.putString("customerEmail", customerEmailInput.getText().toString());
         outState.putString("customerPhone", customerPhoneInput.getText().toString());
+        outState.putInt("wilayaPosition", wilayaSpinner.getSelectedItemPosition());
     }
 
     private void restoreSavedData(Bundle savedInstanceState) {
         customerNameInput.setText(savedInstanceState.getString("customerName", ""));
         customerEmailInput.setText(savedInstanceState.getString("customerEmail", ""));
         customerPhoneInput.setText(savedInstanceState.getString("customerPhone", ""));
+        int wilayaPosition = savedInstanceState.getInt("wilayaPosition", 0);
+        if (wilayaSpinner.getAdapter() != null && wilayaPosition < wilayaSpinner.getAdapter().getCount()) {
+            wilayaSpinner.setSelection(wilayaPosition);
+        }
     }
 }

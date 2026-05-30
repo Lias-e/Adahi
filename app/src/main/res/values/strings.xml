@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">أغنام الجزائر</string>
 
-    <string name="animal_list_title">سلالات الأغنام حسب الولاية</string>
+    <string name="animal_list_title">سلالات الأغنام المتاحة</string>
     <string name="animal_detail_title">تفاصيل الأضحية</string>
     <string name="order_form_title">إتمام الطلب</string>
     <string name="order_confirmation_title">تفاصيل الطلب</string>
@@ -15,30 +15,14 @@
     <string name="quantity_label">الكمية: 1</string>
     <string name="confirm_button">تأكيد الطلب</string>
     <string name="cancel_button">إلغاء</string>
-    <string name="buy_form_title">شراء مباشر</string>
+    <string name="buy_form_title">طلب</string>
     <string name="reserve_form_title">حجز للمعاينة</string>
-    <string name="buy_confirm_button">دفع العربون 3,000 د.ج</string>
-    <string name="reserve_confirm_button">دفع رسوم الحجز 250 د.ج</string>
-    <string name="reservation_fee_note">رسوم الحجز 250 د.ج لتثبيت موعد المعاينة</string>
-    <string name="reservation_payment_title">ادفع رسوم الحجز عبر Chargily Pay</string>
-    <string name="reservation_payment_button">فتح رابط الدفع</string>
-    <string name="reservation_payment_copy_button">نسخ رابط الدفع</string>
-    <string name="reservation_payment_note">سيتم فتح صفحة دفع آمنة لرسوم الحجز عبر Chargily Pay.</string>
-    <string name="arboun_payment_title">ادفع العربون عبر Chargily Pay</string>
-    <string name="arboun_payment_note">سيتم فتح صفحة دفع آمنة للعربون عبر Chargily Pay.</string>
-    <string name="reservation_payment_link_copied">تم نسخ رابط الدفع</string>
-    <string name="reservation_payment_link_open_failed">تعذر فتح رابط الدفع</string>
-    <string name="reservation_payment_verify_button">تأكيد حالة الدفع</string>
-    <string name="reservation_payment_verified_button">تم تأكيد الدفع</string>
-    <string name="reservation_payment_verify_failed">تعذر التحقق من حالة الدفع</string>
-    <string name="reservation_payment_verify_paid">تم تأكيد الدفع بنجاح</string>
-    <string name="reservation_payment_verify_pending">الدفع لم يكتمل بعد</string>
-    <string name="reservation_payment_not_ready">لا يوجد Checkout صالح للتحقق منه</string>
-    <string name="payment_return_verifying">جاري التحقق من الدفع...</string>
-    <string name="payment_return_success">تم الدفع بنجاح</string>
-    <string name="payment_return_failed">لم يكتمل الدفع</string>
+    <string name="address_label">العنوان: %1$s</string>
+    <string name="customer_address_hint">العنوان</string>
+    <string name="quantity_hint">الكمية</string>
+    <string name="special_instructions_hint">تعليمات خاصة (اختياري)</string>
     <string name="order_type_label">نوع الطلب: %1$s</string>
-    <string name="order_type_buy">شراء مباشر</string>
+    <string name="order_type_buy">طلب</string>
     <string name="order_type_reserve">حجز للمعاينة</string>
     <string name="error_firestore_save_failed">تعذر حفظ الطلب على Firestore</string>
     <string name="tracking_loading">جاري تحميل طلباتك...</string>
@@ -53,21 +37,28 @@
     <string name="nin_label">رقم التعريف الوطني: %1$s</string>
     <string name="phone_label">الهاتف: %1$s</string>
     <string name="wilaya_label">الولاية: %1$s</string>
-    <string name="fee_label">رسوم الطلب: %1$s د.ج</string>
+    <string name="fee_label">رسوم الطلب: %1$s</string>
     <string name="order_items_header">محتويات الطلب:</string>
-    <string name="item_summary">%1$s\nالكمية: %2$d\nسعر الوحدة: %3$s د.ج\nالمجموع الفرعي: %4$s د.ج\n</string>
-    <string name="total_price_label">السعر الإجمالي: %1$s د.ج</string>
+    <string name="item_summary">%1$s\nالكمية: %2$d\nسعر الوحدة: %3$s\nالمجموع الفرعي: %4$s\n</string>
+    <string name="total_price_label">السعر الإجمالي: %1$s</string>
     <string name="status_label">الحالة: %1$s</string>
 
     <string name="animal_type_label">الصنف: %1$s</string>
-    <string name="animal_price_label">السعر: %1$s د.ج</string>
+    <string name="animal_price_label">السعر: %1$s</string>
     <string name="animal_weight_label">الوزن: %1$.2f كغ</string>
     <string name="animal_description">الوصف</string>
     <string name="animal_quantity_label">المتوفر: %1$d</string>
     <string name="animal_card_image_description">صورة الأضحية</string>
 
-    <string name="sheep_wilaya_prompt">اختر ولاية الإقامة لعرض سلالات الأغنام المتاحة وغير المتاحة.</string>
-    <string name="sheep_wilaya_prompt_short">اختر الولاية من الأعلى لبدء العرض.</string>
+    <string name="animal_list_empty">لا توجد حيوانات للعرض</string>
+    <string name="error_loading_animals">تعذر تحميل الحيوانات</string>
+
+    <string name="sheep_wilaya_prompt">تصفح سلالات الأغنام المتاحة حالياً.</string>
+    <string name="sheep_wilaya_prompt_short">استعرض السلالات المتاحة من القائمة.</string>
+        <string name="confirm_order_dialog_title">تأكيد الطلب</string>
+        <string name="confirm_order_dialog_message">هل تريد تأكيد هذا الطلب الآن؟</string>
+        <string name="confirm_order_dialog_positive">تأكيد</string>
+        <string name="confirm_order_dialog_negative">رجوع</string>
     <string name="sheep_wilaya_selected">الولاية المختارة: %1$s</string>
     <string name="sheep_wilaya_not_found">لا توجد بيانات لهذه الولاية: %1$s</string>
     <string name="sheep_no_breeds_available">لا توجد سلالات أغنام محفوظة لهذه الولاية حالياً.</string>
@@ -94,10 +85,8 @@
     <string name="tracking_delete">حذف</string>
     <string name="fab_add_tracking">إضافة طلب للتتبع</string>
     <string name="select_weight_title">اختر الوزن المفضل</string>
-    <string name="buy_now_title">شراء مباشر</string>
+    <string name="buy_now_title">طلب</string>
     <string name="reserve_review_title">حجز للمعاينة</string>
-    <string name="arboun_note">عربون 3,000 د.ج لبدء عملية الوزن والفرز</string>
-    <string name="arboun_review_note">تثبيت موعد معاينة بعربون 3,000 د.ج</string>
     <string name="final_price_note">* السعر النهائي يحدد بعد الوزن الفعلي عند الاستلام</string>
     <string name="verified_health_badge">فحص بيطري معتمد</string>
     <string name="breed_label">السلالة: %1$s</string>

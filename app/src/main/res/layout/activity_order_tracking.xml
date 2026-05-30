@@ -27,7 +27,7 @@
             android:contentDescription="@string/back_button"
             android:padding="8dp"
             android:src="@android:drawable/ic_media_previous"
-            android:tint="@color/adahi_primary" />
+            app:tint="@color/adahi_primary" />
 
         <TextView
             android:layout_width="0dp"
